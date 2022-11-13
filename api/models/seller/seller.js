@@ -1,9 +1,16 @@
 const mongoose = require("mongoose");
 
+const planSchema = new mongoose.Schema({
+    _id: false,
+    title: { type: String, required: true },
+    exp_date: { type: String },
+    order_id: { type: String }
+});
+
 const sellerSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     slugID: { type: String, required: false },
-    plan: { type: String, default: "Basic" },
+    plan: planSchema,
     status: { type: String, default: "Authentication" },
 
     pFname: { type: String, required: true },

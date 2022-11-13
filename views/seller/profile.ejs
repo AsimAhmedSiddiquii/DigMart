@@ -55,7 +55,7 @@
                                 </h1>
                                 <h6 class="text-center mt-1 mb-3"><span class="text-decoration-underline">Plan:</span>
                                     <span id="plan-text">
-                                        <%= sellerData.plan %>
+                                        <%= sellerData.plan.title %>
                                     </span>
                                 </h6>
                                 <div class="col-lg-11 m-auto">
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%if(sellerData.plan == 'Basic'){%>
+                                <%if(sellerData.plan.title == 'Basic'){%>
                                 <div id="upgradeDiv" class="d-flex justify-content-center">
                                     <button class="btn btn-outline-success my-2 w-25" data-bs-toggle="modal"
                                     data-bs-target="#subscription-modal">Upgrade to Pro <i class="fas fa-angle-double-up"></i></button>
@@ -199,7 +199,7 @@
     $('#busCat').val($('#busCat').val().replace(/,\s*/g, ', '))
 
     $(document).ready(function () {
-        if ('<%=sellerData.plan%>' == 'Pro') {
+        if ('<%=sellerData.plan.title%>' == 'Pro') {
             console.log('Hello')
             $('#container-card').css('border-top-color', '#198754')
             $('#plan-text').css('color','#198754')

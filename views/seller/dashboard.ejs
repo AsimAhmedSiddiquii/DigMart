@@ -29,14 +29,6 @@
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             backdrop-filter: blur(8px);
         }
-
-
-        /* #overlay-content {
-            align-self: flex-start;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 50px;
-        } */
     </style>
 
 </head>
@@ -220,7 +212,7 @@
                                 </div>
                             </div>
                             <div class="row mt-3 position-relative" style="min-height: 250px;">
-                                <% if(selDoc.plan=='Basic' ){ %>
+                                <% if(selDoc.plan.title=='Basic' ){ %>
                                     <div id="overlay" class="d-flex justify-content-center ">
                                         <div id="overlay-content" class="align-self-center text-center">
                                             <i class="fas fa-lock fs-1"></i>

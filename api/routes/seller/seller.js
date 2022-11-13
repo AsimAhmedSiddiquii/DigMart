@@ -29,12 +29,12 @@ const middleware = upload.fields([
     { name: 'bankChqPass', maxCount: 1 }
 ])
 
-router.get('/signup', async(req, res) => {
+router.get('/signup', async (req, res) => {
     var catDocs = await Category.find().select("catName _id")
     res.render("./seller/signup", { catsData: catDocs })
 })
 
-router.post('/check', async(req, res) => {
+router.post('/check', async (req, res) => {
     var query = {}
     query[req.body.toCheck] = req.body.val
     var seller = await Seller.findOne(query)
@@ -44,7 +44,7 @@ router.post('/check', async(req, res) => {
         res.json({ result: true })
 })
 
-router.post('/add-seller', middleware, async(req, res) => {
+router.post('/add-seller', middleware, async (req, res) => {
     var mobileOtp = Math.floor(1000 + Math.random() * 9000)
     var emailOtp = Math.floor(1000 + Math.random() * 9000)
     var busname = req.body.busName;
@@ -58,6 +58,7 @@ router.post('/add-seller', middleware, async(req, res) => {
 
     var sellerAcc = new Seller({
         _id: new mongoose.Types.ObjectId(),
+        plan: { title: 'Basic' },
         slugID: slugId,
         pFname: req.body.pFname,
         pLname: req.body.pLname,
@@ -85,7 +86,7 @@ router.post('/add-seller', middleware, async(req, res) => {
             var file = (req.files[key])[0]
             const imageRef = storage.child("/seller/" + slugId + '-' + key);
             imageRef.put(file.buffer, { contentType: file.mimetype }).then(snapshot => {
-                imageRef.getDownloadURL().then(function(url) {
+                imageRef.getDownloadURL().then(function (url) {
                     sellerAcc[key] = url
                     count++
                     if (count == Object.keys(req.files).length) {
@@ -109,12 +110,12 @@ router.post('/add-seller', middleware, async(req, res) => {
     }
 })
 
-router.get('/authentication/(:slugID)', async(req, res) => {
+router.get('/authentication/(:slugID)', async (req, res) => {
     var selDocs = await Seller.findOne({ 'slugID': req.params.slugID })
     res.render("./seller/authentication", { selDocs: selDocs })
 })
 
-router.post('/checkOtp', async(req, res) => {
+router.post('/checkOtp', async (req, res) => {
     var query = {}
     query[req.body.toFind] = req.body.val
     var seller = await Seller.findOne(query)
@@ -125,7 +126,7 @@ router.post('/checkOtp', async(req, res) => {
 })
 
 router.post('/authentication', (req, res) => {
-    Seller.updateOne({ slugID: req.body.slugID }, { $set: { status: "Pending" } }, function(err, result) {
+    Seller.updateOne({ slugID: req.body.slugID }, { $set: { status: "Pending" } }, function (err, result) {
         if (err) throw err;
         console.log("Seller registered")
         res.redirect('/seller/login')
@@ -136,7 +137,7 @@ router.get('/login', (req, res) => {
     res.render("./seller/login")
 })
 
-router.post('/sendOtp', async(req, res) => {
+router.post('/sendOtp', async (req, res) => {
     var excepArr = ['dsouzaglen30@gmail.com', 'hatimsb11@gmail.com', 'hawaiza27@gmail.com', '9324326404', '8898413414', '9137242482', '9821474946']
     var query = {}
     query[req.body.toFind] = req.body.val
@@ -165,7 +166,7 @@ router.post('/sendOtp', async(req, res) => {
     }
 })
 
-router.post('/login/(:slugID)', async(req, res) => {
+router.post('/login/(:slugID)', async (req, res) => {
     var seller = await Seller.findOne({ slugID: req.params.slugID })
     const token = jwt.sign({
         "sellerID": seller._id
@@ -178,7 +179,7 @@ router.post('/login/(:slugID)', async(req, res) => {
     res.redirect('/seller/dashboard');
 })
 
-router.get('/dashboard', checkAuth, async(req, res) => {
+router.get('/dashboard', checkAuth, async (req, res) => {
     var count = {
         "totalProducts": 0,
         "incompleteProducts": 0,
@@ -207,10 +208,10 @@ router.get('/dashboard', checkAuth, async(req, res) => {
     res.render("./seller/dashboard", { sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname, count: count, products, selDoc })
 })
 
-router.get('/profile', checkAuth, async(req, res) => {
+router.get('/profile', checkAuth, async (req, res) => {
     var catArr = []
     var seller = await Seller.findOne({ _id: req.session.sellerID }).populate('busCat')
-    seller.busCat.forEach(function(cat) {
+    seller.busCat.forEach(function (cat) {
         catArr.push(cat.catName)
         if (seller.busCat.length == catArr.length) {
             res.render("./seller/profile", { catArr: catArr, sellerData: seller, sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname })
@@ -223,7 +224,7 @@ router.get('/logout', (req, res) => {
     res.redirect("/seller/login")
 })
 
-router.get('/reauthenticate/(:slugID)', async(req, res) => {
+router.get('/reauthenticate/(:slugID)', async (req, res) => {
     console.log(req.params.slugID)
     var seller = await Seller.findOne({ slugID: req.params.slugID })
     var mobileOtp = Math.floor(1000 + Math.random() * 9000)
@@ -233,13 +234,13 @@ router.get('/reauthenticate/(:slugID)', async(req, res) => {
     await sendEmail({ email: seller.busEmail, subj: 'DigMart - Email Authentication', msg: "Your OTP for Email Authentication is " + emailOtp })
     Seller.updateOne({
         slugID: req.params.slugID
-    }, { $set: { mobileOtp: mobileOtp, emailOtp: emailOtp } }, function(err, result) {
+    }, { $set: { mobileOtp: mobileOtp, emailOtp: emailOtp } }, function (err, result) {
         if (err) throw err;
         res.redirect('/seller/authentication/' + req.params.slugID)
     })
 })
 
-router.post('/generateOtp', async(req, res) => {
+router.post('/generateOtp', async (req, res) => {
     var query = {}
     query[req.body.toFind] = req.body.val
     var otp = Math.floor(1000 + Math.random() * 9000)
@@ -250,13 +251,21 @@ router.post('/generateOtp', async(req, res) => {
         await sendEmail({ email: req.body.val, subj: 'DigMart - Email Authentication', msg: "Your OTP for Email Authentication is " + otp })
     var updateQuery = {}
     updateQuery[req.body.toCheck] = otp
-    Seller.updateOne(query, { $set: updateQuery }, function(err, result) {
+    Seller.updateOne(query, { $set: updateQuery }, function (err, result) {
         if (err) throw err;
         res.json({ status: true, toFind: req.body.toFind })
     })
 })
 
-router.post('/pro-payment', checkAuth, async(req, res) => {
+router.post('/pro-payment', checkAuth, async (req, res) => {
+
+    var date = new Date();
+    date.setMonth(date.getMonth() + Number(req.body.hidDuration));
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    var expiryDate = `${day}-${month}-${year}`
+
     var params = {};
     params['MID'] = config.PaytmConfig.mid;
     params['WEBSITE'] = config.PaytmConfig.website;
@@ -267,7 +276,7 @@ router.post('/pro-payment', checkAuth, async(req, res) => {
     params['TXN_AMOUNT'] = req.body.hidPrice.toString();
     params['CALLBACK_URL'] = 'http://localhost:8080/seller/callback';
 
-    checksum_lib.genchecksum(params, config.PaytmConfig.key, function(err, checksum) {
+    checksum_lib.genchecksum(params, config.PaytmConfig.key, async function (err, checksum) {
         var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging
         // var txn_url = "https://securegw.paytm.in/theia/processTransaction"; // for production
 
@@ -277,6 +286,7 @@ router.post('/pro-payment', checkAuth, async(req, res) => {
         }
         form_fields += "<input type='hidden' name='CHECKSUMHASH' value='" + checksum + "' >";
 
+        await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { plan: { exp_date: expiryDate } } })
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write('<html><head><title>PRO Subscription Checkout Page</title></head><body><center><h2>Redirecting, Please do not refresh this page...</h2></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>');
         res.end();
@@ -287,10 +297,9 @@ router.post('/callback', (req, res) => {
     var checksumhash = req.body.CHECKSUMHASH;
     var result = checksum_lib.verifychecksum(req.body, config.PaytmConfig.key, checksumhash);
     console.log("Checksum Result => ", result, "\n");
-
     var params = { "MID": config.PaytmConfig.mid, "ORDERID": req.body.ORDERID };
 
-    checksum_lib.genchecksum(params, config.PaytmConfig.key, function(err, checksum) {
+    checksum_lib.genchecksum(params, config.PaytmConfig.key, function (err, checksum) {
 
         params.CHECKSUMHASH = checksum;
         post_data = 'JsonData=' + JSON.stringify(params);
@@ -309,15 +318,15 @@ router.post('/callback', (req, res) => {
 
         // Set up the request
         var response = "";
-        var post_req = https.request(options, function(post_res) {
-            post_res.on('data', function(chunk) {
+        var post_req = https.request(options, function (post_res) {
+            post_res.on('data', function (chunk) {
                 response += chunk;
             });
 
-            post_res.on('end', async function() {
+            post_res.on('end', async function () {
                 var _result = JSON.parse(response);
                 if (_result.STATUS == 'TXN_SUCCESS') {
-                    await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { plan: 'Pro' } })
+                    await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { 'plan.title': 'Pro', 'plan.order_id': req.body.ORDERID } })
                     res.redirect("/seller/payment-success")
                 } else {
                     res.send('payment failed')
@@ -330,7 +339,7 @@ router.post('/callback', (req, res) => {
     });
 })
 
-router.get('/payment-success', async(req, res) => {
+router.get('/payment-success', async (req, res) => {
     var seller = await Seller.findById(req.session.sellerID)
     await sendEmail({ email: seller.busEmail, subj: 'DigMart - Pro Subscription purchased', msg: "Hello :D" })
     res.render('./seller/order-confirmed')
