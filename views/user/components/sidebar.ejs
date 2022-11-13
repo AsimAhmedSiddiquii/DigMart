@@ -1,0 +1,86 @@
+<div class="col-12 col-md-3">
+    <div class="row">
+        <div class="card mb-3 p-2 bg-white border rounded cardBg">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-3">
+                    <img src="/img/DigMart.png" style="width:100%">
+                </div>
+                <div class="col-md-9">
+                    <label>
+                        <b> <%= personalData.fullName ? personalData.fullName : personalData.mobile %> </b>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card mb-3 p-3 bg-white border rounded cardBg">
+            <div class="row">
+                <div class="col-3 col-md-3 mt-1">
+                    <i class="fas fa-box-open fa-lg iconFormat"></i>
+                </div>
+                <div class="col-9 col-md-9 mt-1">
+                    <a href="/orders" class="labelFormat">
+                        <b> Recent Orders </b>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card mb-3 p-3 bg-white border rounded cardBg">
+            <div class="row">
+                <div class="col-3 col-md-3 mt-1">
+                    <i class="fas fa-user-alt fa-lg iconFormat"></i>
+                </div>
+                <div class="col-9 col-md-9 mt-1 mb-4">
+                    <label class="labelFormat">
+                        <b> ACCOUNT SETTINGS </b>
+                    </label>
+                    <div class="mt-3">
+                        <a href="">Profile Information</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/account/addresses">Manage Addresses</a>
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 mt-1">
+                    <i class="fas fa-folder-open fa-lg iconFormat"></i>
+                </div>
+                <div class="col-9 col-md-9 mt-1 ">
+                    <label class="labelFormat">
+                        <b> MY STUFF </b>
+                    </label>
+                    <div class="mt-3">
+                        <a href="/wishlist">My Wishlist</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/subscription">My Subscriptions</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="#">My Reviews & Ratings</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="#">All Notifications</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card mb-3 p-3 bg-white border rounded cardBg">
+            <div class="row">
+                <div class="col-3 col-md-3 mt-1">
+                    <i class="fas fa-sign-out-alt fa-lg iconFormat"></i>
+                </div>
+                <div class="col-9 col-md-9 mt-1">
+                    <a href="/login/logout" class="logoutFormat">
+                        <b> LOGOUT </b>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

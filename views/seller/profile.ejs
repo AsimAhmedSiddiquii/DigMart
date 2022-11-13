@@ -19,7 +19,7 @@
             padding-right: 30px;
             transform: translateY(-65%);
         }
-
+        
         #busLogo img {
             width: 15%;
             height: 15%;
@@ -27,11 +27,11 @@
             box-shadow: 3px 3px 3px #868686;
             cursor: pointer;
         }
-
+        
         input[type="text"]:disabled {
             background-color: transparent;
         }
-
+        
         #container-card {
             border-top: 4px solid #d2d6de;
         }
@@ -47,15 +47,14 @@
                         <div id="container-card" class="container card" style="margin-top: 6rem;">
                             <div class="content">
                                 <div id="busLogo" class="text-center">
-                                    <img src="<%= sellerData.busLogo %>" class="rounded-circle" alt="Profile Image"
-                                        onclick="imageModal('<%= sellerData.busLogo %>')">
+                                    <img src="<%= sellerData.busLogo %>" class="rounded-circle" alt="Profile Image" onclick="imageModal('<%= sellerData.busLogo %>')">
                                 </div>
                                 <h1 class="mt-5 pt-1 pt-lg-2 pt-xl-3 text-center mb-0">
                                     <%= sellerData.busName %>
                                 </h1>
-                                <h6 class="text-center mt-1 mb-3"><span class="text-decoration-underline">Plan:</span>
+                                <h6 class="text-center mt-1 mb-3">
                                     <span id="plan-text">
-                                        <%= sellerData.plan.title %>
+                                        <%= sellerData.plan.title %> Plan
                                     </span>
                                 </h6>
                                 <div class="col-lg-11 m-auto">
@@ -65,13 +64,11 @@
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">First Name</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.pFname %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.pFname %>">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Last Name</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.pLname %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.pLname %>">
                                                 </div>
                                             </div>
                                             <div class="row g-2">
@@ -79,15 +76,12 @@
                                                     <label class="form-label">Mobile No.</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1">+91</span>
-                                                        <input disabled="true" class="form-control" type="text"
-                                                            aria-describedby="basic-addon1"
-                                                            value="<%= sellerData.pMobile %>">
+                                                        <input disabled="true" class="form-control" type="text" aria-describedby="basic-addon1" value="<%= sellerData.pMobile %>">
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Email</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.pEmail %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.pEmail %>">
                                                 </div>
                                             </div>
                                         </div>
@@ -100,53 +94,44 @@
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Mobile</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busMobile %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busMobile %>">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Email</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busEmail %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busEmail %>">
                                                 </div>
                                             </div>
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-9">
                                                     <label class="form-label">Address</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busAddress %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busAddress %>">
                                                 </div>
                                                 <div class="mb-3 col-md-3">
                                                     <label class="form-label">Zip</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busZip %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busZip %>">
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Business Type</label>
-                                                <input disabled="true" class="form-control" type="text"
-                                                    value="<%= sellerData.busType %>">
+                                                <input disabled="true" class="form-control" type="text" value="<%= sellerData.busType %>">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Product Categories</label>
-                                                <input id="busCat" disabled="true" class="form-control" type="text"
-                                                    value="<%= catArr %>">
+                                                <input id="busCat" disabled="true" class="form-control" type="text" value="<%= catArr %>">
                                             </div>
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">PAN No.</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busPanNo %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busPanNo %>">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">GST No.</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.busGstNo %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.busGstNo %>">
                                                 </div>
                                                 <% if(sellerData.busFssaiNo){%>
                                                     <div class="mb-3 col-md-12">
                                                         <label class="form-label">FSSAI No.</label>
-                                                        <input disabled="true" class="form-control" type="text"
-                                                            value="<%= sellerData.busFssaiNo %>">
+                                                        <input disabled="true" class="form-control" type="text" value="<%= sellerData.busFssaiNo %>">
                                                     </div>
                                                     <%}%>
                                             </div>
@@ -160,36 +145,32 @@
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Name of the Bank</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.bankName %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.bankName %>">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Bank Account No.</label>
-                                                    <input disabled="true" class="form-control" type="text"
-                                                        value="<%= sellerData.bankAccNo %>">
+                                                    <input disabled="true" class="form-control" type="text" value="<%= sellerData.bankAccNo %>">
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label">IFSC Code</label>
-                                                <input disabled="true" class="form-control" type="text"
-                                                    value="<%= sellerData.bankIfsc %>">
+                                                <input disabled="true" class="form-control" type="text" value="<%= sellerData.bankIfsc %>">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <%if(sellerData.plan.title == 'Basic'){%>
-                                <div id="upgradeDiv" class="d-flex justify-content-center">
-                                    <button class="btn btn-outline-success my-2 w-25" data-bs-toggle="modal"
-                                    data-bs-target="#subscription-modal">Upgrade to Pro <i class="fas fa-angle-double-up"></i></button>
-                                </div>
-                                <%}%>
+                                    <div id="upgradeDiv" class="d-flex justify-content-center">
+                                        <button class="btn btn-outline-success my-2 w-25" data-bs-toggle="modal" data-bs-target="#subscription-modal">Upgrade to Pro <i class="fas fa-angle-double-up"></i></button>
+                                    </div>
+                                    <%}%>
                             </div>
                         </div>
                     </div>
             </div>
     </div>
     <%- include('subscriptionModal') %>
-    <%- include('../imageModal') %>
+        <%- include('../imageModal') %>
 </body>
 
 <script src="/vendor/jquery/jquery.min.js"></script>
@@ -198,14 +179,13 @@
 <script>
     $('#busCat').val($('#busCat').val().replace(/,\s*/g, ', '))
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         if ('<%=sellerData.plan.title%>' == 'Pro') {
             console.log('Hello')
             $('#container-card').css('border-top-color', '#198754')
-            $('#plan-text').css('color','#198754')
+            $('#plan-text').css('color', '#198754')
         }
     })
-
 </script>
 
 </html>

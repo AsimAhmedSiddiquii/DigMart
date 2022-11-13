@@ -8,7 +8,7 @@ const User = require('../../models/user/user');
 
 router.get('/', checkAuth, async(req, res) => {
     var docs = await User.findById(req.session.userID).select().exec();
-    res.render('./user/account', { personalData: docs, user: req.session.userID, noSearch: true })
+    res.render('./user/account', { personalData: docs, user: req.session.userID })
 })
 
 router.post('/', async(req, res, next) => {
@@ -36,7 +36,7 @@ router.post('/', async(req, res, next) => {
 
 router.get('/addresses', checkAuth, async(req, res) => {
     var docs = await Address.find({ userID: req.session.userID }).select().exec();
-    res.render('./user/account-addresses', { addressData: docs, user: req.session.userID, noSearch: true })
+    res.render('./user/account-addresses', { addressData: docs, user: req.session.userID })
 })
 
 router.post('/add-address', async(req, res, next) => {

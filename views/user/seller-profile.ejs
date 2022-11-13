@@ -20,7 +20,7 @@
 <body>
     <!--header-->
     <section id="header">
-        <%- include('navbar') %>
+        <%- include('components/navbar') %>
     </section>
 
     <div class="container bg-white p-3 mt-3">
@@ -82,7 +82,14 @@
                         <% } else { %>
                             <a role="button" onclick="subscribe('<%= sellerData._id %>')" class="btn btn-outline-success me-2"><i class="fas fa-plus-circle"></i> Subscribe</a>
                             <% } %>
-                                <a href="" class="btn btn-outline-success"><i class="fas fa-share-square"></i> Share</a>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-share-square"></i> Share</button>
+                                    <div class="dropdown-menu">
+                                        <a role="button" class="dropdown-item" onclick="shareonWhatsApp()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a role="button" class="dropdown-item" onclick="copyFunction()"><i class="fa fa-link"></i> Copy link address</a>
+                                    </div>
+                                </div>
                 </div>
                 </span>
             </div>
@@ -203,7 +210,7 @@
                 <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="container text-center">
                         <div class="row">
-                            <% if(galleryData.images.length!=0){ 
+                            <% if(galleryData){ 
                                     galleryData.images.forEach(function(image, index){%>
                                 <div class="col-lg-3 col-md-4 col-xs-6 mt-3">
                                     <img onclick="showmodal('<%=image.url%>')" class="img-fluid img-thumbnail img-gallery" src="<%=image.url%>" />
@@ -221,8 +228,8 @@
     </div>
 
     <%- include('../imageModal') %>
-        <%- include('footer') %>
-            <%- include('login') %>
+        <%- include('components/footer') %>
+            <%- include('components/login') %>
 </body>
 
 <script src="/vendor/jquery/jquery.min.js"></script>

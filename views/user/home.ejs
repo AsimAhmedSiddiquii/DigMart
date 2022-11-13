@@ -41,7 +41,7 @@
                         <% if (user) { %>
                             <li class="nav-item mx-2 text-center">
                                 <div class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                                     <ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarScrollingDropdown2">
                                         <li><a class="dropdown-item" href="/orders"><i class="fas fa-list"></i> Orders</a></li>
                                         <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
@@ -274,11 +274,11 @@
 
                     <!-- FOOTER -->
                     <section id="footer">
-                        <%- include('footer') %>
+                        <%- include('components/footer') %>
                     </section>
 
                     <!-- Login Modal -->
-                    <%- include('login') %>
+                    <%- include('components/login') %>
 
 </body>
 <script src="/vendor/jquery/jquery.min.js"></script>

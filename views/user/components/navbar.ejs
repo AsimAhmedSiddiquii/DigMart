@@ -164,9 +164,9 @@
                 <%=catDocs.catName%>
             </div>
             <% } else { %>
-                <div class="fs-5 text-white">
+                <a href="/" class="fs-5 text-white float-left">
                     DigMart
-                </div>
+                </a>
                 <% } %>
 
                     <% if (!locals.noSearch) { %>
@@ -179,6 +179,7 @@
                             </div>
                         </form>
                         <% } %>
+
 
                             <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
                                 <% if (user) { %>

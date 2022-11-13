@@ -90,3 +90,13 @@ $(function() {
         }
     });
 });
+
+function copyFunction() {
+    navigator.clipboard.writeText(window.location.href);
+    swal({ title: 'Link Copied', icon: 'success' })
+}
+
+function shareonWhatsApp() {
+    var link = window.location.href
+    window.open('https://wa.me?' + link, '_blank')
+}

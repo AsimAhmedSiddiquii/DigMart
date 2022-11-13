@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <%- include('navbar') %>
+    <%- include('components/navbar') %>
         <!-- header part for product image and price  -->
         <div class="container mt-3 bg-white shadow rounded">
             <div class="row">
@@ -128,22 +128,26 @@
                                 <%if(variantsData.length!=0){%>
                                     <%if(variantData.out_of_stock){%>
                                         <p class="text-danger mb-1">Out of Stock</p>
-                                        <%}else{%>
+                                        <% } else { %>
                                             <p class="text-success mb-1">In Stock</p>
                                             <%}%>
-                                                <strong>Color</strong><br>
-                                                <div class="btn-group mt-1 mb-3" role="group" aria-label="Basic mixed styles example">
-                                                    <%var i=0; variantsData.forEach(function(data){ %>
-                                                        <button type="button" id="<%= i%>color" onclick="window.location.href='/product/variant/<%=data.slugID %>'" name="<%=data.colours %>" style="background-color: <%=data.colours %> ;" class="color-btn btn border border-dark"></button>
-                                                        <% i++;}) %>
-                                                </div><br>
+                                                <div>
+                                                    <strong>Color</strong>
+                                                    <div class="btn-group mt-1 pt-2 ms-2 mb-3" role="group" aria-label="Basic mixed styles example">
+                                                        <%var i=0; variantsData.forEach(function(data){ %>
+                                                            <button type="button" id="<%= i%>color" onclick="window.location.href='/product/variant/<%=data.slugID %>'" name="<%=data.colours %>" style="background-color: <%=data.colours %>;" class="color-btn btn border border-dark"></button>
+                                                            <% i++;}) %>
+                                                    </div>
+                                                </div>
 
-                                                <strong>Size Chart</strong><br>
-                                                <div class="btn-group mt-1 mb-3" role="group" aria-label="Basic radio toggle button group">
-                                                    <% for (let i in variantData.sizes){ %>
-                                                        <button type="button" value="<%= i%>" class="btn btn-outline-primary" onclick="findsize('<%= variantData.sizes[i].sizes%>')" name="btnradio" id="<%= i%>size"><%=variantData.sizes[i].sizes %></button>
-                                                        <% } %>
-                                                </div><br>
+                                                <div>
+                                                    <strong>Size</strong>
+                                                    <div class="btn-group mt-1 pt-2 ms-2 mb-3" role="group" aria-label="Basic radio toggle button group">
+                                                        <% for (let i in variantData.sizes){ %>
+                                                            <button type="button" value="<%= i%>" class="btn btn-outline-primary" onclick="findsize('<%= variantData.sizes[i].sizes%>')" name="btnradio" id="<%= i%>size"><%=variantData.sizes[i].sizes %></button>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
 
                                                 <div class="mt-3 mb-3">
                                                     <a onclick="addcart('<%=productData.sellerID%>','<%= productData._id%>','<%=variantData._id%>','<%=variantData.colours%>')" class="header-color p-3"><i class="fa fa-cart-plus" style="color: white"></i><b> &nbsp;ADD TO CART</b></a>
@@ -482,106 +486,18 @@
                             </div>
                         </div>
 
-                        <!--second slide of carousel-->
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <div class="row row-cols- row-cols-md- g-">
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additi...
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col small-device">
-                                    <div class="card h-100 ">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additio...
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- third slide of items -->
-                        <div class="carousel-item">
-                            <div class="row row-cols- row-cols-md- g-">
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in ...
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col small-device">
-                                    <div class="card h-100 ">
-                                        <img src="" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to addit...
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
+
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
                 </div>
             </section>
         </div>
 
-        <%- include('footer') %>
+        <%- include('components/footer') %>
             <!-- Login Modal -->
-            <%- include('login') %>
+            <%- include('components/login') %>
                 <!-- single image modal -->
                 <%- include('../imageModal') %>
 </body>

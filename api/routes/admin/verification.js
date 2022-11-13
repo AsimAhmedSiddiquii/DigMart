@@ -67,8 +67,13 @@ router.get('/seller', checkAuth, async(req, res) => {
 });
 
 router.get('/viewSeller/(:id)', checkAuth, async(req, res) => {
-    var doc = await Seller.findById(req.params.id)
-    res.render('./admin/verification/seller/viewSeller', { sellerData: doc, userType: req.session.type, userName: req.session.name })
+    var doc = await Seller.findById(req.params.id).populate('busCat')
+    var category = []
+    for (let i = 0; i < doc.busCat.length; i++) {
+        category.push(doc.busCat[i].catName)
+    }
+
+    res.render('./admin/verification/seller/viewSeller', { sellerData: doc, category, userType: req.session.type, userName: req.session.name })
 })
 
 router.post('/reject-seller/(:id)', async(req, res) => {

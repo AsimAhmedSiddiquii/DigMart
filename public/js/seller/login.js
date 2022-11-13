@@ -8,13 +8,14 @@ const emailOtp3 = $('#emailOtp3')[0]
 const emailOtp4 = $('#emailOtp4')[0]
 var val;
 
-mobOtp1.addEventListener('keyup', function (event) {
+mobOtp1.addEventListener('keyup', function(event) {
     if (event.key != "Backspace" && event.key != "Enter") {
         mobOtp2.focus();
     }
     checkMobileOtp()
 });
-mobOtp2.addEventListener('keyup', function (event) {
+
+mobOtp2.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp1.focus();
     } else if (event.key != "Enter") {
@@ -22,7 +23,8 @@ mobOtp2.addEventListener('keyup', function (event) {
     }
     checkMobileOtp()
 });
-mobOtp3.addEventListener('keyup', function (event) {
+
+mobOtp3.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp2.focus();
     } else if (event.key != "Enter") {
@@ -30,20 +32,22 @@ mobOtp3.addEventListener('keyup', function (event) {
     }
     checkMobileOtp()
 });
-mobOtp4.addEventListener('keyup', function (event) {
+
+mobOtp4.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp3.focus();
     }
     checkMobileOtp()
 });
 
-emailOtp1.addEventListener('keyup', function (event) {
+emailOtp1.addEventListener('keyup', function(event) {
     if (event.key != "Backspace" && event.key != "Enter") {
         emailOtp2.focus();
     }
     checkEmailOtp()
 });
-emailOtp2.addEventListener('keyup', function (event) {
+
+emailOtp2.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         emailOtp1.focus();
     } else if (event.key != "Enter") {
@@ -51,7 +55,8 @@ emailOtp2.addEventListener('keyup', function (event) {
     }
     checkEmailOtp()
 });
-emailOtp3.addEventListener('keyup', function (event) {
+
+emailOtp3.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         emailOtp2.focus();
     } else if (event.key != "Enter") {
@@ -59,10 +64,11 @@ emailOtp3.addEventListener('keyup', function (event) {
     }
     checkEmailOtp()
 });
-emailOtp4.addEventListener('keyup', function (event) {
+
+emailOtp4.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         emailOtp3.focus();
-    } else if (event.key == "Enter") { }
+    } else if (event.key == "Enter") {}
     checkEmailOtp()
 });
 
@@ -98,7 +104,7 @@ function sendOTP() {
                 toCheck: toCheck,
             },
             dataType: 'json',
-            success: function (res) {
+            success: function(res) {
                 if (res.status == 0) {
                     $('#val').addClass('is-invalid')
                     errMsg.innerHTML = "No Seller found!"
@@ -113,7 +119,7 @@ function sendOTP() {
                     $('#val').removeClass('is-invalid')
                     $('#val').addClass('is-valid')
                     err.style.display = "block"
-                    $('#'+toFind).append(val)
+                    $('#' + toFind).append(val)
                     $('#slugID').val(res.slugID)
                     if (modal == 1)
                         openModal('#email')
@@ -124,7 +130,7 @@ function sendOTP() {
         })
     } else {
         $('#val').addClass('is-invalid')
-        errMsg.innerHTML = "Plz check the enetred credentials"
+        errMsg.innerHTML = "Enter valid Mobile Number"
         err.style.display = "block"
     }
 }
@@ -160,7 +166,7 @@ function checkMobileOtp() {
                 otp: otp
             },
             dataType: 'json',
-            success: function (res) {
+            success: function(res) {
                 if (res.status) {
                     elements.forEach(element => {
                         element.classList.remove('is-invalid')
@@ -193,7 +199,7 @@ function checkEmailOtp() {
                 otp: otp
             },
             dataType: 'json',
-            success: function (res) {
+            success: function(res) {
                 if (res.status) {
                     elements.forEach(element => {
                         element.classList.remove('is-invalid')
@@ -221,7 +227,7 @@ function timer(remaining) {
     $('#emailTimer').html('(' + m + ':' + s + ')')
     remaining -= 1;
     if (remaining >= 0) {
-        setTimeout(function () {
+        setTimeout(function() {
             timer(remaining);
         }, 1000);
         return;
