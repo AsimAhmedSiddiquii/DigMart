@@ -7,13 +7,12 @@ shareBtn.addEventListener('click', () => {
 })
 
 function copyFunction() {
-    console.log(sharelink.innerHTML)
     navigator.clipboard.writeText(sharelink.innerHTML);
     var copybtn = document.querySelector('.copy-btn');
     copybtn.innerHTML = "Copied"
 }
 
-function addwishlist(element,sellerID, productID, variantID) {
+function addwishlist(element, sellerID, productID, variantID) {
     if (document.getElementById("0size")) {
         var size = document.getElementById(count + 'size').innerText;
     } else {
@@ -31,26 +30,38 @@ function addwishlist(element,sellerID, productID, variantID) {
         },
         dataType: 'json',
         success: function(result) {
-            if (result.status) {
-                if (result.status == 'login') {
-                    $('#loginpopup').modal('show');
+            if (result.login) {
+                if (result.already) {
+                    element.classList.add('i-red');
+                    swal({
+                        title: 'Wishlisted',
+                        text: 'Product already in your Wishlist',
+                        icon: 'info',
+                        buttons: ['Close', 'Go to Wishlist']
+                    }).then((value) => {
+                        if (value) {
+                            window.location = '/wishlist'
+                        }
+                    })
                 } else {
                     element.classList.add('i-red');
                     swal({
-                        title: "Product added to Wishlist",
-                        icon: "success",
+                        title: 'Wishlisted',
+                        text: 'Product added to Wishlist',
+                        icon: 'success',
+                        buttons: ['Close', 'Go to Wishlist']
+                    }).then((value) => {
+                        if (value) {
+                            window.location = '/wishlist'
+                        }
                     })
                 }
             } else {
-                swal({
-                    title: "Product already in Wishlist",
-                    icon: "info",
-                })
+                $('#loginpopup').modal('show');
             }
         }
     })
 }
-
 
 function addcart(sellerID, productID, variantID, colour) {
     if (document.getElementById("0size")) {
@@ -75,19 +86,32 @@ function addcart(sellerID, productID, variantID, colour) {
                 if (result.status == 'login') {
                     $('#loginpopup').modal('show');
                 } else {
-                    swal('Success', 'Product added to Cart Successfully!', 'success')
+                    swal({
+                        title: 'Success',
+                        text: 'Product added to your shopping cart',
+                        icon: 'success',
+                        buttons: ['Close', 'Go to cart']
+                    }).then((value) => {
+                        if (value) {
+                            window.location = '/cart'
+                        }
+                    })
                 }
             } else {
                 swal({
-                    title: "Already in the Cart",
-                    icon: "info",
-                    type: "warning",
+                    title: 'Success',
+                    text: 'Product already in your cart',
+                    icon: 'success',
+                    buttons: ['Close', 'Go to cart']
+                }).then((value) => {
+                    if (value) {
+                        window.location = '/cart'
+                    }
                 })
             }
         }
     })
 }
-
 
 var swiper = new Swiper(".swiper", {
     slidesPerView: 5,
@@ -115,45 +139,35 @@ function check(productID) {
             if (result.status) {
                 if (result.status == 'login') {
                     $('#loginpopup').modal('show');
-                }
-                else if(result.status == 'Reviewed'){
-                    swal({
-                        title: "You have already reviewd the Product",
-                        icon: "info",
-                        type: "warning",
-                    })
-                } 
-                else if(result.status == 'noOrders'){
-                    swal({
-                        title: "Sorry! You have not ordered this product so You cant give your Feedback",
-                        icon: "info",
-                        type: "warning",
-                    })
-                }
-                else {
+                } else if (result.status == 'Reviewed') {
+                    swal('Thank You', 'You have reviewed the Product', 'warning')
+                } else if (result.status == 'noOrders') {
+                    swal('Sorry', 'You need to purchase this product before adding a review!', 'error')
+                } else {
                     $('#review-modal').modal('show');
                 }
             } else {
-                swal({
-                    title: "Please complete your profile to Give a review",
-                    icon: "info",
-                    type: "warning",
-                    showCancelButton: true,
-                }, function() {
-                    window.location = '/account';
-                });
+                swal('Sorry', 'Complete your profile to give a review!', 'warning')
+                    .then((value) => {
+                        window.location = '/account';
+                    })
             }
         }
     })
 }
 
-function show(element){
+function show(element) {
     var hidden = document.getElementById("hidden-reviews");
-    if(hidden.style.display == "none"){
+    if (hidden.style.display == "none") {
         hidden.style.display = "inline"
-        element.innerHTML="Hide Reviews"
-    }else{
+        element.innerHTML = "<i class='fas fa-arrow-up'></i> Hide Reviews"
+    } else {
         hidden.style.display = "none"
-        element.innerHTML="View All reviews"
+        element.innerHTML = "<i class='fas fa-arrow-down'></i> View all reviews"
     }
+}
+
+function shareonWhatsApp() {
+    var link = window.location.href
+    window.open('https://wa.me?' + link, '_blank')
 }

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <title>DigMart</title>
+    <title>Shop By Category</title>
     <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/user/range-slider.css" rel="stylesheet">
@@ -69,11 +69,12 @@
                             <button type="button" class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="fas fa-filter"></i> Filters</button>
                         </div>
                     </div>
-                    <div class="row justify-content-start ps-auto pe-auto">
+
+                    <div class="row justify-content-start">
                         <% 
                         proDocs.forEach(function(product){ 
                                 if(product.subcategory.equals(subcat._id)) { %>
-                            <div class="prodContainer col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mt-3">
+                            <div class="prodContainer col-xs-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
                                 <div class="pro ms-auto me-auto">
                                     <% if(product.hasVariant){ 
                                         for(j=0; j < varDocs.length; j++){
@@ -81,14 +82,13 @@
                                         <div class="imgDiv" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
                                             <%if(varDocs[j].sizes[0].discount){%>
                                                 <div class="prodDiscount">
-                                                    <%=varDocs[j].sizes[0].discount%>
+                                                    <%= varDocs[j].sizes[0].discount %>
                                                 </div>
                                                 <%}%>
                                                     <img src="<%=varDocs[j].images%>" alt="<%=product.productName%>">
                                         </div>
                                         <div class="des px-2 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
-                                            <span class="prodName mt-1"><%=product.productName%></span>
-                                            <div class="prodRating my-1"><i class="fa fa-star"> 4.2</i></div>
+                                            <span class="prodName mt-1"><%= product.productName %></span>
                                             <div>
                                                 <span class="prodPrice"><%=varDocs[j].sizes[0].finalPrice%></span>
                                                 <%if(varDocs[j].sizes[0].discount){%>

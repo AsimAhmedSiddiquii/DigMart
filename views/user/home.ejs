@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <title>DigMart</title>
+    <title>DigMart - Online Marketplace for all your needs!</title>
     <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/user/swiper-bundle.min.css" rel="stylesheet">
@@ -38,27 +38,31 @@
                         <li class="nav-item mx-2 text-center">
                             <a class="nav-link" href="#Sellers">Sellers</a>
                         </li>
-                        <li class="nav-item mx-2 text-center">
-                            <a class="nav-link" href="#footer">About</a>
-                        </li>
-                        <li class="nav-item mx-2 text-center">
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarScrollingDropdown2">
-                                    <% if (!user) { %>
-                                        <li><a class="dropdown-item" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Sign in</a></li>
-                                        <% } else{%>
-                                            <li><a class="dropdown-item" href="/orders"><i class="fas fa-list"></i> My Orders</a></li>
-                                            <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                                            <li><a class="dropdown-item" href="/cart"><i class="fas fa-shopping-cart"></i> View Cart</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                            <% } %>
-                                </ul>
-                            </div>
-                        </li>
+                        <% if (user) { %>
+                            <li class="nav-item mx-2 text-center">
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
+                                    <ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarScrollingDropdown2">
+                                        <li><a class="dropdown-item" href="/orders"><i class="fas fa-list"></i> Orders</a></li>
+                                        <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
+                                        <li><a class="dropdown-item" href="/account"><i class="fas fa-user"></i> Profile</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item mx-2 text-center">
+                                <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+                            </li>
+                            <% } else { %>
+                                <li class="nav-item mx-2 text-center">
+                                    <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
+                                </li>
+                                <% } %>
+
+
                     </ul>
                 </div>
 

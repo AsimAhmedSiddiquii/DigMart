@@ -45,22 +45,11 @@ router.get('/add-product', checkAuth, async(req, res) => {
     const documents = await Products.find({ sellerID: req.session.sellerID }).select().exec()
     const busCategory = await Seller.find({ _id: req.session.sellerID }).select("busCat").exec()
 
-    Category.find({ _id: busCategory[0]["busCat"] }).select("catName sub_category variant")
-        .exec()
-        .then(docs => {
-            res.render("./seller/products/add-product", { catData: docs, prodsData: documents, sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname })
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
-        })
+    var docs = await Category.find({ _id: busCategory[0]["busCat"] }).select("catName sub_category variant")
+    res.render("./seller/products/add-product", { catData: docs, prodsData: documents, sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname })
 });
 
 router.post('/add-product', [checkAuth, imgUpload], async(req, res, next) => {
-    const { productName } = req.body;
-
     var specsArr = [{
         "specName": req.body.specName,
         "specValue": req.body.specValue,
@@ -160,12 +149,14 @@ router.post("/edit-product/:productID", [checkAuth, imgUpload], async(req, res) 
     var a = specsArr[0]["specName"].length
 
     for (var i = 0; i < a; i++) {
-        specificationsArr.push({
-            specName: specsArr[0]["specName"][i],
-            specValue: specsArr[0]["specValue"][i],
-
-        })
+        if (specsArr[0]["specName"][i] != "" && specsArr[0]["specValue"][i] != "") {
+            specificationsArr.push({
+                specName: specsArr[0]["specName"][i],
+                specValue: specsArr[0]["specValue"][i]
+            })
+        }
     }
+
     var variantStatus;
     var prodStatus;
 
@@ -234,7 +225,7 @@ router.get("/delete-product/(:id)/(:status)", checkAuth, async(req, res, next) =
         for (let i = 0; i < products.images.length; i++) {
             var imagePath = products.images[i].split("?")
             var fileRef = firebase.storage().refFromURL(imagePath[0]);
-            var del = await fileRef.delete()
+            await fileRef.delete()
         }
         res.send({ disabled: false })
     } else {

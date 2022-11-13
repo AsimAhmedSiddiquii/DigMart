@@ -24,4 +24,13 @@ router.get('/remove-subscription/(:sellerID)', async(req, res) => {
     }
 })
 
+router.get('/', async(req, res) => {
+    if (req.session.userID) {
+        const subsData = await Subscribe.find({ userID: req.session.userID }).populate('sellerID')
+        res.render('./user/subscription', { subsData, user: req.session.userID })
+    } else {
+        res.redirect('/')
+    }
+})
+
 module.exports = router

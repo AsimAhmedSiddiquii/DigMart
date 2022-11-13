@@ -35,7 +35,7 @@
                                         <% } else { %>
                                             <img class="card-img-top mt-1" style="height: 120px; width: auto;" src="<%= wishlistData.productID.images[0] %>" onclick="openProduct('<%=wishlistData.productID.slugID%>', null)">
                                             <% } %>
-                                                <a class="btn float-img-btn" href="/wishlist/delete-wishlist/<%= wishlistData._id %>">x</a>
+                                                <a class="btn float-img-btn" href="/wishlist/remove-from-wishlist/<%= wishlistData._id %>">x</a>
                                                 <div class="card-body">
                                                     <h6 class="card-title">
                                                         <%= wishlistData.productID.productName %>

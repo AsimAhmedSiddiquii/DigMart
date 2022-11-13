@@ -17,6 +17,7 @@ mobOtp1.addEventListener('keyup', function(event) {
     }
     checkMobileOtp()
 });
+
 mobOtp2.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp1.focus();
@@ -25,6 +26,7 @@ mobOtp2.addEventListener('keyup', function(event) {
     }
     checkMobileOtp()
 });
+
 mobOtp3.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp2.focus();
@@ -33,6 +35,7 @@ mobOtp3.addEventListener('keyup', function(event) {
     }
     checkMobileOtp()
 });
+
 mobOtp4.addEventListener('keyup', function(event) {
     if (event.key == "Backspace") {
         mobOtp3.focus();

@@ -6,15 +6,15 @@ const checkAuth = require("../../middleware/user/checkAuth")
 const Address = require("../../models/user/address");
 const User = require('../../models/user/user');
 
-router.get('/', checkAuth, async (req, res) => {
-    var docs = await User.find({ _id: req.session.userID }).select().exec();
+router.get('/', checkAuth, async(req, res) => {
+    var docs = await User.findById(req.session.userID).select().exec();
     res.render('./user/account', { personalData: docs, user: req.session.userID, noSearch: true })
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', async(req, res, next) => {
     var docs = await User.find({ _id: req.session.userID }).select("_id").exec();
 
-        User.findByIdAndUpdate({ _id: docs[0]._id }, {
+    User.findByIdAndUpdate({ _id: docs[0]._id }, {
             $set: {
                 fullName: req.body.fullName,
                 email: req.body.email,
@@ -22,24 +22,24 @@ router.post('/', async (req, res, next) => {
                 gender: req.body.gender
             }
         })
-            .exec()
-            .then(result => {
+        .exec()
+        .then(result => {
             res.redirect('/account')
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                error: err
             })
-            .catch(err => {
-                console.log(err)
-                res.status(500).json({
-                    error: err
-                })
-            })
+        })
 })
 
-router.get('/addresses', checkAuth, async (req, res) => {
+router.get('/addresses', checkAuth, async(req, res) => {
     var docs = await Address.find({ userID: req.session.userID }).select().exec();
     res.render('./user/account-addresses', { addressData: docs, user: req.session.userID, noSearch: true })
 })
 
-router.post('/add-address', async (req, res, next) => {
+router.post('/add-address', async(req, res, next) => {
     try {
         var addressData = new Address({
             _id: mongoose.Types.ObjectId(),
@@ -59,7 +59,7 @@ router.post('/add-address', async (req, res, next) => {
     }
 })
 
-router.get("/edit-address/(:addressID)", async (req, res) => {
+router.get("/edit-address/(:addressID)", async(req, res) => {
     var id = req.params.addressID;
     const doc = await Address.findById(id)
     res.send(doc);
@@ -68,17 +68,17 @@ router.get("/edit-address/(:addressID)", async (req, res) => {
 router.post("/edit-address/(:addressID)", (req, res) => {
     var id = req.params.addressID;
     Address.findByIdAndUpdate({ _id: id }, {
-        $set: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            address: req.body.address,
-            state: req.body.state,
-            city: req.body.city,
-            pinCode: req.body.pinCode,
-            mobileNumber: req.body.mobileNumber
-        }
-    })
+            $set: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                address: req.body.address,
+                state: req.body.state,
+                city: req.body.city,
+                pinCode: req.body.pinCode,
+                mobileNumber: req.body.mobileNumber
+            }
+        })
         .exec()
         .then(result => {
             console.log('Updated Address');
@@ -91,7 +91,7 @@ router.post("/edit-address/(:addressID)", (req, res) => {
         })
 });
 
-router.get("/delete-address/(:addressID)", async (req, res, next) => {
+router.get("/delete-address/(:addressID)", async(req, res, next) => {
     var id = req.params.addressID;
     await Address.findByIdAndRemove(id).exec()
     res.redirect('/account/addresses');
