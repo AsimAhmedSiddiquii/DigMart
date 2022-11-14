@@ -13,6 +13,7 @@
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/master.css" rel="stylesheet">
     <link href="/css/user/product.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -121,8 +122,8 @@
                                 <strong><p class="card-text fs-3 text-dark" id="noDiscount"></p></strong>
                                 <div id="withDiscount">
                                     <p class="card-text fs-3 text-dark mb-0">
-                                        <strong id="finalPrice"></strong><span class="ms-1 fs-6 text-black-20"><strike id="actualPrice"></strike></span>
-                                        <span class="text-success fs-5" id="discount"></span>
+                                        <strong class="prodPrice" id="finalPrice"></strong><span class="ms-1 fs-6 text-black-20"><s id="actualPrice"></s></span>
+                                        <span class="text-success fs-6" id="discount"></span>
                                     </p>
                                 </div>
                                 <%if(variantsData.length!=0){%>
@@ -175,7 +176,7 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>Product Description: </strong>
+                            <strong>Description: </strong>
                             <%= productData.description %>
                                 <% if(productData.specifications.length != 0) { %>
                                     <table class="table table-light table-striped mt-3">
@@ -435,64 +436,50 @@
             </div>
         </div>
 
-        <div class="container p-3 mt-3 mb-3 bg-white shadow rounded">
-            <section>
-                <h5>People Also Viewed</h5>
-                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="container mt-3 mb-3 rounded">
+            <div class="card shadow">
+                <div class="card-header header-color">
+                    Related Products
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <% 
+                        if(similarProds.length!=0){
+                            similarProds.forEach(function(product){ 
+                    %>
+                            <div class="col-lg-3 col-xs-6 col-md-6 col-sm-6 col-6">
+                                <div class="card d-flex position-relative">
+                                    <img class="card-img-top mt-1" style="height: 200px;" src="<%= product.images[0] %>">
+                                    <div class="card-body">
 
-                    <!--First slide of carousel-->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="10000">
-                            <div class="row row-cols- row-cols-md- g-">
+                                        <h6 class="card-title">
+                                            <%= product.prodID.productName %>
+                                        </h6>
 
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top h-50" alt="...">
-                                        <div class="card-body ">
-                                            <h6 class="card-title">data.productName</h6>
-                                            <h6 class="card-title">data.finalPrice</h6>
-                                            <p class="card-text">This is a wider card with supporting ...</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <% if(product.sizes[0].discount){ %>
+                                            <div class="position-absolute bg-success text-white discount-div px-2 fs-12 m-2">
+                                                -
+                                                <%= product.sizes[0].discount %>% off
+                                            </div>
+                                            <% } %>
 
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="" class="card-img-top h-50" alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This card has supporting text below ...</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col small-device">
-                                    <div class="card h-100  ">
-                                        <img src="" class="card-img-top " alt="...">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Card title</h6>
-                                            <p class="card-text">This is a wider card with supporting ...</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
+                                                <p class="card-text mb-2">
+                                                    <% if(product.sizes[0].discount){ %>
+
+                                                        <span class="prodPrice">₹<%= product.sizes[0].finalPrice %></span>
+                                                        <span class="text-muted fs-12"><s><%=product.sizes[0].actualPrice%></s></span>
+                                                        <% } else { %>
+                                                            <span class="prodPrice">₹<%= product.sizes[0].actualPrice %></span>
+                                                            <% } %>
+                                                </p>
+                                                <a style="width: -webkit-fill-available; font-size: 14px;" class="btn btn-outline-primary" href="/product/variant/<%= product.slugID %>">View Product</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
+                            <% })} %>
                     </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
                 </div>
-            </section>
+            </div>
         </div>
 
         <%- include('components/footer') %>
@@ -538,12 +525,12 @@
                 if (res.discount == null) {
                     withDiscount.style.display = "none"
                     noDiscount.style.display = "inline"
-                    noDiscount.innerText = '₹ ' + res.finalPrice
+                    noDiscount.innerText = '₹' + res.finalPrice
                 } else {
                     withDiscount.style.display = "inline"
                     noDiscount.style.display = "none"
-                    finalPrice.innerText = '₹ ' + res.finalPrice
-                    actualPrice.innerText = "₹ " + res.actualPrice
+                    finalPrice.innerText = '₹' + res.finalPrice
+                    actualPrice.innerText = "₹" + res.actualPrice
                     discount.innerHTML = res.discount + "% off"
                 }
                 //Out Of Stock
@@ -581,12 +568,12 @@
     if ('<% variantData.sizes[0].discount%>' == null) {
         withDiscount.style.display = "none"
         noDiscount.style.display = "inline"
-        noDiscount.innerText = '₹ <%=variantData.sizes[0].finalPrice%>'
+        noDiscount.innerText = '₹<%=variantData.sizes[0].finalPrice%>'
     } else {
         withDiscount.style.display = "inline"
         noDiscount.style.display = "none"
-        finalPrice.innerText = '₹ <%=variantData.sizes[0].finalPrice%>'
-        actualPrice.innerText = "₹ <%=variantData.sizes[0].actualPrice%>"
+        finalPrice.innerText = '₹<%=variantData.sizes[0].finalPrice%>'
+        actualPrice.innerText = "₹<%=variantData.sizes[0].actualPrice%>"
         discount.innerHTML = '<%=variantData.sizes[0].discount%>' + "% off"
     }
 

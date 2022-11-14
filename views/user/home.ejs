@@ -217,26 +217,25 @@
                             <% proDocs.forEach(function(product){ %>
                                 <div class="pro swiper-slide">
                                     <% 
-                            if(product.hasVariant){ 
-                            for(j=0; j < varDocs.length; j++){
-                                if(varDocs[j].prodID.equals(product._id)){ 
-                        %>
+                                        if(product.hasVariant){ 
+                                            for(j=0; j < varDocs.length; j++){
+                                                if(varDocs[j].prodID.equals(product._id)){ 
+                                    %>
                                         <div class="imgDiv" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
-                                            <%if(varDocs[j].sizes[0].discount){%>
+                                            <% if(varDocs[j].sizes[0].discount){ %>
                                                 <div class="prodDiscount">
-                                                    <%=varDocs[j].sizes[0].discount%>
+                                                    <%= varDocs[j].sizes[0].discount %>
                                                 </div>
                                                 <%}%>
                                                     <img src="<%=varDocs[j].images%>" alt="<%=product.productName%>">
                                         </div>
-                                        <div class="des px-2 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
+                                        <div class="des px-2 mt-1 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
                                             <span class="prodCat d-block"><%= product.category.catName %></span>
                                             <span class="prodName"><%= product.productName %></span>
-                                            <div class="prodRating"><i class="fa fa-star"> 4.2</i></div>
                                             <div>
                                                 <span class="prodPrice"><%=varDocs[j].sizes[0].finalPrice%></span>
                                                 <%if(varDocs[j].sizes[0].discount){%>
-                                                    <span class="discPrice text-muted px-2"><%=varDocs[j].sizes[0].actualPrice%></span>
+                                                    <span class="discPrice text-muted"><%=varDocs[j].sizes[0].actualPrice%></span>
                                                     <%}%>
                                             </div>
                                         </div>
@@ -253,11 +252,10 @@
                                             <div class="des px-2 text-start" onclick="openProduct('<%=product.slugID%>', null)">
                                                 <span class="prodCat d-block"><%=product.category%></span>
                                                 <span class="prodName"><%=product.productName%></span>
-                                                <div class="prodRating"><i class="fa fa-star"> 4.2</i></div>
                                                 <div>
-                                                    <span class="prodPrice"><%=product.finalPrice%></span>
+                                                    <span class="prodPrice"><%= product.finalPrice %></span>
                                                     <%if(product.discount){%>
-                                                        <span class="discPrice text-muted px-2"><%=product.actualPrice%></span>
+                                                        <span class="discPrice text-muted"><%=product.actualPrice%></span>
                                                         <%}%>
                                                 </div>
                                             </div>

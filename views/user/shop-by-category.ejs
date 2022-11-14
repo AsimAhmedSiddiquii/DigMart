@@ -70,11 +70,11 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-start">
+                    <div class="row">
                         <% 
                         proDocs.forEach(function(product){ 
                                 if(product.subcategory.equals(subcat._id)) { %>
-                            <div class="prodContainer col-xs-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                            <div class="prodContainer col-6 col-xs-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
                                 <div class="pro ms-auto me-auto">
                                     <% if(product.hasVariant){ 
                                         for(j=0; j < varDocs.length; j++){
@@ -99,9 +99,9 @@
                                         <i class="fa fa-heart" onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', '<%=varDocs[j]._id%>', '<%=varDocs[j].sizes[0].sizes%>')"></i>
                                         <%}}} else {%>
                                             <div class="imgDiv" onclick="openProduct('<%=product.slugID%>', null)">
-                                                <%if(product.discount){%>
+                                                <% if(product.discount){ %>
                                                     <div class="prodDiscount">
-                                                        <%=product.discount%>
+                                                        <%= product.discount %>
                                                     </div>
                                                     <%}%>
                                                         <img src="<%=product.images%>" alt="<%=product.productName%>">
@@ -109,7 +109,6 @@
                                             <div class="des px-2 text-start" onclick="openProduct('<%=product.slugID%>', null)">
                                                 <span class="prodCat d-block"><%=product.subcategory%></span>
                                                 <span class="prodName"><%=product.productName%></span>
-                                                <div class="prodRating my-1"><i class="fa fa-star"> 4.2</i></div>
                                                 <div>
                                                     <span class="prodPrice"><%=product.finalPrice%></span>
                                                     <%if(product.discount){%>

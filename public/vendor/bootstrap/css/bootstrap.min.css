@@ -10597,5 +10597,12 @@ fieldset:disabled .btn {
     }
 }
 
+.prodPrice {
+    font-family: sans-serif;
+    color: rgb(39, 168, 168);
+    font-size: var(--fs-110);
+    font-weight: bold;
+}
+
 
 /*# sourceMappingURL=bootstrap.min.css.map */

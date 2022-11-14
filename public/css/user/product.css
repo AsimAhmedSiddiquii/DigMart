@@ -316,3 +316,12 @@ body {
         height: 120px;
     }
 }
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.discount-div {
+    top: 0;
+    left: 0;
+}

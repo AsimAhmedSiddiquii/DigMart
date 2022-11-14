@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function wishlist(element, sellerID, productID, variantID, size) {
     if (!element.classList.contains('i-red'))
         $.ajax({
-            url: "/wishlist/add-product",
+            url: "/wishlist/add-to-wishlist",
             type: "POST",
             data: {
                 sellerID: sellerID,

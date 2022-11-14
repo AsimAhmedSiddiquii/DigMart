@@ -34,7 +34,7 @@ router.get('/variant/(:variantslugID)', async(req, res) => {
 
     var similarProds = []
     var filteredProds = await Variants.find({ '_id': { $ne: varelement._id } }).populate('prodID')
-    for (let i = 0; i < filteredProds.length && similarProds.length <= 10; i++) {
+    for (let i = 0; i < filteredProds.length && similarProds.length < 8; i++) {
         if (filteredProds[i].prodID) {
             if (filteredProds[i].prodID.category.equals(element.category) && filteredProds[i].prodID.subcategory.equals(element.subcategory)) {
                 similarProds.push(filteredProds[i])
