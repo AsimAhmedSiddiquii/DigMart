@@ -19,7 +19,7 @@
             padding: 0px;
             border: 0px;
         }
-
+        
         .vscomp-toggle-button {
             padding: .525rem 2.25rem .525rem .75rem;
             border-radius: .25rem;
@@ -45,41 +45,60 @@
                             <div class="card">
                                 <div class="content">
                                     <h5>&#10059; Set the coverage area for delivery of the products to be sold</h5>
-                                    <div style="font-size: 13px;"><u>Note:</u> The coverage area will affect the
-                                        visibility of your products to the customers</div>
+                                    <div style="font-size: 13px;"><u>Note:</u> The coverage area will affect the visibility of your products to the customers</div>
                                     <form id="coverageForm" method="post" action="/seller/coverage">
                                         <div class="row mb-4">
                                             <div class="col-md-6 mt-4">
                                                 <label for="state" class="form-label">State</label>
-                                                <select class="form-select col-md-6" id="state" name="state"
-                                                    placeholder="Choose..." multiple>
+                                                <select class="form-select col-md-6" id="state" name="state" placeholder="Choose..." multiple>
                                                 </select>
-                                                <small id="state_err" class="form-text text-muted"
-                                                    style="display: none;"><span style="color: red;">Please select a State</span></small>
+                                                <small id="state_err" class="form-text text-muted" style="display: none;"><span style="color: red;">Please select a State</span></small>
                                             </div>
                                             <div class="col-md-6 mt-4">
                                                 <label for="district" class="form-label">District</label>
-                                                <select class="form-select col-md-6" id="district" name="district"
-                                                    placeholder="Choose..." data-search="true" multiple
-                                                    silentInitialValueSet="true">
+                                                <select class="form-select col-md-6" id="district" name="district" placeholder="Choose..." data-search="true" multiple silentInitialValueSet="true">
                                                 </select>
-                                                <small id="district_err" class="form-text text-muted"
-                                                    style="display: none;"><span style="color: red;">Please select a District</span></small>
+                                                <small id="district_err" class="form-text text-muted" style="display: none;"><span style="color: red;">Please select a District</span></small>
                                             </div>
                                             <div class="col-md-6 mt-4">
                                                 <label for="pin" class="form-label">PIN Code</label>
-                                                <select class="form-select col-md-6" id="pin" name="pin"
-                                                    placeholder="Choose..." multiple data-search="true">
+                                                <select class="form-select col-md-6" id="pin" name="pin" placeholder="Choose..." multiple data-search="true">
                                                 </select>
-                                                <small id="pin_err" class="form-text text-muted"
-                                                    style="display: none;"><span style="color: red;">Please select a PIN</span></small>
+                                                <small id="pin_err" class="form-text text-muted" style="display: none;"><span style="color: red;">Please select a PIN</span></small>
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button class="btn btn-primary" style="width:25%;"
-                                                type="submit">Submit</button>
+                                            <button class="btn btn-primary" style="width:25%;" type="submit">Submit</button>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="content">
+                                    <h5>Current Coverage Areas</h5>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6 mt-2">
+                                            <label for="pin" class="form-label">Pincodes</label>
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control w-100" value="<%= pinArray %>" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mt-2">
+                                            <label for="state" class="form-label">Districts</label>
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control w-100" value="<%= coverage.district %>" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mt-2">
+                                            <label for="state" class="form-label">State</label>
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control w-100" value="<%= coverage.state %>" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

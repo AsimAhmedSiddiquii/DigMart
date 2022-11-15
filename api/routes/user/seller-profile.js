@@ -18,6 +18,7 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
     const seller = await Seller.findOne({ slugID: id }).exec();
     const images = await SellerGall.findOne({ sellerID: seller._id }).select("images");
     var subscribed = false;
+    var pro = false;
 
     if (req.session.userID) {
         const profileView = new SellerProfileViews({
@@ -30,8 +31,13 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
         subscribed = check == 0 ? false : true
     }
 
+    if (seller.plan.title && seller.plan.title == "Pro") {
+        pro = true
+    }
+
     var varDocs = []
     var filteredCatData = []
+    var subcats;
     var catDocs = await Category.find()
     var proDocs = await Products.find({ sellerID: seller._id, status: 'Verified' }).populate('category subcategory')
 
@@ -39,7 +45,7 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
 
     for (let i = 0; i < catDocs.length; i++) {
         if (uniqueCatDocs.includes(catDocs[i].catName)) {
-            const subcats = await Subcategory.find({ catID: catDocs[i]._id })
+            subcats = await Subcategory.find({ catID: catDocs[i]._id })
             const map = {
                 category: catDocs[i],
                 subcat: subcats
@@ -63,7 +69,9 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
         user: req.session.userID,
         proDocs: proDocs,
         varDocs: varDocs,
-        subscribed
+        subscribed,
+        subcats,
+        pro
     });
 });
 module.exports = router;
