@@ -107,7 +107,7 @@ body {
     color: white;
     overflow: visible;
     background: rgba(99, 139, 139, 0.8);
-    background: linear-gradient(rgba(24, 3, 24, 0.8), rgba(99, 139, 139, 0.8)), url("/img/home-banner.png");
+    background: linear-gradient(rgba(24, 3, 24, 0.8), rgba(99, 139, 139, 0.8)), url("https://firebasestorage.googleapis.com/v0/b/digmart-7f2d3.appspot.com/o/images%2Fhome-banner.png?alt=media&token=b8641916-7a32-4f6c-b448-3734a1c666c2");
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: 0 0.125rem 0.675rem rgb(0 0 0 / 50%);

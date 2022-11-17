@@ -157,86 +157,85 @@
     <div class="container-fluid">
         <a class="navbar-brand px-3 me-0" href="/">
             <img id="BrandLogo" src="/img/DigMart.png" class="img-fluid">
+            <% if (locals.catDocs) { %>
+                <span class="fs-5 ms-2 text-white">
+                    <%=catDocs.catName%>
+                </span>
+                <% } else { %>
+                    <span class="fs-5 ms-2 text-white">
+                        DigMart
+                    </span>
+                    <% } %>
         </a>
 
-        <% if (locals.catDocs) { %>
-            <div class="fs-5 text-white">
-                <%=catDocs.catName%>
-            </div>
-            <% } else { %>
-                <a href="/" class="fs-5 text-white float-left">
-                    DigMart
-                </a>
-                <% } %>
+        <% if (!locals.noSearch) { %>
+            <form id="nav-search-form" class="d-flex justify-content-center col-12 col-md-5 mt-2 mt-md-0 mx-auto order-1 order-md-0  position-relative" role="search" method="post" action="/search-results">
+                <input id="nav-search-field" name="payload" class="form-control flex-fill ms-sm-3 ms-md-0" type="search" placeholder="Search" aria-label="Search" onkeyup="searchData(this)" required maxlength="60">
+                <button id="nav-search-btn" class="btn" type="submit"><i class="fas fa-search"></i></button>
+                <div id="nav-search-results" class="ms-sm-3 ms-md-0">
+                    <ul id="results-products"></ul>
+                    <ul id="results-sellers"></ul>
+                </div>
+            </form>
+            <% } %>
 
-                    <% if (!locals.noSearch) { %>
-                        <form id="nav-search-form" class="d-flex justify-content-center col-12 col-md-5 mt-2 mt-md-0 mx-auto order-1 order-md-0  position-relative" role="search" method="post" action="/search-results">
-                            <input id="nav-search-field" name="payload" class="form-control flex-fill ms-sm-3 ms-md-0" type="search" placeholder="Search" aria-label="Search" onkeyup="searchData(this)" required maxlength="60">
-                            <button id="nav-search-btn" class="btn" type="submit"><i class="fas fa-search"></i></button>
-                            <div id="nav-search-results" class="ms-sm-3 ms-md-0">
-                                <ul id="results-products"></ul>
-                                <ul id="results-sellers"></ul>
+
+                <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
+                    <% if (user) { %>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle pe-md-3 pe-2" href="#" id="nav-dropdown-btn" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
+                            <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="nav-dropdown-btn">
+                                <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
+                                <li><a class="dropdown-item" href="/account"><i class="fas fa-user-circle"></i> View profile</a></li>
+                                <hr class="dropdown-divider">
+                                <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link pe-md-3 pe-2" href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+                        </div>
+                        <% } else { %>
+                            <div class="nav-item mx-2 text-center">
+                                <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
                             </div>
-                        </form>
-                        <% } %>
+                            <% } %>
+                </div>
 
-
-                            <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
-                                <% if (user) { %>
-                                    <div class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle pe-md-3 pe-2" href="#" id="nav-dropdown-btn" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
-                                        <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="nav-dropdown-btn">
-                                            <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                                            <li><a class="dropdown-item" href="/account"><i class="fas fa-user-circle"></i> View profile</a></li>
-                                            <hr class="dropdown-divider">
-                                            <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="nav-item">
-                                        <a class="nav-link pe-md-3 pe-2" href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
-                                    </div>
-                                    <% } else { %>
-                                        <div class="nav-item mx-2 text-center">
-                                            <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
-                                        </div>
-                                        <% } %>
-                            </div>
-
-                            <% if (!user) { %>
-                                <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-target="#loginpopup" data-bs-toggle="modal">
+                <% if (!user) { %>
+                    <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-target="#loginpopup" data-bs-toggle="modal">
                                 <i class="fas fa-bars"></i>
                             </button>
-                                <% } else { %>
-                                    <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                    <% } else { %>
+                        <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                                     <i class="fas fa-bars"></i>
                                 </button>
-                                    <% } %>
-                                        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                                            <div class="offcanvas-header">
-                                                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welcome Back!</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                            </div>
-                                            <div class="offcanvas-body">
-                                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/account"><i class="fas fa-user-circle"></i>Profile</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/orders"><i class="fas fa-list"></i> My Orders</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/wishlist/<%=user%>"><i class="fas fa-heart"></i>Wishlist</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/cart/<%=user%>"><i class="fas fa-shopping-cart"></i>View Cart</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                        <% } %>
+                            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welcome Back!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link p-3" href="/account"><i class="fas fa-user-circle"></i>Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link p-3" href="/orders"><i class="fas fa-list"></i> My Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link p-3" href="/wishlist/<%=user%>"><i class="fas fa-heart"></i>Wishlist</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link p-3" href="/cart/<%=user%>"><i class="fas fa-shopping-cart"></i>View Cart</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
     </div>
 </nav>
 
@@ -272,20 +271,18 @@
                         containerProduct.style.display = 'block'
                         containerProduct.innerHTML = '<div class="suggestion-title">Products</div>'
                         res.products.forEach(prod => {
-                            containerProduct.innerHTML += '<li onclick="openResult(this,1)" data-resId=' + prod.slugID + '>' + prod.productName + '<span>' + prod.category + '</span></li>'
+                            containerProduct.innerHTML += '<li onclick="openResult(this,1)" data-resId=' + prod.slugID + '>' + prod.productName + '<span>' + prod.category.catName + '</span></li>'
                         });
                     }
-
-                    if (res.sellers.length < 1)
-                        containerSeller.style.display = 'none'
+                    if (res.sellers.length <
+                        1) containerSeller.style.display = 'none'
                     else {
                         containerSeller.style.display = 'block'
                         containerSeller.innerHTML = '<div class="suggestion-title">Sellers</div>'
                         res.sellers.forEach(seller => {
-                            containerSeller.innerHTML += '<li onclick="openResult(this,2)" data-resId=' + seller.slugID + '>' + seller.busName + '</li>'
+                            containerSeller.innerHTML += '<li onclick = "openResult(this,2)" data - resId = ' + seller.slugID + ' > ' + seller.busName + ' < /li>'
                         });
                     }
-
                     if (containerSeller.style.display == 'block' || containerProduct.style.display == 'block') {
                         container.style.display = 'block'
                         searchField.style.borderRadius = '.25rem 0 0 0'
@@ -300,11 +297,9 @@
     }
 
     function openResult(element, type) {
-        var resId = element.getAttribute("data-resId")
-        if (type == 1)
-            location.href = '/product/view-product/' + resId
-        else
-            location.href = '/seller-profile/' + resId
+        var resId = element.getAttribute("data-resId");
+        if (type == 1) location.href = '/product/view-product/' + resId
+        else location.href = '/seller-profile/' + resId
     }
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -5,6 +5,6 @@ module.exports = (req, res, next) => {
         jwt.verify(req.session.jwttoken, process.env.JWT_KEY);
         next();
     } catch (error) {
-        res.redirect("/")
+        res.render('./user/login-page')
     }
 };

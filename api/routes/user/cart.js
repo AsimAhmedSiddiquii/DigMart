@@ -3,15 +3,12 @@ const router = express.Router()
 const mongoose = require('mongoose')
 
 const Cart = require('../../models/user/cart');
-const Seller = require("../../models/seller/seller");
 
 const checkAuth = require("../../middleware/user/checkAuth")
 
 router.get('/', checkAuth, async(req, res) => {
     var subtotal = 0;
     var size = [];
-    var sellerdoc = await Cart.find({ userID: req.session.userID }).distinct('sellerID')
-    var seller = await Seller.find({ _id: { $in: sellerdoc } })
 
     await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID').exec(function(err, docs) {
         for (let i = 0; i < docs.length; i++) {
@@ -77,7 +74,7 @@ router.post('/add-to-cart', async(req, res) => {
 
 })
 
-router.get('/delete-cart/(:cartID)', async(req, res) => {
+router.get('/delete-cart/(:cartID)', checkAuth, async(req, res) => {
     await Cart.findByIdAndRemove(req.params.cartID)
     res.redirect('/cart')
 })

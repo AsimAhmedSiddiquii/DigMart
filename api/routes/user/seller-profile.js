@@ -37,7 +37,7 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
 
     var varDocs = []
     var filteredCatData = []
-    var subcats;
+    var subcatsDocs = [];
     var catDocs = await Category.find()
     var proDocs = await Products.find({ sellerID: seller._id, status: 'Verified' }).populate('category subcategory')
 
@@ -45,7 +45,8 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
 
     for (let i = 0; i < catDocs.length; i++) {
         if (uniqueCatDocs.includes(catDocs[i].catName)) {
-            subcats = await Subcategory.find({ catID: catDocs[i]._id })
+            var subcats = await Subcategory.find({ catID: catDocs[i]._id })
+            subcatsDocs = subcatsDocs.concat(subcats)
             const map = {
                 category: catDocs[i],
                 subcat: subcats
@@ -70,7 +71,7 @@ router.get("/(:sellerslugID)", async(req, res, next) => {
         proDocs: proDocs,
         varDocs: varDocs,
         subscribed,
-        subcats,
+        subcatsDocs,
         pro
     });
 });

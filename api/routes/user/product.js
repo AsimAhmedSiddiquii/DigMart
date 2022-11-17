@@ -9,6 +9,7 @@ router.get('/view-product/(:id)', async(req, res) => {
     var slugid = req.params.id;
     var element = await Products.findOne({ slugID: slugid })
     await Products.updateOne({ _id: element._id }, { $inc: { "views": 1 } })
+
     var docs = await Variants.find({ prodID: element._id })
     var review = await Review.find({ productID: element._id }).sort({ "rating": -1 }).populate('userID')
     if (review.length != 0) {
@@ -23,7 +24,9 @@ router.get('/view-product/(:id)', async(req, res) => {
     } else {
         var rating = 0
     }
-    res.render('./user/product', { totalrating: response, rating: rating.toFixed(1), reviewData: review, variantData: docs[0], variantsData: docs, productData: element, user: req.session.userID });
+
+    var similarProds = await Products.find({ category: element.category, subcategory: element.subcategory }).limit(10)
+    res.render('./user/product', { totalrating: response, rating: rating.toFixed(1), reviewData: review, variantData: docs[0], variantsData: docs, productData: element, user: req.session.userID, similarProds });
 })
 
 router.get('/variant/(:variantslugID)', async(req, res) => {

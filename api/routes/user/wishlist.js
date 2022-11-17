@@ -3,7 +3,9 @@ const router = express.Router()
 
 const Wishlist = require('../../models/user/wishlist');
 
-router.get('/', async(req, res) => {
+const checkAuth = require("../../middleware/user/checkAuth")
+
+router.get('/', checkAuth, async(req, res) => {
     var size = [];
 
     var docs = await Wishlist.find({ userID: req.session.userID }).populate('sellerID productID variantID')
@@ -62,7 +64,7 @@ router.post('/add-to-wishlist', async(req, res) => {
     }
 })
 
-router.get('/remove-from-wishlist/(:wishlistID)', async(req, res) => {
+router.get('/remove-from-wishlist/(:wishlistID)', checkAuth, async(req, res) => {
     await Wishlist.findByIdAndRemove(req.params.wishlistID)
     res.redirect('/wishlist')
 })

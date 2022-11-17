@@ -2,12 +2,12 @@
     .modal-backdrop {
         opacity: 0.9 !important;
     }
-
+    
     .modal-content {
         border-radius: .3rem;
         box-shadow: rgba(4, 255, 66, 0.24) 0px 3px 8px;
     }
-
+    
     .modal-body {
         border-radius: .3rem;
         border-bottom-left-radius: 10rem;
@@ -15,88 +15,84 @@
         border-bottom: 2px solid #198754;
         background-color: #eaffebf8;
     }
-
+    
     .btn-close {
         top: .5rem;
         right: .5rem;
     }
-
+    
     .btn-close:focus {
         box-shadow: none;
     }
-
+    
     #features p {
         color: #198754;
         font-weight: bold;
         margin-bottom: .5rem;
         margin-left: 24%;
     }
-
+    
     .modal-footer {
         border-top: none;
     }
-
+    
     #totalPrice::before {
         content: '₹';
     }
-
+    
     #perPrice {
         margin-top: -0.8rem;
     }
-
+    
     .btn-check:checked+.btn-outline-dark:focus {
         box-shadow: none;
     }
-
+    
     .btn-group label::after {
         content: ' months';
     }
-
+    
     .cutout {
         color: #6c757d !important;
         text-decoration: line-through;
     }
 </style>
-<div class="modal fade" id="subscription-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="subscription-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
         <div class="modal-content">
             <form action="/seller/pro-payment" method="post">
                 <div class="modal-body position-relative">
-                    <h1 class="modal-title text-center text-success mt-2 mx-3" id="staticBackdropLabel">Pro Plan</h1>
-                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h3 class="modal-title text-center text-success mt-2 mx-3" id="staticBackdropLabel">Pro Plan</h3>
+                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
 
                     <div class="text-center">
-                        <span id='totalPrice' class="mt-3 fw-bold" style="font-size: 3.5rem;">299</span>
-                        <input type="hidden" id="hidPrice" name="hidPrice" value="299">
-                        <input type="hidden" id="hidDuration" name="hidDuration" value="3">
-                        <span id='perPrice' class="d-block mb-3">(@ ₹99.6/month)</span>
+                        <span id='totalPrice' class="mt-3 fw-bold" style="font-size: 3.5rem;">99</span>
+                        <input type="hidden" id="hidPrice" name="hidPrice" value="99">
+                        <input type="hidden" id="hidDuration" name="hidDuration" value="1">
+                        <span id='perPrice' class="d-block mb-3">(@ ₹99/month)</span>
                     </div>
                     <div class="d-flex justify-content-center">
                         <div class="btn-group" role="group" aria-label="Vertical radio toggle button group">
-                            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off"
-                                checked>
-                            <label class="btn btn-outline-dark" for="vbtn-radio1"
-                                onclick="changePricing(3, 299)">3</label>
+                            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-dark" for="vbtn-radio1" onclick="changePricing(1, 99)">1</label>
+                            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off">
+                            <label class="btn btn-outline-dark" for="vbtn-radio1" onclick="changePricing(3, 279)">3</label>
                             <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="vbtn-radio2"
-                                onclick="changePricing(6, 549)">6</label>
+                            <label class="btn btn-outline-dark" for="vbtn-radio2" onclick="changePricing(6, 549)">6</label>
                             <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="vbtn-radio3"
-                                onclick="changePricing(12, 999)">12</label>
+                            <label class="btn btn-outline-dark" for="vbtn-radio3" onclick="changePricing(12, 999)">12</label>
                         </div>
                     </div>
                     <div id="features" class="mt-4">
-                        <h4 class="text-center fw-bolder mb-3 text-dark text-decoration-underline">Benefits</h4>
-                        <p><i class="fas fa-check">ㅤ</i> Ad Free User Experience!</p>
-                        <p><i class="fas fa-check">ㅤ</i> Access to Data Analytics Section</p>
-                        <p><i class="fas fa-check">ㅤ</i> Featured Products</p>
-                        <p id="feature4" class="cutout"><i class="fas fa-times">ㅤ</i> 24/7 Tech Support</p>
+                        <h5 class="text-center fw-bolder mb-3 text-dark text-decoration-underline">Benefits</h5>
+                        <p><i class="fas fa-check"></i> Access to Data Analytics Section</p>
+                        <p><i class="fas fa-check"></i> Send Promotional Message to Customers</p>
+                        <p><i class="fas fa-check"></i> Get Featured on Home Page</p>
+                        <p><i class="fas fa-check"></i> Get a DigMart Verified Tick</p>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="submit" class="mt-2 btn btn-outline-success">Get started!</button>
+                    <button type="submit" class="mt-2 btn btn-outline-success">Become a Pro</button>
                 </div>
             </form>
         </div>
@@ -110,14 +106,5 @@
         $('#hidDuration').val(months)
         var permon = (price / months).toFixed(1)
         $('#perPrice').html('@ ₹' + permon + '/month)')
-        if (months == 12) {
-            $('#feature4').removeClass('cutout')
-            $('#feature4 i').removeClass('fa-times')
-            $('#feature4 i').addClass('fa-check')
-        } else {
-            $('#feature4 i').addClass('fa-times')
-            $('#feature4 i').removeClass('fa-check')
-            $('#feature4').addClass('cutout')
-        }
     }
 </script>

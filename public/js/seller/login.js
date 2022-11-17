@@ -105,6 +105,7 @@ function sendOTP() {
             },
             dataType: 'json',
             success: function(res) {
+                console.log(res)
                 if (res.status == 0) {
                     $('#val').addClass('is-invalid')
                     errMsg.innerHTML = "No Seller found!"

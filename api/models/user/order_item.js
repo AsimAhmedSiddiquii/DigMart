@@ -9,6 +9,7 @@ const itemSchema = mongoose.Schema({
     size: { type: String },
     colour: { type: String },
     quantity: { type: String, required: true },
+    sellingPrice: { type: Number, required: true },
     date: { type: String, required: true },
     deliveryDate: { type: String, required: true },
     status: { type: String, required: true },

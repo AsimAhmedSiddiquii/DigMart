@@ -15,7 +15,6 @@ mobOtp1.addEventListener('keyup', function(event) {
     if (event.key != "Backspace" && event.key != "Enter") {
         mobOtp2.focus();
     }
-    checkMobileOtp()
 });
 
 mobOtp2.addEventListener('keyup', function(event) {
@@ -24,7 +23,6 @@ mobOtp2.addEventListener('keyup', function(event) {
     } else if (event.key != "Enter") {
         mobOtp3.focus();
     }
-    checkMobileOtp()
 });
 
 mobOtp3.addEventListener('keyup', function(event) {
@@ -33,7 +31,6 @@ mobOtp3.addEventListener('keyup', function(event) {
     } else if (event.key != "Enter") {
         mobOtp4.focus();
     }
-    checkMobileOtp()
 });
 
 mobOtp4.addEventListener('keyup', function(event) {
@@ -83,8 +80,8 @@ function checkMobileOtp() {
         var elements = [mobOtp1, mobOtp2, mobOtp3, mobOtp4]
 
         $.ajax({
-            url: "/login/checkMobileOtp?mobile=" + mobile + "&otp=" + otp,
-            method: 'POST',
+            url: "/login/checkMobileOtp/" + mobile + "/" + otp,
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             success: function(res) {
                 if (res.status == 'valid') {

@@ -17,6 +17,7 @@ const config = require('../../utils/config')
 const checkAuth = require("../../middleware/seller/checkAuth")
 
 const firebase = require('../../utils/firebase')
+const { findOne } = require("../../models/seller/seller")
 const storage = firebase.storage().ref();
 const store = multer.memoryStorage();
 var upload = multer({ storage: store });
@@ -180,6 +181,8 @@ router.post('/login/(:slugID)', async(req, res) => {
 })
 
 router.get('/dashboard', checkAuth, async(req, res) => {
+    var selDoc = await Seller.findById(req.session.sellerID)
+
     var count = {
         "totalProducts": 0,
         "incompleteProducts": 0,
@@ -188,7 +191,8 @@ router.get('/dashboard', checkAuth, async(req, res) => {
         "rejectedProducts": 0,
         "newOrders": 0,
         "shipmentOrders": 0,
-        "deliveredOrders": 0
+        "deliveredOrders": 0,
+        "totalRevenue": 0
     }
 
     count.totalProducts = (await Products.find({ sellerID: req.session.sellerID })).length
@@ -201,11 +205,39 @@ router.get('/dashboard', checkAuth, async(req, res) => {
     count.shipmentOrders = (await OrderItems.find({ sellerID: req.session.sellerID, status: 'Shipment' }).distinct('orderID')).length
     count.deliveredOrders = (await OrderItems.find({ sellerID: req.session.sellerID, status: 'Delivered' }).distinct('orderID')).length
 
-    var products = await Products.find({ sellerID: req.session.sellerID }).select('productName views').sort({ views: -1 }).limit(10)
+    var totalSelling = await OrderItems.aggregate([
+        { $match: { status: 'Delivered' } },
+        {
+            $group: {
+                _id: "$sellerID",
+                total: {
+                    $sum: '$sellingPrice'
+                }
+            }
+        }
+    ])
 
-    var selDoc = await Seller.findById(req.session.sellerID)
+    count.totalRevenue = totalSelling[0] ? totalSelling[0].total : 0;
 
-    res.render("./seller/dashboard", { sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname, count: count, products, selDoc })
+    if (selDoc.plan.title == "Pro") {
+
+        // Top Ordered Items
+        var orderItems = await OrderItems.find({ sellerID: req.session.sellerID }).populate('productID')
+        var ordersMap = new Map()
+
+        for (let i = 0; i < orderItems.length && ordersMap.size < 10; i++) {
+            if (ordersMap.has(orderItems[i].productID.productName)) {
+                ordersMap.set(orderItems[i].productID.productName, ordersMap.get(orderItems[i].productID.productName) + 1)
+            } else {
+                ordersMap.set(orderItems[i].productID.productName, 1)
+            }
+        }
+
+        var orders = new Map([...ordersMap.entries()].sort((a, b) => b[1] - a[1]));
+        var products = await Products.find({ sellerID: req.session.sellerID }).select('productName views').sort({ views: -1 }).limit(10)
+    }
+
+    res.render("./seller/dashboard", { sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname, count: count, products, selDoc, orders })
 })
 
 router.get('/profile', checkAuth, async(req, res) => {
@@ -258,7 +290,6 @@ router.post('/generateOtp', async(req, res) => {
 })
 
 router.post('/pro-payment', checkAuth, async(req, res) => {
-
     var date = new Date();
     date.setMonth(date.getMonth() + Number(req.body.hidDuration));
     let day = date.getDate();
@@ -286,7 +317,7 @@ router.post('/pro-payment', checkAuth, async(req, res) => {
         }
         form_fields += "<input type='hidden' name='CHECKSUMHASH' value='" + checksum + "' >";
 
-        await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { plan: { exp_date: expiryDate } } })
+        await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { plan: { order_id: params['ORDER_ID'], exp_date: expiryDate, title: "Basic" } } })
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write('<html><head><title>PRO Subscription Checkout Page</title></head><body><center><h2>Redirecting, Please do not refresh this page...</h2></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>');
         res.end();
@@ -328,7 +359,8 @@ router.post('/callback', (req, res) => {
                 var _result = JSON.parse(response);
 
                 if (_result.STATUS == 'TXN_SUCCESS') {
-                    await Seller.findByIdAndUpdate(req.session.sellerID, { $set: { 'plan.title': 'Pro', 'plan.order_id': req.body.ORDERID } })
+                    var seller = await Seller.findOne({ 'plan.order_id': req.body.ORDERID })
+                    await Seller.findByIdAndUpdate(seller._id, { $set: { 'plan.title': 'Pro', 'plan.order_id': req.body.ORDERID, 'featured': true } })
                     res.redirect("/seller/payment-success")
                 } else {
                     res.send('payment failed')

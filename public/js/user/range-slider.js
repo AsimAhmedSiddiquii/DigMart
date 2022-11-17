@@ -1,8 +1,8 @@
 // Requires jQuery
 
 // Initialize slider:
-$(document).ready(function () {
-    $('.noUi-handle').on('click', function () {
+$(document).ready(function() {
+    $('.noUi-handle').on('click', function() {
         $(this).width(50);
     });
     var rangeSlider = document.getElementById('slider-range');
@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
 
     // Set visual min and max values and also update value hidden form inputs
-    rangeSlider.noUiSlider.on('update', function (values, handle) {
+    rangeSlider.noUiSlider.on('update', function(values, handle) {
         document.getElementById('slider-range-value1').innerHTML = values[0];
         document.getElementById('slider-range-value2').innerHTML = values[1];
         document.getElementsByName('min-value').value = moneyFormat.from(
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
 // https://refreshless.com/nouislider/
 /*! nouislider - 8.3.0 - 2016-02-14 17:37:19 */
-(function (factory) {
+(function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define([], factory);
@@ -48,11 +48,11 @@ $(document).ready(function () {
         // Browser globals
         window.noUiSlider = factory();
     }
-}(function () {
+}(function() {
     'use strict';
     // Removes duplicates from an array.
     function unique(array) {
-        return array.filter(function (a) {
+        return array.filter(function(a) {
             return !this[a] ? this[a] = true : false;
         }, {});
     }
@@ -94,7 +94,7 @@ $(document).ready(function () {
 
     function addClassFor(element, className, duration) {
         addClass(element, className);
-        setTimeout(function () {
+        setTimeout(function() {
             removeClass(element, className);
         }, duration);
     }
@@ -145,9 +145,9 @@ $(document).ready(function () {
         var supportPageOffset = window.pageXOffset !== undefined,
             isCSS1Compat = ((document.compatMode || "") === "CSS1Compat"),
             x = supportPageOffset ? window.pageXOffset : isCSS1Compat ?
-                document.documentElement.scrollLeft : document.body.scrollLeft,
+            document.documentElement.scrollLeft : document.body.scrollLeft,
             y = supportPageOffset ? window.pageYOffset : isCSS1Compat ?
-                document.documentElement.scrollTop : document.body.scrollTop;
+            document.documentElement.scrollTop : document.body.scrollTop;
         return {
             x: x,
             y: y
@@ -161,14 +161,14 @@ $(document).ready(function () {
     // todo
 
     function addCssPrefix(cssPrefix) {
-        return function (className) {
+        return function(className) {
             return cssPrefix + className;
         };
     }
     var
-        // Determine the events to bind. IE11 implements pointerEvents without
-        // a prefix, which breaks compatibility with the IE10 implementation.
-        /** @const */
+    // Determine the events to bind. IE11 implements pointerEvents without
+    // a prefix, which breaks compatibility with the IE10 implementation.
+    /** @const */
         actions = window.navigator.pointerEnabled ? {
             start: 'pointerdown',
             move: 'pointermove',
@@ -325,7 +325,7 @@ $(document).ready(function () {
         this.xNumSteps = [false];
         this.snap = snap;
         this.direction = direction;
-        var index, ordered = [ /* [0, 'min'], [1, '50%'], [2, 'max'] */];
+        var index, ordered = [ /* [0, 'min'], [1, '50%'], [2, 'max'] */ ];
         // Map the object keys to an array.
         for (index in entry) {
             if (entry.hasOwnProperty(index)) {
@@ -334,11 +334,11 @@ $(document).ready(function () {
         }
         // Sort all entries by value (numeric sort).
         if (ordered.length && typeof ordered[0][0] === "object") {
-            ordered.sort(function (a, b) {
+            ordered.sort(function(a, b) {
                 return a[0][0] - b[0][0];
             });
         } else {
-            ordered.sort(function (a, b) {
+            ordered.sort(function(a, b) {
                 return a[0] - b[0];
             });
         }
@@ -354,11 +354,11 @@ $(document).ready(function () {
             handleStepPoint(index, this.xNumSteps[index], this);
         }
     }
-    Spectrum.prototype.getMargin = function (value) {
+    Spectrum.prototype.getMargin = function(value) {
         return this.xPct.length === 2 ? fromPercentage(this.xVal, value) :
             false;
     };
-    Spectrum.prototype.toStepping = function (value) {
+    Spectrum.prototype.toStepping = function(value) {
         value = toStepping(this.xVal, this.xPct, value);
         // Invert the value if this is a right-to-left slider.
         if (this.direction) {
@@ -366,14 +366,14 @@ $(document).ready(function () {
         }
         return value;
     };
-    Spectrum.prototype.fromStepping = function (value) {
+    Spectrum.prototype.fromStepping = function(value) {
         // Invert the value if this is a right-to-left slider.
         if (this.direction) {
             value = 100 - value;
         }
         return accurateNumber(fromStepping(this.xVal, this.xPct, value));
     };
-    Spectrum.prototype.getStep = function (value) {
+    Spectrum.prototype.getStep = function(value) {
         // Find the proper step for rtl sliders by search in inverse direction.
         // Fixes issue #262.
         if (this.direction) {
@@ -385,7 +385,7 @@ $(document).ready(function () {
         }
         return value;
     };
-    Spectrum.prototype.getApplicableStep = function (value) {
+    Spectrum.prototype.getApplicableStep = function(value) {
         // If the value is 100%, return the negative step twice.
         var j = getJ(value, this.xPct),
             offset = value === 100 ? 2 : 1;
@@ -393,7 +393,7 @@ $(document).ready(function () {
             j - offset]];
     };
     // Outside testing
-    Spectrum.prototype.convert = function (value) {
+    Spectrum.prototype.convert = function(value) {
         return this.getStep(this.toStepping(value));
     };
     /*	Every input option is tested and parsed. This'll prevent
@@ -409,7 +409,7 @@ $(document).ready(function () {
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
     var defaultFormatter = {
-        'to': function (value) {
+        'to': function(value) {
             return value !== undefined && value.toFixed(2);
         },
         'from': Number
@@ -591,9 +591,9 @@ $(document).ready(function () {
                 throw new Error(
                     "noUiSlider: must pass a formatter for all handles.");
             }
-            parsed.tooltips.forEach(function (formatter) {
+            parsed.tooltips.forEach(function(formatter) {
                 if (typeof formatter !== 'boolean' && (typeof formatter !==
-                    'object' || typeof formatter.to !== 'function')) {
+                        'object' || typeof formatter.to !== 'function')) {
                     throw new Error(
                         "noUiSlider: 'tooltips' must be passed a formatter or 'false'."
                     );
@@ -626,11 +626,11 @@ $(document).ready(function () {
         // If the object is modified, an error will be thrown.
         // Object.freeze(options);
         var parsed = {
-            margin: 0,
-            limit: 0,
-            animate: true,
-            format: defaultFormatter
-        },
+                margin: 0,
+                limit: 0,
+                animate: true,
+                format: defaultFormatter
+            },
             tests;
         // Tests are executed in the order they are presented here.
         tests = {
@@ -700,7 +700,7 @@ $(document).ready(function () {
         // Run all options through a testing mechanism to ensure correct
         // input. It should be noted that options might get modified to
         // be handled properly. E.g. wrapping integers in arrays.
-        Object.keys(tests).forEach(function (name) {
+        Object.keys(tests).forEach(function(name) {
             // If the option isn't set, but it is required, throw an error.
             if (options[name] === undefined && defaults[name] === undefined) {
                 if (tests[name].r) {
@@ -857,10 +857,10 @@ $(document).ready(function () {
                     break;
                 case 3:
                     addClass(handles[1], cssClasses[6]);
-                /* falls through */
+                    /* falls through */
                 case 2:
                     addClass(handles[0], cssClasses[7]);
-                /* falls through */
+                    /* falls through */
                 case 0:
                     addClass(target, cssClasses[6]);
                     break;
@@ -910,7 +910,7 @@ $(document).ready(function () {
                 tips.reverse();
                 options.tooltips.reverse();
             }
-            bindEvent('update', function (f, o, r) {
+            bindEvent('update', function(f, o, r) {
                 if (tips[o]) {
                     tips[o].innerHTML = options.tooltips[o] === true ? f[o] :
                         options.tooltips[o].to(r[o]);
@@ -936,7 +936,7 @@ $(document).ready(function () {
             }
             if (mode === 'positions') {
                 // Map all percentages to on-range values.
-                return values.map(function (value) {
+                return values.map(function(value) {
                     return scope_Spectrum.fromStepping(stepped ?
                         scope_Spectrum.getStep(value) : value);
                 });
@@ -944,7 +944,7 @@ $(document).ready(function () {
             if (mode === 'values') {
                 // If the value must be stepped, it needs to be converted to a percentage first.
                 if (stepped) {
-                    return values.map(function (value) {
+                    return values.map(function(value) {
                         // Convert to percentage, apply step, return to value.
                         return scope_Spectrum.fromStepping(scope_Spectrum.getStep(
                             scope_Spectrum.toStepping(value)));
@@ -973,7 +973,7 @@ $(document).ready(function () {
             // believing it is ltr.
             scope_Spectrum.direction = 0;
             // Create a copy of the group, sort it and filter away all duplicates.
-            group = unique(group.slice().sort(function (a, b) {
+            group = unique(group.slice().sort(function(a, b) {
                 return a - b;
             }));
             // Make sure the range starts with the first element.
@@ -986,7 +986,7 @@ $(document).ready(function () {
                 group.push(lastInRange);
                 ignoreLast = true;
             }
-            group.forEach(function (current, index) {
+            group.forEach(function(current, index) {
                 // Get the current step and the lower + upper positions.
                 var step, i, q,
                     low = current,
@@ -1084,7 +1084,7 @@ $(document).ready(function () {
                 }
             }
             // Append all points.
-            Object.keys(spread).forEach(function (a) {
+            Object.keys(spread).forEach(function(a) {
                 addSpread(a, spread[a]);
             });
             element.innerHTML = out;
@@ -1118,10 +1118,10 @@ $(document).ready(function () {
             if (handleNumber !== undefined && options.handles !== 1) {
                 handleNumber = Math.abs(handleNumber - options.dir);
             }
-            Object.keys(scope_Events).forEach(function (targetEvent) {
+            Object.keys(scope_Events).forEach(function(targetEvent) {
                 var eventType = targetEvent.split('.')[0];
                 if (event === eventType) {
-                    scope_Events[targetEvent].forEach(function (callback) {
+                    scope_Events[targetEvent].forEach(function(callback) {
                         callback.call(
                             // Use the slider public API as the scope ('this')
                             scope_Self,
@@ -1157,31 +1157,31 @@ $(document).ready(function () {
         function attach(events, element, callback, data) {
             // This function can be used to 'filter' events to the slider.
             // element is a node, not a nodeList
-            var method = function (e) {
-                if (scope_Target.hasAttribute('disabled')) {
-                    return false;
-                }
-                // Stop if an active 'tap' transition is taking place.
-                if (hasClass(scope_Target, cssClasses[14])) {
-                    return false;
-                }
-                e = fixEvent(e, data.pageOffset);
-                // Ignore right or middle clicks on start #454
-                if (events === actions.start && e.buttons !== undefined && e.buttons >
-                    1) {
-                    return false;
-                }
-                // Ignore right or middle clicks on start #454
-                if (data.hover && e.buttons) {
-                    return false;
-                }
-                e.calcPoint = e.points[options.ort];
-                // Call the event handler with the event [ and additional data ].
-                callback(e, data);
-            },
+            var method = function(e) {
+                    if (scope_Target.hasAttribute('disabled')) {
+                        return false;
+                    }
+                    // Stop if an active 'tap' transition is taking place.
+                    if (hasClass(scope_Target, cssClasses[14])) {
+                        return false;
+                    }
+                    e = fixEvent(e, data.pageOffset);
+                    // Ignore right or middle clicks on start #454
+                    if (events === actions.start && e.buttons !== undefined && e.buttons >
+                        1) {
+                        return false;
+                    }
+                    // Ignore right or middle clicks on start #454
+                    if (data.hover && e.buttons) {
+                        return false;
+                    }
+                    e.calcPoint = e.points[options.ort];
+                    // Call the event handler with the event [ and additional data ].
+                    callback(e, data);
+                },
                 methods = [];
             // Bind a closure on the target for every event type.
-            events.split(' ').forEach(function (eventName) {
+            events.split(' ').forEach(function(eventName) {
                 element.addEventListener(eventName, method, false);
                 methods.push([eventName, method]);
             });
@@ -1239,7 +1239,7 @@ $(document).ready(function () {
             }
             var d = document.documentElement;
             // Unbind the move and end events, which are added on 'start'.
-            d.noUiListeners.forEach(function (c) {
+            d.noUiListeners.forEach(function(c) {
                 d.removeEventListener(c[0], c[1]);
             });
             // Remove dragging class.
@@ -1278,17 +1278,17 @@ $(document).ready(function () {
             event.stopPropagation();
             // Attach the move and end events.
             var moveEvent = attach(actions.move, d, move, {
-                start: event.calcPoint,
-                baseSize: baseSize(),
-                pageOffset: event.pageOffset,
-                handles: data.handles,
-                handleNumber: data.handleNumber,
-                buttonsProperty: event.buttons,
-                positions: [
-                    scope_Locations[0],
-                    scope_Locations[scope_Handles.length - 1]
-                ]
-            }),
+                    start: event.calcPoint,
+                    baseSize: baseSize(),
+                    pageOffset: event.pageOffset,
+                    handles: data.handles,
+                    handleNumber: data.handleNumber,
+                    buttonsProperty: event.buttons,
+                    positions: [
+                        scope_Locations[0],
+                        scope_Locations[scope_Handles.length - 1]
+                    ]
+                }),
                 endEvent = attach(actions.end, d, end, {
                     handles: data.handles,
                     handleNumber: data.handleNumber
@@ -1307,7 +1307,7 @@ $(document).ready(function () {
                 if (scope_Handles.length > 1) {
                     addClass(scope_Target, cssClasses[12]);
                 }
-                var f = function () {
+                var f = function() {
                     return false;
                 };
                 document.body.noUiListener = f;
@@ -1327,7 +1327,7 @@ $(document).ready(function () {
             // The tap event shouldn't propagate up and cause 'edge' to run.
             event.stopPropagation();
             // Add up the handle offsets.
-            scope_Handles.forEach(function (a) {
+            scope_Handles.forEach(function(a) {
                 total += offset(a)[options.style];
             });
             // Find the handle closest to the tapped position.
@@ -1367,9 +1367,9 @@ $(document).ready(function () {
             var location = event.calcPoint - offset(scope_Base)[options.style],
                 to = scope_Spectrum.getStep((location * 100) / baseSize()),
                 value = scope_Spectrum.fromStepping(to);
-            Object.keys(scope_Events).forEach(function (targetEvent) {
+            Object.keys(scope_Events).forEach(function(targetEvent) {
                 if ('hover' === targetEvent.split('.')[0]) {
-                    scope_Events[targetEvent].forEach(function (callback) {
+                    scope_Events[targetEvent].forEach(function(callback) {
                         callback.call(scope_Self, value);
                     });
                 }
@@ -1402,7 +1402,7 @@ $(document).ready(function () {
                     hover: true
                 });
                 for (i = 0; i < scope_Handles.length; i += 1) {
-                    ['mousemove MSPointerMove pointermove'].forEach(function (
+                    ['mousemove MSPointerMove pointermove'].forEach(function(
                         eventName) {
                         scope_Handles[i].children[0].addEventListener(eventName,
                             stopPropagation, false);
@@ -1421,7 +1421,7 @@ $(document).ready(function () {
                     drag.push(scope_Handles[(drag[0] === scope_Handles[0] ? 1 : 0)]
                         .children[0]);
                 }
-                drag.forEach(function (element) {
+                drag.forEach(function(element) {
                     attach(actions.start, element, start, {
                         handles: scope_Handles
                     });
@@ -1466,7 +1466,7 @@ $(document).ready(function () {
             // No significant effect in Chrome, Edge sees dramatic
             // performace improvements.
             if (window.requestAnimationFrame) {
-                window.requestAnimationFrame(function () {
+                window.requestAnimationFrame(function() {
                     handle.style[options.style] = to + '%';
                 });
             } else {
@@ -1512,7 +1512,7 @@ $(document).ready(function () {
                     // Request an update for all links if the value was invalid.
                     // Do so too if setting the handle fails.
                     if (to === false || isNaN(to) || setHandle(scope_Handles[
-                        trigger], scope_Spectrum.toStepping(to), i === (3 -
+                            trigger], scope_Spectrum.toStepping(to), i === (3 -
                             options.dir)) === false) {
                         fireEvent('update', trigger);
                     }
@@ -1561,7 +1561,7 @@ $(document).ready(function () {
         // Removes classes from the root and empties it.
 
         function destroy() {
-            cssClasses.forEach(function (cls) {
+            cssClasses.forEach(function(cls) {
                 if (!cls) {
                     return;
                 } // Ignore empty classes
@@ -1577,7 +1577,7 @@ $(document).ready(function () {
         function getCurrentStep() {
             // Check all locations, map them to their stepping point.
             // Get the step point, then find it in the input list.
-            var retour = scope_Locations.map(function (location, index) {
+            var retour = scope_Locations.map(function(location, index) {
                 var step = scope_Spectrum.getApplicableStep(location),
                     // As per #391, the comparison for the decrement step can have some rounding issues.
                     // Round the value to the precision used in the step.
@@ -1593,7 +1593,7 @@ $(document).ready(function () {
                     // If the value fits the step, return the current step value. Otherwise, use the
                     // previous step. Return null if the slider is at its minimum value.
                     decrement = location === 0 ? null : (prev >= step[1]) ?
-                        step[2] : (step[0] || false);
+                    step[2] : (step[0] || false);
                 return [decrement, increment];
             });
             // Return values in the proper order.
@@ -1606,7 +1606,7 @@ $(document).ready(function () {
             scope_Events[namespacedEvent].push(callback);
             // If the event bound is 'update,' fire it immediately for all handles.
             if (namespacedEvent.split('.')[0] === 'update') {
-                scope_Handles.forEach(function (a, index) {
+                scope_Handles.forEach(function(a, index) {
                     fireEvent('update', index);
                 });
             }
@@ -1616,11 +1616,11 @@ $(document).ready(function () {
         function removeEvent(namespacedEvent) {
             var event = namespacedEvent.split('.')[0],
                 namespace = namespacedEvent.substring(event.length);
-            Object.keys(scope_Events).forEach(function (bind) {
+            Object.keys(scope_Events).forEach(function(bind) {
                 var tEvent = bind.split('.')[0],
                     tNamespace = bind.substring(tEvent.length);
                 if ((!event || event === tEvent) && (!namespace ||
-                    namespace === tNamespace)) {
+                        namespace === tNamespace)) {
                     delete scope_Events[bind];
                 }
             });
@@ -1639,7 +1639,7 @@ $(document).ready(function () {
                     snap: optionsToUpdate.snap === undefined ? options.snap : optionsToUpdate
                         .snap
                 });
-            ['margin', 'limit', 'step', 'range', 'animate'].forEach(function (
+            ['margin', 'limit', 'step', 'range', 'animate'].forEach(function(
                 name) {
                 if (optionsToUpdate[name] !== undefined) {
                     options[name] = optionsToUpdate[name];
@@ -1708,13 +1708,13 @@ $(document).ready(function () {
     };
 }));
 // wNumb number formatter: https://refreshless.com/wnumb/
-(function () {
+(function() {
     'use strict';
     var
-        /** @const */
+    /** @const */
         FormatOptions = ['decimals', 'thousand', 'mark', 'prefix', 'postfix',
-            'encoder', 'decoder', 'negativeBefore', 'negative', 'edit', 'undo'
-        ];
+        'encoder', 'decoder', 'negativeBefore', 'negative', 'edit', 'undo'
+    ];
     // General
     // Reverse a string
     function strReverse(a) {
@@ -1965,11 +1965,11 @@ $(document).ready(function () {
         }
         options = validate(options);
         // Call 'formatTo' with proper arguments.
-        this.to = function (input) {
+        this.to = function(input) {
             return passAll(options, formatTo, input);
         };
         // Call 'formatFrom' with proper arguments.
-        this.from = function (input) {
+        this.from = function(input) {
             return passAll(options, formatFrom, input);
         };
     }

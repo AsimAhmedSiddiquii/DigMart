@@ -25,7 +25,7 @@ router.post('/sendOtp/(:mobile)', async(req, res) => {
                 if (err) throw err;
                 res.send({ status: 3 })
             })
-        } else if (mobile == '9324326404' || mobile == '8898413414' || mobile == '9137242482' || mobile == '7738408767') {
+        } else if (mobile == '9082524329') {
             res.send({ status: 3 })
         } else {
             var id = user[0]._id
@@ -39,13 +39,14 @@ router.post('/sendOtp/(:mobile)', async(req, res) => {
     }
 })
 
-router.post('/checkMobileOtp', async(req, res) => {
-    const user = await User.find({ mobile: req.query.mobile })
-    if (user[0].mobileOtp == req.query.otp || req.query.otp == "1111") {
+router.get('/checkMobileOtp/:mobile/:otp', async(req, res) => {
+    const user = await User.find({ mobile: req.params.mobile })
+    if (user[0].mobileOtp == req.params.otp || req.params.otp == "1111") {
         const token = jwt.sign({ "userID": user[0]._id }, process.env.JWT_KEY, {});
         req.session.jwttoken = token;
         req.session.userID = user[0]._id;
         req.session.mobile = user[0].mobile.toString();
+        req.session.userName = user[0].fullName ? user[0].fullName.toString() : user[0].mobile.toString();
         res.send({ status: 'valid' })
     } else {
         res.send({ status: 'invalid' })

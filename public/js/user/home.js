@@ -230,7 +230,6 @@ function openSeller(sellerID) {
     location.href = '/seller/' + sellerID
 }
 
-
 function searchData(e) {
 
     const container = document.getElementById('search-results')
@@ -263,7 +262,7 @@ function searchData(e) {
                     containerProduct.style.display = 'block'
                     containerProduct.innerHTML = '<div class="suggestion-title">Products</div>'
                     res.products.forEach(prod => {
-                        containerProduct.innerHTML += '<li onclick="openResult(this,1)" data-resId=' + prod.slugID + '>' + prod.productName + '<span>' + prod.category + '</span></li>'
+                        containerProduct.innerHTML += '<li onclick="openResult(this,1)" data-resId=' + prod.slugID + '>' + prod.productName + '<span>' + prod.category.catName + '</span></li>'
                     });
                 }
 

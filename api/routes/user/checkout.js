@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const https = require('https')
 
 const Variants = require('../../models/seller/variants');
-const Products = require("../../models/seller/product");
 const Cart = require('../../models/user/cart');
 const Address = require('../../models/user/address');
 const Order = require('../../models/user/order')
@@ -183,32 +182,44 @@ router.post('/callback', (req, res) => {
                 var currentDate = new Date();
                 var _result = JSON.parse(response);
                 if (_result.STATUS == 'TXN_SUCCESS') {
-                    await Order.updateOne({ orderID: req.body.ORDERID }, { $set: { status: 'Ordered' } })
-                    var cartData = await Cart.find({ userID: req.session.userID }).exec()
+                    var user = await Order.findOne({ orderID: req.body.ORDERID })
+                    var userID = user.userID
+
+                    var cartData = await Cart.find({ userID: userID }).populate('productID variantID').exec()
                     console.log(cartData)
 
                     for (var i = 0; i < cartData.length; i++) {
+                        var prodTotal = 0;
+                        if (cartData[i].variantID) {
+                            for (let j = 0; j < cartData[i].variantID.sizes.length; j++) {
+                                if (cartData[i].variantID.sizes[j].sizes == cartData[i].size) {
+                                    prodTotal = prodTotal + (Number(cartData[i].variantID.sizes[j].finalPrice) * (Number(cartData[i].quantity)));
+                                }
+                            }
+                        } else {
+                            prodTotal = prodTotal + (Number(cartData[i].productID.finalPrice) * (Number(cartData[i].quantity)));
+                        }
+
                         var item = new OrderItem({
-                            userID: req.session.userID,
+                            userID: userID,
                             sellerID: cartData[i].sellerID,
                             orderID: req.body.ORDERID,
-                            variantID: cartData[i].variantID,
-                            productID: cartData[i].productID,
+                            variantID: cartData[i].variantID._id,
+                            productID: cartData[i].productID._id,
                             size: cartData[i].size,
                             colour: cartData[i].colour,
                             quantity: cartData[i].quantity,
+                            sellingPrice: prodTotal,
                             date: currentDate.toString().substring(0, 16),
                             deliveryDate: new Date(currentDate.getTime() + (3 * 24 * 60 * 60 * 1000)).toString().substring(0, 16),
                             status: "Ordered",
                         })
                         await item.save()
 
-                        var selectedSize = await Variants.find({ _id: cartData[i].variantID }).select("sizes").exec()
+                        var selectedSize = await Variants.find({ _id: cartData[i].variantID._id }).select("sizes").exec()
                         var count = selectedSize[0].sizes.length;
 
                         var sizesArr = selectedSize[0].sizes;
-                        console.log(sizesArr)
-
                         for (var j = 0; j < count; j++) {
                             if (sizesArr[j]["sizes"] == cartData[i].size) {
                                 sizesArr[j]["quantity"] -= cartData[i].quantity;
@@ -217,18 +228,16 @@ router.post('/callback', (req, res) => {
                                 }
                             }
                         }
-                        console.log("New: " + sizesArr)
 
-                        await Variants.findByIdAndUpdate({ _id: cartData[i].variantID }, {
+                        await Variants.findByIdAndUpdate({ _id: cartData[i].variantID._id }, {
                             $set: {
                                 sizes: sizesArr
                             }
                         });
-
-                        // await Products.updateOne({ _id: cartData[i].productID }, { $inc: { "quantity": -(cartData[i].quantity) } })
-
                     }
-                    await Cart.deleteMany({ userID: req.session.userID })
+
+                    await Cart.deleteMany({ userID: userID })
+
                     res.redirect("/checkout/payment-success/" + req.body.ORDERID)
                 } else {
                     res.send('payment failed')

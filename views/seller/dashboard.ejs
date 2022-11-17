@@ -125,6 +125,7 @@
                                 </div>
                             </div>
                             <hr>
+
                             <!-- ORDERS -->
                             <div class="row">
                                 <div class="col-md-12 page-header">
@@ -156,6 +157,7 @@
                                         </div>
                                     </a>
                                 </div>
+
                                 <div class="flex-fill col-sm-6 col-md-6 col-lg-3 mt-3">
                                     <a href="/seller/orders/shipment-orders">
                                         <div class="card p-2">
@@ -179,6 +181,7 @@
                                         </div>
                                     </a>
                                 </div>
+
                                 <div class="flex-fill col-sm-6 col-md-6 col-lg-3 mt-3">
                                     <a href="/seller/orders/delivered-orders">
                                         <div class="card p-2">
@@ -202,8 +205,31 @@
                                         </div>
                                     </a>
                                 </div>
+
+                                <div class="flex-fill col-sm-6 col-md-6 col-lg-3 mt-3">
+                                    <div class="card p-2">
+                                        <div class="content">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="icon-big text-center">
+                                                        <i class="green fas fa-money-bill"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="detail">
+                                                        <p class="detail-subtitle">Revenue</p>
+                                                        <span class="number">
+                                                                ₹<%= count.totalRevenue %>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <hr>
+
                             <!-- ANALYTICS -->
                             <div class="row">
                                 <div class="col-md-12 page-header">
@@ -211,18 +237,16 @@
                                     <h2 class="page-title">ANALYTICS</h2>
                                 </div>
                             </div>
-                            <div class="row mt-3 position-relative" style="min-height: 250px;">
-                                <% if(selDoc.plan.title=='Basic' ){ %>
+                            <div class="row mt-3 mb-3 position-relative" style="min-height: 200px;">
+                                <% if(selDoc.plan.title=='Basic'){ %>
                                     <div id="overlay" class="d-flex justify-content-center ">
                                         <div id="overlay-content" class="align-self-center text-center">
-                                            <i class="fas fa-lock fs-1"></i>
-                                            <h4 class="my-2">Available only for Pro members</h4>
-                                            <button class="btn btn-outline-success mt-3" data-bs-toggle="modal"
-                                                data-bs-target="#subscription-modal">Upgrade to Pro <i
-                                                    class="fas fa-angle-double-up"></i></button>
+                                            <i class="fas fa-lock fs-2"></i>
+                                            <h5 class="my-2">Available only for Pro members</h5>
+                                            <button class="btn btn-outline-success mt-2" data-bs-toggle="modal" data-bs-target="#subscription-modal">Upgrade to Pro <i class="fas fa-angle-double-up"></i></button>
                                         </div>
                                     </div>
-                                    <%}%>
+                                    <% } else { %>
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -258,72 +282,37 @@
                                             <div class="card">
                                                 <div class="content">
                                                     <div class="head">
-                                                        <h5 class="mb-0">Top Visitors by Country</h5>
-                                                        <p class="text-muted">Current year website visitor data</p>
+                                                        <h5 class="mb-0">Most Ordered Product</h5>
+                                                        <p class="text-muted">Top 10 most ordered products by Customers</p>
                                                     </div>
                                                     <div class="canvas-wrapper">
                                                         <table class="table table-striped">
                                                             <thead class="success">
                                                                 <tr>
-                                                                    <th>Country</th>
-                                                                    <th class="text-end">Unique Visitors</th>
+                                                                    <th>Product Name</th>
+                                                                    <th class="text-end">Orders</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-us"></i> United
-                                                                        States
-                                                                    </td>
-                                                                    <td class="text-end">27,340</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-in"></i> India
-                                                                    </td>
-                                                                    <td class="text-end">21,280</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-jp"></i> Japan
-                                                                    </td>
-                                                                    <td class="text-end">18,210</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-gb"></i> United
-                                                                        Kingdom
-                                                                    </td>
-                                                                    <td class="text-end">15,176</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-es"></i> Spain
-                                                                    </td>
-                                                                    <td class="text-end">14,276</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-de"></i> Germany
-                                                                    </td>
-                                                                    <td class="text-end">13,176</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-br"></i> Brazil
-                                                                    </td>
-                                                                    <td class="text-end">12,176</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-id"></i> Indonesia
-                                                                    </td>
-                                                                    <td class="text-end">11,886</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-ph"></i>
-                                                                        Philippines
-                                                                    </td>
-                                                                    <td class="text-end">11,509</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><i class="flag-icon flag-icon-nz"></i> New
-                                                                        Zealand
-                                                                    </td>
-                                                                    <td class="text-end">1,700</td>
-                                                                </tr>
+                                                                <% 
+                                                                    if (orders.size != 0){
+                                                                    orders.forEach((value, key) => {
+                                                                 %>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%= key %>
+                                                                        </td>
+                                                                        <td class="text-end">
+                                                                            <%= value %>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% }) } else { %>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                No orders yet
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -335,7 +324,7 @@
                                                 <div class="content">
                                                     <div class="head">
                                                         <h5 class="mb-0">Most Visited Products</h5>
-                                                        <p class="text-muted">Top 10 most visited products by Users</p>
+                                                        <p class="text-muted">Top 10 most visited products by Customers</p>
                                                     </div>
                                                     <div class="canvas-wrapper">
                                                         <table class="table table-striped">
@@ -363,7 +352,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <% } %>
                             </div>
                         </div>
                     </div>
@@ -373,11 +362,11 @@
     <!-- SUBSCRIPTION MODAL -->
     <%- include('subscriptionModal') %>
 
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/vendor/chartsjs/Chart.min.js"></script>
-    <script src="/js/dashboard-charts.js"></script>
-    <script src="/js/script.js"></script>
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/vendor/chartsjs/Chart.min.js"></script>
+        <script src="/js/dashboard-charts.js"></script>
+        <script src="/js/script.js"></script>
 </body>
 
 </html>

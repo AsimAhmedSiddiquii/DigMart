@@ -48,6 +48,7 @@ mongoose.connect(
     process.env.MONGO_PASS +
     "@cluster0.ns4yy5i.mongodb.net/?retryWrites=true&w=majority", {
         useNewUrlParser: true,
+        keepAlive: true,
         useUnifiedTopology: true,
     }
 );
