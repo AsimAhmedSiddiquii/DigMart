@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Reviews & Ratings</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/user/my-account.css" rel="stylesheet">
+    <link href="/css/master.css" rel="stylesheet">
+    <link href="/css/user/product.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+    <%- include('components/navbar') %>
+        <div class="container pt-4">
+            <div class="row">
+                <%- include('components/sidebar') %>
+
+                    <div class="col-12 col-md-9">
+
+                        <div class="card p-2 mb-0" style="background-color:#1e686dfa">
+                            <strong>My Ratings & Reviews</strong>
+                        </div>
+
+                        <div class="row">
+                            <% 
+                                if(reviews.length != 0){ 
+                                    reviews.forEach(function(review){
+                                %>
+                                <div class="col-md-6 mt-2">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <% if(review.rating > 3){ %>
+                                                <span class="btn-success p-2 fs-12 rounded"><i class="fa fa-star"></i> <%=review.rating%></span>
+                                                <% } else if (review.rating < 3){ %>
+                                                    <span class="btn-danger p-2 fs-12 rounded"><i class="fa fa-star"></i> <%=review.rating%></span>
+                                                    <% } else { %>
+                                                        <span class="btn-warning p-2 fs-12 rounded"><i class="fa fa-star"></i> <%=review.rating%></span>
+                                                        <%}%>
+                                                            <span class="ms-1 mt-1"><%=review.reviewHeadline%></span>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-12 p-0">
+                                                        <p class="align-left mb-0 ms-2 fs-14">
+                                                            <%= review.reviewText %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <%if(review.images.length !=0){%>
+                                                    <div class="row mt-2 mb-1">
+                                                        <div class="col-md-12 p-0 ms-2" id="review-img">
+                                                            <% for (let b=0; b < review.images.length; b++){ %>
+                                                                <img src="<%= review.images[b]%>" class="img-fluid img-thumbnail" onclick="imageModal('<%= review.images[b]%>')">
+                                                                <%}%>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-footer fs-14">
+                                            <a class="text-danger" role="button" onclick="deleteReview('<%= review._id %>')"><i class="fas fa-times"></i> Delete this review</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) } %>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script>
+            function deleteReview(reviewID) {
+                swal({
+                        title: "Are you sure?",
+                        text: "You are about to delete this review!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location = "/review/delete-review/" + reviewID
+                        }
+                    });
+            }
+        </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/form-validator.js"></script>
+        <script src="/js/user/swiper-bundle.min.js"></script>
+</body>
+
+</html>

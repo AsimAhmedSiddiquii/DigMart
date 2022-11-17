@@ -59,14 +59,13 @@
                                                             <div class="row">
                                                                 <div class="col-12 col-md-12">
                                                                     <label class="form-label mt-2 mb-0" style="text-align:justify">
-                                                                    <h6><b>
-                                                                            <%= data.productID.productName %>
-                                                                        </b></h6>
+                                                                    <h6 class="mb-1"><b><%= data.productID.productName %></b></h6>
+                                                                    <h6 class="card-subtitle text-muted">Sold by <%= data.sellerID.busName %></h6>
                                                                 </label>
                                                                 </div>
 
                                                                 <%if(data.variantID){%>
-                                                                    <div class="col-12 col-md-12">
+                                                                    <div class="col-12 col-md-12 mt-1">
                                                                         <div class="row">
                                                                             <div class="col-4 col-md-4">
                                                                                 <label class="form-label">Size: <b>
@@ -95,11 +94,8 @@
 
                                                                             <div class="col-12 col-md-12">
                                                                                 <% if(data.variantID){ %>
-                                                                                    <label class="form-label fs-5"><b>₹ <%=
-                                                                                            data.variantID.sizes[0]["finalPrice"]
-                                                                                            %></b></label>
-                                                                                    <% if(data.variantID.sizes[0]["discount"]!=null){
-                                                                                    %>
+                                                                                    <label class="form-label fs-5"><b>₹ <%= data.variantID.sizes[0]["finalPrice"] %></b></label>
+                                                                                    <% if(data.variantID.sizes[0]["discount"]!=null){ %>
                                                                                         <label class="form-label fs-6" style="color: gray"><s>₹<%=data.variantID.sizes[0]["actualPrice"]%></s></label>
                                                                                         <label class="form-label fs-14" style="color: #249c50fa">
                                                                                         <%= data.variantID.sizes[0]["discount"]%> % off
@@ -107,8 +103,7 @@
                                                                                         <%}%>
                                                                                             <% } else { %>
                                                                                                 <label class="form-label fs-5">
-                                                                                                <b>₹ <%=
-                                                                                                        data.productID.finalPrice%>
+                                                                                                <b>₹ <%= data.productID.finalPrice %> 
                                                                                                 </b></label>
                                                                                                 <% if(data.productID.discount!=null){ %>
                                                                                                     <label class="form-label fs-6" style="color: gray"><s>₹<%=data.productID.actualPrice%></s></label>
@@ -120,7 +115,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer mt-1">
                                                     <div class="col-12 col-md-12">
                                                         <div class="row">
                                                             <div class="col-6 col-md-6">

@@ -154,13 +154,13 @@
                         <div class="cat swiper-slide">
                             <div class="imgDiv">
                                 <a href="\shop-by-category?cat=<%=data.catName%>">
-                                    <img src="<%=data.catImage%>" class="rounded-circle" alt="<%=data.catName%>">
+                                    <img src="<%= data.catImage %>" class="rounded-circle" alt="<%=data.catName%>">
                                 </a>
                             </div>
                             <div class="des px-2 text-center">
                                 <a href="\shop-by-category?cat=<%=data.catName%>">
                                     <p>
-                                        <%=data.catName%>
+                                        <%= data.catName %>
                                     </p>
                                 </a>
                             </div>
@@ -247,9 +247,9 @@
                                                         <%=product.discount%>
                                                     </div>
                                                     <%}%>
-                                                        <img src="<%=product.images%>" alt="<%=product.productName%>">
+                                                        <img src="<%= product.images %>" alt="<%= product.productName %>">
                                             </div>
-                                            <div class="des px-2 text-start" onclick="openProduct('<%=product.slugID%>', null)">
+                                            <div class="des px-2 text-start" onclick="openProduct('<%= product.slugID %>', null)">
                                                 <span class="prodCat d-block"><%=product.category%></span>
                                                 <span class="prodName"><%=product.productName%></span>
                                                 <div>

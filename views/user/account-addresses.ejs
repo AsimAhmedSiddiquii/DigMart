@@ -57,9 +57,7 @@
                                             <div class="card p-4 addressCard" id="addAddress" for="newAddress">
                                                 <div class="row">
                                                     <div class="col-12 col-md-12 mb-3">
-                                                        <label class="form-label fw-bold" for="newAddress" id="newAddressLabel">
-                                                        Add a new Address
-                                                    </label>
+                                                        <label class="form-label fw-bold" for="newAddress" id="newAddressLabel">Add a new Address</label>
                                                     </div>
 
                                                     <div class="col-12 col-md-6 mb-3">
@@ -216,7 +214,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-12 mb-3  text-center">
+                                                    <div class="col-12 mb-3 text-center">
                                                         <button type="button" class="btn btn-outline-primary" id="saveChangesBtn"><i class="fas fa-save"></i> Save Changes</button>
                                                     </div>
                                                 </div>
@@ -229,6 +227,7 @@
         <script src="/vendor/jquery/jquery.min.js"></script>
         <script>
             var defaultAddressCard = document.getElementById("defaultAddressCard")
+            var addressIDs = []
 
             function showAddressDetails() {
                 document.getElementById("addAddress").style.display = "block"
@@ -238,6 +237,8 @@
             }
 
             function editAddressFunc(addressID) {
+                addressIDs.push(addressID)
+                console.log(addressIDs)
                 var editAddressBtn = document.getElementById("editAddressBtn" + addressID);
                 var editAddressCard = document.getElementById("editAddressCard")
                 document.getElementById("addAddress").style.display = "none"
@@ -287,16 +288,10 @@
 
                 $("#saveChangesBtn").click(function(e) {
                     e.preventDefault()
-                    if ($(editFirstName)[0].validity.valid &&
-                        $(editLastName)[0].validity.valid &&
-                        $(editEmail)[0].validity.valid &&
-                        $(editAddress)[0].validity.valid &&
-                        $(editState)[0].validity.valid &&
-                        $(editCity)[0].validity.valid &&
-                        $(editPinCode)[0].validity.valid &&
-                        $(editMobileNo)[0].validity.valid) {
+                    if ($(editFirstName)[0].validity.valid && $(editLastName)[0].validity.valid && $(editEmail)[0].validity.valid && $(editAddress)[0].validity.valid && $(editState)[0].validity.valid && $(editCity)[0].validity.valid && $(editPinCode)[0].validity.valid && $(editMobileNo)[0].validity.valid) {
+                        var updateAddressID = addressIDs[addressIDs.length - 1]
                         $.ajax({
-                            url: "/checkout/edit-address/" + addressID,
+                            url: "/checkout/edit-address/" + updateAddressID,
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

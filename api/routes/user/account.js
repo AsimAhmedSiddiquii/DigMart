@@ -60,9 +60,8 @@ router.post('/add-address', async(req, res, next) => {
     }
 })
 
-router.get("/edit-address/(:addressID)", async(req, res) => {
-    var id = req.params.addressID;
-    const doc = await Address.findById(id)
+router.get("/edit-address/(:addressID)", checkAuth, async(req, res) => {
+    const doc = await Address.findById(req.params.addressID)
     res.send(doc);
 });
 
@@ -92,9 +91,8 @@ router.post("/edit-address/(:addressID)", (req, res) => {
         })
 });
 
-router.get("/delete-address/(:addressID)", async(req, res, next) => {
-    var id = req.params.addressID;
-    await Address.findByIdAndRemove(id).exec()
+router.get("/delete-address/(:addressID)", checkAuth, async(req, res, next) => {
+    await Address.findByIdAndRemove(req.params.addressID).exec()
     res.redirect('/account/addresses');
 });
 
