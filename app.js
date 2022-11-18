@@ -18,6 +18,7 @@ const sellerProductRoute = require("./api/routes/seller/product");
 const productVariantRoute = require("./api/routes/seller/variant");
 const sellerGalleryRoute = require("./api/routes/seller/gallery");
 const sellerCoverageRoute = require("./api/routes/seller/coverage");
+const sellerPromoteRoute = require("./api/routes/seller/promote");
 
 const orderRoute = require("./api/routes/seller/orders");
 const userLoginRoute = require("./api/routes/user/user-login");
@@ -76,6 +77,7 @@ app.use("/seller/products", sellerProductRoute);
 app.use("/seller/gallery", sellerGalleryRoute);
 app.use("/seller/products/variant", productVariantRoute);
 app.use("/seller/coverage", sellerCoverageRoute);
+app.use("/seller/promote", sellerPromoteRoute);
 app.use("/seller/orders", orderRoute);
 
 app.use("/", userRoute);

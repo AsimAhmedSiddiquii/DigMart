@@ -2,7 +2,9 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require('mongoose')
 
-const Cart = require('../../models/user/cart');
+const Cart = require('../../models/user/cart')
+const Ads = require('../../models/seller/ads')
+const Variants = require('../../models/seller/variants')
 
 const checkAuth = require("../../middleware/user/checkAuth")
 
@@ -10,22 +12,35 @@ router.get('/', checkAuth, async(req, res) => {
     var subtotal = 0;
     var size = [];
 
-    await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID').exec(function(err, docs) {
-        for (let i = 0; i < docs.length; i++) {
-            if (docs[i].variantID) {
-                for (let j = 0; j < docs[i].variantID.sizes.length; j++) {
-                    if (docs[i].variantID.sizes[j].sizes == docs[i].size) {
-                        subtotal = subtotal + (Number(docs[i].variantID.sizes[j].finalPrice) * (Number(docs[i].quantity)));
-                        size.push(j);
-                    }
+    var docs = await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID')
+
+    for (let i = 0; i < docs.length; i++) {
+        if (docs[i].variantID) {
+            for (let j = 0; j < docs[i].variantID.sizes.length; j++) {
+                if (docs[i].variantID.sizes[j].sizes == docs[i].size) {
+                    subtotal = subtotal + (Number(docs[i].variantID.sizes[j].finalPrice) * (Number(docs[i].quantity)));
+                    size.push(j);
                 }
-            } else {
-                subtotal = subtotal + (Number(docs[i].productID.finalPrice) * (Number(docs[i].quantity)));
-                size.push(0);
             }
+        } else {
+            subtotal = subtotal + (Number(docs[i].productID.finalPrice) * (Number(docs[i].quantity)));
+            size.push(0);
         }
-        res.render('user/cart', { cartData: docs, subTotal: subtotal.toFixed(2), Total: (subtotal).toFixed(2), size: size, user: req.session.userID })
-    });
+    }
+
+    // Ads
+    var varDocs = []
+    var promotedProducts = await Ads.find({ expireDate: { $gte: new Date() } }).populate('productID sellerID').limit(4)
+    promotedProducts.sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < promotedProducts.length; i++) {
+        if (promotedProducts[i].productID.hasVariant) {
+            var doc = await Variants.find({ prodID: promotedProducts[i].productID._id })
+            varDocs.push(doc[0])
+        }
+    }
+
+    res.render('user/cart', { promotedProducts, varDocs, cartData: docs, subTotal: subtotal.toFixed(2), Total: (subtotal).toFixed(2), size: size, user: req.session.userID })
 })
 
 router.post('/add-to-cart', async(req, res) => {

@@ -7,22 +7,25 @@ const SubCategory = require('../../models/admin/subcategory')
 
 const Seller = require("../../models/seller/seller")
 const Coverage = require("../../models/seller/coverage")
+const Ads = require("../../models/seller/ads")
 const Products = require('../../models/seller/product')
 const Variants = require('../../models/seller/variants')
 
 router.get('/', async(req, res) => {
     var varDocs = []
-    var catDocs = await Category.find()
-    var selDocs = await Seller.find({ featured: true, status: 'Verified' }).populate('busCat')
-    var proDocs = await Products.find({ featured: true, status: 'Verified' }).populate('category')
+    var catData = await Category.find()
+    var selData = await Seller.find({ featured: true, status: 'Verified' }).populate('busCat')
+    var promotedProducts = await Ads.find({ expireDate: { $gte: new Date() } }).populate('productID sellerID')
 
-    for (let i = 0; i < proDocs.length; i++) {
-        if (proDocs[i].hasVariant) {
-            var doc = await Variants.find({ prodID: proDocs[i]._id })
+    promotedProducts.sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < promotedProducts.length; i++) {
+        if (promotedProducts[i].productID.hasVariant) {
+            var doc = await Variants.find({ prodID: promotedProducts[i].productID._id })
             varDocs.push(doc[0])
         }
     }
-    res.render('./user/home', { proDocs: proDocs, catData: catDocs, selData: selDocs, varDocs: varDocs, user: req.session.userID })
+    res.render('./user/home', { promotedProducts, catData, selData, varDocs, user: req.session.userID })
 })
 
 router.get('/shop-by-category', async(req, res) => {

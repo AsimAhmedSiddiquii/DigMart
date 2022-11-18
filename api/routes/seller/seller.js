@@ -17,7 +17,6 @@ const config = require('../../utils/config')
 const checkAuth = require("../../middleware/seller/checkAuth")
 
 const firebase = require('../../utils/firebase')
-const { findOne } = require("../../models/seller/seller")
 const storage = firebase.storage().ref();
 const store = multer.memoryStorage();
 var upload = multer({ storage: store });

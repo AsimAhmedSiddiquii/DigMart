@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <title>Promote Product | DigMart</title>
+    <link href="/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- sidebar navigation component -->
+        <%- include('../sidebar') %>
+            <!-- end of sidebar component -->
+            <div id="body" class="active">
+                <!-- navbar navigation component -->
+                <%- include('../navbar') %>
+                    <!-- end of navbar navigation -->
+                    <div class="content">
+                        <div class="container">
+                            <div class="card">
+                                <div class="content">
+                                    <h5>DigMart will use the current images and data associated with this product.</h5>
+                                    <form method="post" action="/seller/promote/promote-product">
+                                        <div class="row mb-4">
+                                            <div class="col-md-6 mt-4">
+                                                <label for="state" class="form-label">Product Name</label>
+                                                <input class="form-control col-md-6" value="<%= product.productName %>" disabled>
+                                            </div>
+                                            <div class="col-md-6 mt-4">
+                                                <label for="district" class="form-label">Product Category</label>
+                                                <input class="form-control col-md-6" value="<%= product.category.catName %>" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <label for="state" class="form-label">Promote Duration</label>
+                                                <select name="days" class="form-select" id="days" onchange="calculate(this)" required>
+                                                    <option value="3" selected>3 days</option>
+                                                    <option value="5">5 days</option>
+                                                    <option value="10">10 days</option>
+                                                    <option value="20">20 days</option>
+                                                    <option value="30">30 days</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="district" class="form-label">Promotion Charge</label>
+                                                <input class="form-control col-md-6" value="₹147" id="charge" disabled>
+                                            </div>
+                                        </div>
+
+                                        <input name="prodID" value="<%= product._id %>" type="hidden" />
+
+                                        <div class="text-center">
+                                            <button class="btn btn-warning" style="width:25%;" type="submit"><i class="fa fa-rocket"></i> Promote Product</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        function calculate(option) {
+            var amount = 49 * Number(option.value)
+            document.getElementById('charge').value = '₹' + amount
+        }
+    </script>
+
+</body>
+
+</html>

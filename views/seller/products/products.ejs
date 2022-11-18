@@ -32,13 +32,12 @@
                                     <table width="100%" class="table table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>Product ID</th>
                                                 <th>Product Name</th>
                                                 <th>Category</th>
                                                 <th>Subcategory</th>
                                                 <th>Final Price</th>
                                                 <th>Status</th>
-                                                <th></th>
+                                                <th class="text-end">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,9 +45,6 @@
                                                 productsData.forEach(function(data){     
                                             %>
                                                 <tr>
-                                                    <td>
-                                                        <%= data._id %>
-                                                    </td>
                                                     <td>
                                                         <%= data.productName %>
                                                     </td>
@@ -66,25 +62,27 @@
                                                                     <% }%>
                                                     </td>
                                                     <td>
-                                                        <%=data.status %>
+                                                        <%= data.status %>
                                                     </td>
                                                     <td class="text-end">
-                                                        <% if(data.hasVariant) { %>
-                                                            <a href="/seller/products/variant/<%=data._id %>" class="btn btn-outline-info btn-rounded">Variants <i class="fas fa-eye"></i> </a>
+                                                        <% if(data.status == "Verified") { %>
+                                                            <a role="button" title="Promote" href="/seller/promote/promote-product/<%= data._id %>" class="btn btn-outline-warning btn-rounded"><i class="fa fa-rocket"></i></a>
                                                             <% } %>
-                                                                <a href="/seller/products/edit-product/<%=data._id %>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
+                                                                <% if(data.hasVariant) { %>
+                                                                    <a href="/seller/products/variant/<%=data._id %>" class="btn btn-outline-info btn-rounded">Variants <i class="fas fa-eye"></i> </a>
+                                                                    <% } %>
+                                                                        <a href="/seller/products/edit-product/<%=data._id %>" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
 
-                                                                <% if((data.status !="Incomplete" ) && (data.status !="Pending" ) && (data.status !="Verified" )) { %>
-                                                                    <% data.status="Rejected" %>
-                                                                        <% } %>
-                                                                            <button type="button" class="btn btn-outline-danger btn-rounded" onclick="sweetAlertTrigger('<%=data._id %>' , '<%=data.status %>')"><i
-                                                                                    class="fas fa-trash"></i>
-                                                                            </button>
+                                                                        <% if((data.status !="Incomplete" ) && (data.status !="Pending" ) && (data.status !="Verified" )) { %>
+                                                                            <% data.status="Rejected" %>
+                                                                                <% } %>
+                                                                                    <button type="button" title="Delete" class="btn btn-outline-danger btn-rounded" onclick="sweetAlertTrigger('<%=data._id %>' , '<%=data.status %>')"><i class="fas fa-trash"></i></button>
+
                                                     </td>
                                                 </tr>
 
                                                 <% }) %>
-                                                    <% } else{ %>
+                                                    <% } else { %>
                                                         <tr>
                                                             <td colspan="12">No Data Found</td>
                                                         </tr>

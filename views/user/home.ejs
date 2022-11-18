@@ -207,19 +207,19 @@
         <% } %>
 
             <!-- PRODUCTS -->
-            <% if(proDocs.length!=0){ %>
+            <% if(promotedProducts.length!=0){ %>
                 <section id="deals" class="my-5">
                     <div class="headline text-center m-4">
                         <h2 class="pb-3 position-relative d-inline-block">Lightning Deals</h2>
                     </div>
                     <div class="swiper productSwiper">
                         <div id="product1" class="swiper-wrapper">
-                            <% proDocs.forEach(function(product){ %>
+                            <% promotedProducts.forEach(function(product){ %>
                                 <div class="pro swiper-slide">
                                     <% 
-                                        if(product.hasVariant){ 
+                                        if(product.productID.hasVariant){ 
                                             for(j=0; j < varDocs.length; j++){
-                                                if(varDocs[j].prodID.equals(product._id)){ 
+                                                if(varDocs[j].prodID.equals(product.productID._id)){ 
                                     %>
                                         <div class="imgDiv" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
                                             <% if(varDocs[j].sizes[0].discount){ %>
@@ -230,8 +230,8 @@
                                                     <img src="<%=varDocs[j].images%>" alt="<%=product.productName%>">
                                         </div>
                                         <div class="des px-2 mt-1 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
-                                            <span class="prodCat d-block"><%= product.category.catName %></span>
-                                            <span class="prodName"><%= product.productName %></span>
+                                            <span class="prodCat d-block"><%= product.sellerID.busName %>'s</span>
+                                            <span class="prodName"><%= product.productID.productName %></span>
                                             <div>
                                                 <span class="prodPrice"><%=varDocs[j].sizes[0].finalPrice%></span>
                                                 <%if(varDocs[j].sizes[0].discount){%>
