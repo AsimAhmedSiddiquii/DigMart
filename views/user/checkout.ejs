@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout</title>
+    <title>Checkout | DigMart</title>
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,14 +20,13 @@
                     <div class="col-12 col-md-9 col-lg-9" id="address">
 
                         <div class="card p-2 mb-0" style="background-color:#1e686dfa">
-                            <strong style="color: #FAFFFF; font-family:Arial, Helvetica, sans-serif; padding-left: 2%;">
-                                DELIVERY ADDRESS</strong>
+                            <strong style="color: #FAFFFF; font-family:Arial, Helvetica, sans-serif; padding-left: 2%;">DELIVERY ADDRESS</strong>
                         </div>
 
                         <% if(addressData.length!=0) { var i=0; addressData.forEach(function(data){ %>
                             <div class="card p-4 mb-0" id="defaultAddressCard" style="background-color:#FAFFFF;">
                                 <div class="row">
-                                    <div class="col-10 col-md-10">
+                                    <div class="col-12 col-md-9">
                                         <input class="form-check-input" id="<%=data._id %>" type="radio" onclick="radioSelected()" name="defaultAddress" checked>
                                         <label class="form-label">
                                             <b>
@@ -38,10 +37,9 @@
                                                 <%=data.address %> - <%=data.pinCode %>
                                         </label>
                                     </div>
-                                    <div class="col-2 col-md-2">
+                                    <div class="col-12 col-md-3">
                                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="sweetAlertTrigger('<%=data._id %>')" style="float:right;">Remove</button>
-                                        <button type="button" id="editAddressBtn<%=data._id %>" onclick="editAddressFunc('<%=data._id %>')" style="float:right" class="btn btn-outline-warning btn-sm">
-                                            Edit</button>
+                                        <button type="button" id="editAddressBtn<%=data._id %>" onclick="editAddressFunc('<%=data._id %>')" style="float:right" class="btn btn-outline-warning btn-sm me-1">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -224,8 +222,7 @@
                                     </div>
 
                                     <div class="card p-2 mb-0" style="background-color:#1e686dfa">
-                                        <strong style="color: #faffff; font-family:Arial, Helvetica, sans-serif; padding-left: 2%;">
-                            ORDER SUMMARY</strong>
+                                        <strong style="color: #faffff; font-family:Arial, Helvetica, sans-serif; padding-left: 2%;">ORDER SUMMARY</strong>
                                     </div>
 
                                     <div class="card p-4" id="orderCard" style="background-color:#faffff;">
@@ -233,15 +230,13 @@
                                             <div class="row">
                                                 <div class="card col-12 col-md-12">
                                                     <div class="row">
-                                                        <div class="col-12 col-md-12  mt-2">
-                                                            <label class="form-label mb-0" style="float:right; font-style: italic;">
-                                                Delivery By <%= new Date(new Date().getTime()+(3*24*60*60*1000)).toString().substring(0, 16) %> |
-                                                <% if(deliveryFee=="FREE" ){ %>
-                                                    FREE <strike style="color:gray">₹ 99</strike>
-                                                    <%}else{%>
-                                                        ₹ 99
-                                                        <% } %>
-                                            </label>
+                                                        <div class="col-12 col-md-12 mt-2">
+                                                            <label class="form-label mb-0 fs-14" style="float:right; font-style: italic;">
+                                                                Delivery By <%= new Date(new Date().getTime()+(3*24*60*60*1000)).toString().substring(0, 16) %> |
+                                                                <% if(deliveryFee=="FREE" ){ %>
+                                                                    FREE <s>₹ 99</s>
+                                                                    <% } else { %>₹ 99<% } %>
+                                                            </label>
                                                         </div>
 
                                                         <div class="col-12 col-md-10">
@@ -256,85 +251,43 @@
                                                                 <div class="col-12 col-md-10">
                                                                     <div class="row">
                                                                         <div class="col-12 col-md-12">
-                                                                            <label class="form-label mt-1 mb-0" style="text-align:justify">
-                                                                <h5><b>
-                                                                        <%=data.productID.productName %>
-                                                                    </b></h5>
-                                                            </label>
+                                                                            <label class="form-label mt-1 mb-0" style="text-align:justify"><h5><b><%=data.productID.productName %></b></h5></label>
                                                                         </div>
                                                                         <div class="col-12 col-md-12">
-                                                                            <label class="form-label">
-                                                                Sold By: <b>
-                                                                    <%=data.sellerID.busName %>
-                                                                </b>
-                                                            </label>
+                                                                            <label class="form-label">Sold By: <b><%=data.sellerID.busName %></b></label>
                                                                         </div>
                                                                         <%if(data.variantID){%>
                                                                             <div class="col-12 col-md-12">
                                                                                 <div class="row">
                                                                                     <div class="col-6 col-md-3">
-                                                                                        <label class="form-label">
-                                                                            Size: <b>
-                                                                                <%=data.size%>
-                                                                            </b>
-                                                                        </label>
+                                                                                        <label class="form-label">Size: <b><%=data.size%></b></label>
                                                                                     </div>
                                                                                     <div class="col-6 col-md-3">
-                                                                                        <label class="form-label">
-                                                                            Colour: <b>
-                                                                                <%=data.colour%>
-                                                                            </b>
-                                                                        </label>
+                                                                                        <label class="form-label">Colour: <b><%=data.colour%></b></label>
                                                                                     </div>
                                                                                     <div class="col-12 col-md-3">
-                                                                                        <label class="form-label">
-                                                                            Quantity: <b>
-                                                                                <%=data.quantity%>
-                                                                            </b>
-                                                                        </label>
+                                                                                        <label class="form-label">Quantity: <b><%=data.quantity%></b></label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <% }else{ %>
                                                                                 <div class="col-12 col-md-12">
-                                                                                    <label class="form-label">
-                                                                        Quantity: <b>
-                                                                            <%=data.quantity%>
-                                                                        </b>
-                                                                    </label>
+                                                                                    <label class="form-label">Quantity: <b><%=data.quantity%></b></label>
                                                                                 </div>
                                                                                 <% } %>
 
                                                                                     <div class="col-12 col-md-12">
                                                                                         <%if(data.variantID){%>
-                                                                                            <label class="form-label fs-5">
-                                                                                <b>₹ <%=data.variantID.sizes[0]["finalPrice"]%>
-                                                                                </b></label>
-                                                                                            <%if(data.variantID.sizes[0]["discount"]!=null){%>
-                                                                                                <label class="form-label fs-6" style="color: gray">
-                                                                                    <strike>₹
-                                                                                        <%=data.variantID.sizes[0]["actualPrice"]%>
-                                                                                    </strike>
-                                                                                </label>
-                                                                                                <label class="form-label fs-5" style="color: #249c50fa">
-                                                                                    <%=data.variantID.sizes[0]["discount"]%>
-                                                                                        % off
-                                                                                </label>
+                                                                                            <label class="form-label fs-5"><b>₹<%=data.variantID.sizes[size[i]]["finalPrice"]%></b></label>
+                                                                                            <%if(data.variantID.sizes[size[i]]["discount"]!=null){%>
+                                                                                                <label class="form-label fs-6" style="color: gray"><s>₹<%=data.variantID.sizes[size[i]]["actualPrice"]%></s></label>
+                                                                                                <label class="form-label fs-14" style="color: #249c50fa"><%=data.variantID.sizes[size[i]]["discount"]%>% off</label>
                                                                                                 <%}%>
                                                                                                     <%}else{%>
-                                                                                                        <label class="form-label fs-5">
-                                                                                            <b>₹ <%=data.productID.finalPrice%>
-                                                                                            </b></label>
+                                                                                                        <label class="form-label fs-5"><b>₹ <%=data.productID.finalPrice%></b></label>
                                                                                                         <%if(data.productID.discount!=null){%>
-                                                                                                            <label class="form-label fs-6" style="color: gray">
-                                                                                                <strike>₹
-                                                                                                    <%=data.productID.actualPrice%>
-                                                                                                </strike>
-                                                                                            </label>
-                                                                                                            <label class="form-label fs-5" style="color: #249c50fa">
-                                                                                                <%=data.productID.discount%>
-                                                                                                    % off
-                                                                                            </label>
+                                                                                                            <label class="form-label fs-6" style="color: gray"><s>₹<%=data.productID.actualPrice%></s></label>
+                                                                                                            <label class="form-label fs-5" style="color: #249c50fa"><%=data.productID.discount%>% off</label>
                                                                                                             <%}%>
                                                                                                                 <%}%>
                                                                                     </div>
@@ -491,6 +444,7 @@
         <script>
             var newAddressRadio = document.getElementById("newAddress")
             var defaultAddressCard = document.getElementById("defaultAddressCard")
+            var addressIDs = []
 
             function showAddressDetails() {
                 document.getElementById("addAddress").style.display = "block"
@@ -506,6 +460,7 @@
             }
 
             function editAddressFunc(addressID) {
+                addressIDs.push(addressID)
                 var editAddressBtn = document.getElementById("editAddressBtn" + addressID);
                 var editAddressCard = document.getElementById("editAddressCard")
                 document.getElementById("addAddress").style.display = "none"
@@ -555,16 +510,10 @@
 
                 $("#saveChangesBtn").click(function(e) {
                     e.preventDefault()
-                    if ($(editFirstName)[0].validity.valid &&
-                        $(editLastName)[0].validity.valid &&
-                        $(editEmail)[0].validity.valid &&
-                        $(editAddress)[0].validity.valid &&
-                        $(editState)[0].validity.valid &&
-                        $(editCity)[0].validity.valid &&
-                        $(editPinCode)[0].validity.valid &&
-                        $(editMobileNo)[0].validity.valid) {
+                    if ($(editFirstName)[0].validity.valid && $(editLastName)[0].validity.valid && $(editEmail)[0].validity.valid && $(editAddress)[0].validity.valid && $(editState)[0].validity.valid && $(editCity)[0].validity.valid && $(editPinCode)[0].validity.valid && $(editMobileNo)[0].validity.valid) {
+                        var updateAddressID = addressIDs[addressIDs.length - 1]
                         $.ajax({
-                            url: "/checkout/edit-address/" + addressID,
+                            url: "/checkout/edit-address/" + updateAddressID,
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

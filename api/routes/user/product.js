@@ -33,8 +33,9 @@ router.get('/variant/(:variantslugID)', async(req, res) => {
     var varelement = await Variants.findOne({ slugID: req.params.variantslugID });
     var element = await Products.findOne({ _id: varelement.prodID })
     await Products.updateOne({ _id: element._id }, { $inc: { "views": 1 } })
-    var vd = await Variants.find({ prodID: varelement.prodID })
+    var variantsData = await Variants.find({ prodID: varelement.prodID })
 
+    // Similar Products
     var similarProds = []
     var filteredProds = await Variants.find({ '_id': { $ne: varelement._id } }).populate('prodID')
     for (let i = 0; i < filteredProds.length && similarProds.length < 8; i++) {
@@ -45,6 +46,7 @@ router.get('/variant/(:variantslugID)', async(req, res) => {
         }
     }
 
+    // Product Review
     var review = await Review.find({ productID: varelement.prodID }).sort({ "rating": -1 }).populate('userID')
     if (review.length != 0) {
         var rat1 = await Review.find({ rating: '1', productID: varelement.prodID })
@@ -58,7 +60,8 @@ router.get('/variant/(:variantslugID)', async(req, res) => {
     } else {
         var rating = 0
     }
-    res.render('./user/product', { similarProds, totalrating: response, rating: rating.toFixed(1), reviewData: review, variantData: varelement, variantsData: vd, productData: element, user: req.session.userID });
+
+    res.render('./user/product', { similarProds, totalrating: response, rating: rating.toFixed(1), reviewData: review, variantData: varelement, variantsData, productData: element, user: req.session.userID });
 })
 
 router.get('/findsize/(:id)/(:size)', async(req, res) => {

@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router()
-const mongoose = require('mongoose')
 
 const Cart = require('../../models/user/cart')
 const Ads = require('../../models/seller/ads')
@@ -40,16 +39,15 @@ router.get('/', checkAuth, async(req, res) => {
         }
     }
 
-    res.render('user/cart', { promotedProducts, varDocs, cartData: docs, subTotal: subtotal.toFixed(2), Total: (subtotal).toFixed(2), size: size, user: req.session.userID })
+    res.render('user/cart', { promotedProducts, varDocs, cartData: docs, subTotal: subtotal.toFixed(2), Total: (subtotal).toFixed(2), size, user: req.session.userID })
 })
 
 router.post('/add-to-cart', async(req, res) => {
 
     if (req.session.userID) {
-        var status = true;
         if (req.body.variantID) {
+
             var cartdata = new Cart({
-                _id: mongoose.Types.ObjectId(),
                 userID: req.session.userID,
                 sellerID: req.body.sellerID,
                 variantID: req.body.variantID,
@@ -61,8 +59,7 @@ router.post('/add-to-cart', async(req, res) => {
 
             var doc = await Cart.find({ variantID: req.body.variantID, userID: req.session.userID, size: req.body.size })
             if (doc.length != 0) {
-                status = false;
-                res.json({ status: status });
+                return res.json({ status: false, login: true });
             }
         } else {
             var cartdata = new Cart({
@@ -74,17 +71,13 @@ router.post('/add-to-cart', async(req, res) => {
             })
             var docs = await Cart.find({ productID: req.body.productID, userID: req.session.userID })
             if (docs.length != 0) {
-                status = false;
-                res.json({ status: status });
+                return res.json({ status: false, login: true });
             }
         }
-        if (status) {
-            await cartdata.save().then(result => {
-                res.json({ status: true });
-            })
-        }
+        await cartdata.save()
+        res.json({ status: true, login: true });
     } else {
-        res.json({ status: 'login' });
+        res.json({ login: false });
     }
 
 })
@@ -97,10 +90,7 @@ router.get('/delete-cart/(:cartID)', checkAuth, async(req, res) => {
 router.post('/edit-cart', async(req, res) => {
     var docs = await Cart.find({ _id: req.body.id })
     if (docs.length != 0) {
-        var cartdata = new Cart({
-            quantity: req.body.qty,
-        })
-        await Cart.updateOne({ _id: req.body.id }, { $set: cartdata })
+        await Cart.updateOne({ _id: req.body.id }, { $set: { quantity: req.body.qty } })
         res.send("Done");
     }
 })

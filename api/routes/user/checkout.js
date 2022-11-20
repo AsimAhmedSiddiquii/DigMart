@@ -16,23 +16,37 @@ const config = require('../../utils/config')
 const checkAuth = require("../../middleware/user/checkAuth")
 
 router.get('/', checkAuth, async(req, res) => {
-    var docs = await Address.find({ userID: req.session.userID }).select().exec()
-    var doc = await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID').exec();
-    var i = 0;
+    var addressData = await Address.find({ userID: req.session.userID }).select().exec()
+    var cartData = await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID').exec();
+
     var totalMRP = 0;
     var finalPrice = 0;
     var couponDiscount = 0;
     var deliveryFee = "₹ 99"
+    var size = [];
 
-    for (i in doc) {
-        if (doc[i].variantID) {
-            totalMRP += parseInt(doc[i].variantID.sizes[0]["actualPrice"]) * parseInt(doc[i].quantity)
-            finalPrice += parseInt(doc[i].variantID.sizes[0]["finalPrice"]) * parseInt(doc[i].quantity)
+    for (let i = 0; i < cartData.length; i++) {
+        if (cartData[i].variantID) {
+            for (let j = 0; j < cartData[i].variantID.sizes.length; j++) {
+                if (cartData[i].variantID.sizes[j].sizes == cartData[i].size) {
+                    if (cartData[i].variantID.sizes[j].out_of_stock) {
+                        await Cart.findByIdAndRemove(cartData[i]._id)
+                        cartData.splice(i, 1)
+                        i--;
+                    } else {
+                        finalPrice += parseInt(cartData[i].variantID.sizes[j].finalPrice * parseInt(cartData[i].quantity));
+                        totalMRP += parseInt(cartData[i].variantID.sizes[j].actualPrice) * parseInt(cartData[i].quantity)
+                        size.push(j);
+                    }
+                }
+            }
         } else {
-            totalMRP += parseInt(doc[i].productID.actualPrice) * parseInt(doc[i].quantity)
-            finalPrice += parseInt(doc[i].productID.finalPrice) * parseInt(doc[i].quantity)
+            totalMRP += parseInt(cartData[i].productID.actualPrice) * parseInt(cartData[i].quantity)
+            finalPrice += parseInt(cartData[i].productID.finalPrice) * parseInt(cartData[i].quantity)
+            size.push(0);
         }
     }
+
     var discountOnMRP = totalMRP - finalPrice
     finalPrice -= couponDiscount
     if (finalPrice > 499) {
@@ -41,7 +55,7 @@ router.get('/', checkAuth, async(req, res) => {
     if (deliveryFee != "FREE") {
         finalPrice += 99
     }
-    res.render('./user/checkout', { addressData: docs, cartData: doc, totalMRP: totalMRP, discountOnMRP: discountOnMRP, couponDiscount: couponDiscount, deliveryFee: deliveryFee, finalPrice: finalPrice, user: req.session.userID, noSearch: true })
+    res.render('./user/checkout', { addressData, cartData, totalMRP, discountOnMRP, couponDiscount, deliveryFee, finalPrice, user: req.session.userID, size, noSearch: true })
 })
 
 router.post('/add-address', async(req, res, next) => {

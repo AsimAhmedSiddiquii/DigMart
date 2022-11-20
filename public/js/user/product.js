@@ -65,7 +65,7 @@ function addwishlist(element, sellerID, productID, variantID) {
 
 function addcart(sellerID, productID, variantID, colour) {
     if (document.getElementById("0size")) {
-        var size = document.getElementById(count + 'size').innerText;
+        size = document.getElementById(count + 'size').innerText;
     } else {
         size = null;
     }
@@ -82,10 +82,8 @@ function addcart(sellerID, productID, variantID, colour) {
         },
         dataType: 'json',
         success: function(result) {
-            if (result.status) {
-                if (result.status == 'login') {
-                    $('#loginpopup').modal('show');
-                } else {
+            if (result.login) {
+                if (result.status) {
                     swal({
                         title: 'Success',
                         text: 'Product added to your shopping cart',
@@ -96,19 +94,22 @@ function addcart(sellerID, productID, variantID, colour) {
                             window.location = '/cart'
                         }
                     })
+                } else {
+                    swal({
+                        title: 'Success',
+                        text: 'Product already in your cart',
+                        icon: 'success',
+                        buttons: ['Close', 'Go to cart']
+                    }).then((value) => {
+                        if (value) {
+                            window.location = '/cart'
+                        }
+                    })
                 }
             } else {
-                swal({
-                    title: 'Success',
-                    text: 'Product already in your cart',
-                    icon: 'success',
-                    buttons: ['Close', 'Go to cart']
-                }).then((value) => {
-                    if (value) {
-                        window.location = '/cart'
-                    }
-                })
+                $('#loginpopup').modal('show');
             }
+
         }
     })
 }

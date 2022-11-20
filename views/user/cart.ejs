@@ -32,11 +32,11 @@
                                         <div class="card mb-3">
                                             <div class="card-header p-1">
                                                 <div class="row">
-                                                    <div class="col-lg-8 col-xs-8">
+                                                    <div class="col-lg-8 col-xs-8 col-8 fs-14">
                                                         Seller:
                                                         <%= cartData.sellerID.busName %>
                                                     </div>
-                                                    <div class="col-lg-4 col-xs-4">
+                                                    <div class="col-lg-4 col-xs-4 col-4">
                                                         <a href="/cart/delete-cart/<%= cartData._id %>">
                                                             <i class="fa fa fa-times ms-2 mt-1 me-2" style="color: rgb(188, 21, 21); float: right;" aria-hidden="true"></i>
                                                         </a>
@@ -65,29 +65,33 @@
                                                                         <%= (cartData.productID.discount==null) ? (cartData.productID.actualPrice) : (cartData.productID.finalPrice) %>
                                                                             <% } %>
                                                         </span><br>
-                                                        <span style="font-size: 14px;">
-                                                            <% if (cartData.size){ %>
-                                                                Size:
-                                                                <%= cartData.size %> |
-                                                                    <% } %>
-                                                                        <% if (cartData.colour){ %>
-                                                                            Color:
-                                                                            <%= cartData.colour %> 
-                                                                                <% } %>
-                                                        </span><br>
-                                                        <%if(cartData.variantID){%>
-                                                            <div class="col-md-9 col-sm-3 col-3 mt-2 btn-group">
-                                                                <button type="button dec-btn" value="<%=i%>quantity" onclick="myFunction('sub','<%=cartData._id%>',this,'<%=cartData.variantID.sizes[size[i]].quantity%>','<%=cartData.variantID.sizes[size[i]].finalPrice%>')" class="value-button">-</button>
-                                                                <input class="value-input" style="max-width: 50px;" id="<%=i%>quantity" name="quantity" value="<%= cartData.quantity %>" disabled />
-                                                                <button type="button inc-btn" value="<%=i%>quantity" onclick="myFunction('add','<%=cartData._id%>',this,'<%=cartData.variantID.sizes[size[i]].quantity%>','<%=cartData.variantID.sizes[size[i]].finalPrice%>')" class="value-button">+</button>
-                                                            </div>
-                                                            <%}else{%>
-                                                                <div class="col-md-9 col-sm-3 col-3 btn-group">
-                                                                    <button type="button dec-btn" value="<%=i%>quantity" onclick="myFunction('sub','<%=cartData._id%>',this,'<%=cartData.productID.quantity%>','<%=cartData.productID.finalPrice%>')" class="value-button">-</button>
-                                                                    <input class="value-input" style="max-width: 50px;" id="<%=i%>quantity" name="quantity" value="<%= cartData.quantity %>" disabled />
-                                                                    <button type="button inc-btn" value="<%=i%>quantity" onclick="myFunction('add','<%=cartData._id%>',this,'<%=cartData.productID.quantity%>','<%=cartData.productID.finalPrice%>')" class="value-button">+</button>
-                                                                </div>
-                                                                <%}%>
+                                                        <% if (cartData.variantID.sizes[size[i]].out_of_stock) { %>
+                                                            <span class="fs-14 text-danger">Out of stock</span><br>
+                                                            <span class="fs-14 text-danger">This product will be removed on checkout</span>
+                                                            <% } else { %>
+                                                                <span class="fs-14">
+                                                                    <% if (cartData.size){ %>
+                                                                        Size:
+                                                                        <%= cartData.size %> |
+                                                                            <% } %>
+                                                                                <% if (cartData.colour){ %>
+                                                                                    Color:
+                                                                                    <%= cartData.colour %> 
+                                                                                        <% } %>
+                                                                </span><br>
+                                                                <%if(cartData.variantID){%>
+                                                                    <div class="col-md-9 col-sm-3 col-3 mt-2 btn-group">
+                                                                        <button type="button dec-btn" value="<%=i%>quantity" onclick="myFunction('sub','<%=cartData._id%>',this,'<%=cartData.variantID.sizes[size[i]].quantity%>','<%=cartData.variantID.sizes[size[i]].finalPrice%>')" class="value-button">-</button>
+                                                                        <input class="value-input" style="max-width: 50px;" id="<%=i%>quantity" name="quantity" value="<%= cartData.quantity %>" disabled />
+                                                                        <button type="button inc-btn" value="<%=i%>quantity" onclick="myFunction('add','<%=cartData._id%>',this,'<%=cartData.variantID.sizes[size[i]].quantity%>','<%=cartData.variantID.sizes[size[i]].finalPrice%>')" class="value-button">+</button>
+                                                                    </div>
+                                                                    <%}else{%>
+                                                                        <div class="col-md-9 col-sm-3 col-3 btn-group">
+                                                                            <button type="button dec-btn" value="<%=i%>quantity" onclick="myFunction('sub','<%=cartData._id%>',this,'<%=cartData.productID.quantity%>','<%=cartData.productID.finalPrice%>')" class="value-button">-</button>
+                                                                            <input class="value-input" style="max-width: 50px;" id="<%=i%>quantity" name="quantity" value="<%= cartData.quantity %>" disabled />
+                                                                            <button type="button inc-btn" value="<%=i%>quantity" onclick="myFunction('add','<%=cartData._id%>',this,'<%=cartData.productID.quantity%>','<%=cartData.productID.finalPrice%>')" class="value-button">+</button>
+                                                                        </div>
+                                                                        <% } } %>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,7 +134,7 @@
                                                     <h5><small>₹</small><label id="total"><%= Total %></label></h5>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-main mt-2 btn-lg col-md-12 col-sm-12 col-12" id="buy" onclick="gotoCheckout('<%= user %>')">Checkout</button>
+                                            <a href="/checkout" class="btn btn-main mt-2 btn-lg col-md-12 col-sm-12 col-12">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +158,7 @@
                     <div class="row mt-3 mb-3">
                         <% promotedProducts.forEach(function(product){ %>
 
-                            <div class="col-lg-3 col-xs-12 mb-2">
+                            <div class="col-lg-3 col-xs-12 mb-2 col-6">
                                 <div class="card">
                                     <% if (product.productID.hasVariant){ 
                                             for(j=0; j < varDocs.length; j++){
@@ -170,8 +174,7 @@
                                                 Sold By:
                                                 <%= product.sellerID.busName %>
                                             </p>
-                                            <p class="card-text">
-                                                ₹
+                                            <p class="card-text prodPrice mb-1">
                                                 <%= (varDocs[j].sizes[0].discount == null) ? varDocs[j].sizes[0].actualPrice : varDocs[j].sizes[0].finalPrice %>
                                             </p>
                                             <% if(product.productID.hasVariant){ %>
@@ -196,11 +199,6 @@
 
             <!-- Footer -->
             <%- include('components/footer') %>
-                <script>
-                    function gotoCheckout(userID) {
-                        window.location = "/checkout"
-                    }
-                </script>
                 <script src="/vendor/jquery/jquery.min.js"></script>
                 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="/js/user/login.js"></script>

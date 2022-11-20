@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 
 const Wishlist = require('../../models/user/wishlist');
+const Ads = require('../../models/seller/ads')
+const Variants = require('../../models/seller/variants')
 
 const checkAuth = require("../../middleware/user/checkAuth")
 
@@ -20,7 +22,20 @@ router.get('/', checkAuth, async(req, res) => {
             size.push(0);
         }
     }
-    res.render('user/wishlist', { wishlistData: docs, size: size, user: req.session.userID })
+
+    // Ads
+    var varDocs = []
+    var promotedProducts = await Ads.find({ expireDate: { $gte: new Date() } }).populate('productID sellerID').limit(4)
+    promotedProducts.sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < promotedProducts.length; i++) {
+        if (promotedProducts[i].productID.hasVariant) {
+            var doc = await Variants.find({ prodID: promotedProducts[i].productID._id })
+            varDocs.push(doc[0])
+        }
+    }
+
+    res.render('user/wishlist', { promotedProducts, varDocs, wishlistData: docs, size, user: req.session.userID })
 })
 
 router.post('/add-to-wishlist', async(req, res) => {
