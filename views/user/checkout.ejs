@@ -230,28 +230,19 @@
                                             <div class="row">
                                                 <div class="card col-12 col-md-12">
                                                     <div class="row">
-                                                        <div class="col-12 col-md-12 mt-2">
-                                                            <label class="form-label mb-0 fs-14" style="float:right; font-style: italic;">
-                                                                Delivery By <%= new Date(new Date().getTime()+(3*24*60*60*1000)).toString().substring(0, 16) %> |
-                                                                <% if(deliveryFee=="FREE" ){ %>
-                                                                    FREE <s>₹ 99</s>
-                                                                    <% } else { %>₹ 99<% } %>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="col-12 col-md-10">
+                                                        <div class="col-12 col-md-10 mt-2">
                                                             <div class="row">
-                                                                <div class="col-6 col-md-2 mt-2">
+                                                                <div class="col-6 col-md-3 mt-2">
                                                                     <%if(data.variantID){%>
                                                                         <img src="<%=data.variantID.images[0] %>" class="w-100">
                                                                         <%}else{%>
                                                                             <img src="<%=data.productID.images[0] %>" class="w-100">
                                                                             <%}%>
                                                                 </div>
-                                                                <div class="col-12 col-md-10">
+                                                                <div class="col-12 col-md-9">
                                                                     <div class="row">
                                                                         <div class="col-12 col-md-12">
-                                                                            <label class="form-label mt-1 mb-0" style="text-align:justify"><h5><b><%=data.productID.productName %></b></h5></label>
+                                                                            <label class="form-label mt-1 mb-0 text-italic"><h5><b><%=data.productID.productName %></b></h5></label>
                                                                         </div>
                                                                         <div class="col-12 col-md-12">
                                                                             <label class="form-label">Sold By: <b><%=data.sellerID.busName %></b></label>
@@ -295,9 +286,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-12 col-md-12">
+                                                            <label class="form-label mb-0 fs-14" style="float:right; font-style: italic;">
+                                                                Delivery By <%= new Date(new Date().getTime()+(3*24*60*60*1000)).toString().substring(0, 16) %> |
+                                                                <% if(deliveryFee=="FREE" ){ %>
+                                                                    FREE <s>₹ 99</s>
+                                                                    <% } else { %>₹ 99<% } %>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <% i++; }) %>
                                                 <% } %>
                                     </div>
@@ -393,51 +393,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Shipping Policy</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <span style="text-decoration:underline;">
-                                <strong>Domestic Shipping :</strong>
-                            </span>
-                        </p>
-                        <p>We ship all over India.</p>
-                        <p>Once we receive your order, we ship your product(s) within 2-3 working days using some of the best courier services available. You should receive your order within 7-10 working days from dispatch. In situations beyond DigMart's
-                            control, there may be circumstances which cause a delay. In such cases, DigMart's will strive to ensure delivery in the earliest timeframe possible.
-                        </p>
-                        <p>Free shipping on
-                            <strong>PREPAID</strong> orders when u shop for <strong>INR : 590/-</strong> or Above within
-                            <strong>INDIA.</strong>
-                        </p>
-
-                        <p>We charge a flat shipping rate of &#8377;60/- per order, when you shop below
-                            <strong>&#8377; 590/-</strong>.
-                        </p>
-                        <p>COD services are available all over India.</p>
-
-                        <p><span style="text-decoration:underline;">
-                                <strong>International Shipping:-</strong>
-                            </span>
-                        </p>
-                        <p><strong>We are shipping worldwide.</strong></p>
-
-                        <p>Note :- Standard and Free Shipping Deliveries to <strong>Jammu and
-                                Kashmir</strong> takes 20 days or more. So we always recommend customers from <strong>Jammu and Kashmir</strong> to choose
-                            <strong>Speed-post</strong> option to get their order delivered within 12 days approx.
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <script src="/vendor/jquery/jquery.min.js"></script>

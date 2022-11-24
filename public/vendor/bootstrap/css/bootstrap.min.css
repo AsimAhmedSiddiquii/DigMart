@@ -4691,7 +4691,7 @@ fieldset:disabled .btn {
     align-self: center;
     width: 100%;
     height: 30vh;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .card-img,

@@ -45,8 +45,14 @@
                                                 </div>
                                                 <% }} %>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"><h3><span class="carousel-control-prev-icon crousel-btn" aria-hidden="true">«</span></h3><span class="visually-hidden">Previous</span></button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next"><span class="carousel-control-next-icon crousel-btn" aria-hidden="true"><h3>»</h3></span><span class="visually-hidden">Next</span></button>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <h3><span class="carousel-control-prev-icon crousel-btn" aria-hidden="true">«</span></h3>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next"><span class="carousel-control-next-icon crousel-btn"
+                                aria-hidden="true">
+                                <h3>»</h3>
+                            </span><span class="visually-hidden">Next</span></button>
                     </div>
 
                     <div class="row">
@@ -99,7 +105,8 @@
                     <div class="share-options">
                         <p class="title">Share</p>
                         <div class="social-media">
-                            <a role="button" onclick="shareonWhatsApp()" class="social-media-btn"><i class="fab fa-whatsapp"></i></a>
+                            <a role="button" onclick="shareonWhatsApp()" class="social-media-btn"><i
+                                    class="fab fa-whatsapp"></i></a>
                         </div>
                         <div class="link-container">
                             <p class="link link-text"></p>
@@ -111,13 +118,17 @@
                         <h2 class="card-title text-dark">
                             <%= productData.productName %>
                         </h2>
-                        <% if(rating != 0){ %>
-                            <p class="card-text" style="font-size: 15px;"><span class="btn btn-sm  btn-success" style="font-size: 10px;"><%=rating%>&nbsp&nbsp<i class="fa fa-star"></i></span>&nbsp
+                        <% if(rating !=0){ %>
+                            <p class="card-text" style="font-size: 15px;"><span class="btn btn-sm  btn-success" style="font-size: 10px;">
+                                    <%=rating%>&nbsp&nbsp<i class="fa fa-star"></i>
+                                </span>&nbsp
                                 <%= totalrating %> Ratings &
                                     <%= reviewData.length %> Reviews
                             </p>
                             <%}%>
-                                <strong><p class="card-text fs-3 text-dark" id="noDiscount"></p></strong>
+                                <strong>
+                                    <p class="card-text fs-3 text-dark" id="noDiscount"></p>
+                                </strong>
                                 <div id="withDiscount">
                                     <p class="card-text fs-3 text-dark mb-0">
                                         <strong class="prodPrice" id="finalPrice"></strong><span class="ms-1 fs-6 text-black-20"><s id="actualPrice"></s></span>
@@ -138,13 +149,16 @@
                                         <strong>Size</strong>
                                         <div class="btn-group mt-1 pt-2 ms-2 mb-3" role="group" aria-label="Basic radio toggle button group">
                                             <% for (let i in variantData.sizes){ %>
-                                                <button type="button" value="<%= i%>" class="btn btn-outline-primary" onclick="findsize('<%= variantData.sizes[i].sizes%>')" name="btnradio" id="<%= i%>size"><%=variantData.sizes[i].sizes %></button>
+                                                <button type="button" value="<%= i%>" class="btn btn-outline-primary" onclick="findsize('<%= variantData.sizes[i].sizes%>')" name="btnradio" id="<%=i%>size">
+                                                    <%=variantData.sizes[i].sizes %>
+                                                </button>
                                                 <% } %>
                                         </div>
                                     </div>
 
                                     <div class="mt-3 mb-3">
-                                        <a onclick="addcart('<%=productData.sellerID%>','<%= productData._id%>','<%=variantData._id%>','<%=variantData.colours%>')" id="variantCartBtn" class="header-color p-3"><i class="fa fa-cart-plus" style="color: white"></i><b> &nbsp;ADD TO CART</b></a>
+                                        <a onclick="addcart('<%=productData.sellerID%>','<%= productData._id%>','<%=variantData._id%>','<%=variantData.colours%>')" id="variantCartBtn" class="header-color p-3"><i class="fa fa-cart-plus"
+                                                style="color: white"></i><b> &nbsp;ADD TO CART</b></a>
                                         <a class="btn btn-outline-danger" id="outOfStock" style="display: none; ">Currently, Out of stock</a>
                                     </div>
                                     <%}else{%>
@@ -154,7 +168,8 @@
                                                 <p class="text-success ">In Stock</p>
                                                 <%}%>
                                                     <div class="mb-3 ">
-                                                        <a onclick="addcart( '<%=productData.sellerID%>', '<%= productData._id%>',null,null) " class="header-color p-3 "><i class="fa fa-cart-plus " style="color: white "></i>&nbsp;<b>ADD TO CART</b></a>
+                                                        <a onclick="addcart( '<%=productData.sellerID%>', '<%= productData._id%>',null,null) " class="header-color p-3 "><i class="fa fa-cart-plus "
+                                                                style="color: white "></i>&nbsp;<b>ADD TO CART</b></a>
                                                     </div>
                                                     <%}%>
                     </div>
@@ -172,7 +187,7 @@
                         <div class="accordion-body ">
                             <strong>Description: </strong>
                             <%= productData.description %>
-                                <% if(productData.specifications.length != 0) { %>
+                                <% if(productData.specifications.length !=0) { %>
                                     <table class="table table-light table-striped mt-3 ">
                                         <tbody>
                                             <tr>
@@ -183,8 +198,8 @@
                                                     </td>
                                                     <%}%>
                                             </tr>
-                                            <% for (let i in productData.specifications){ 
-                                            if (productData.specifications[i].specName != " ") { %>
+                                            <% for (let i in productData.specifications){ if
+                                                (productData.specifications[i].specName !=" " ) { %>
                                                 <tr>
                                                     <td scope="row ">
                                                         <%=productData.specifications[i].specName %>
@@ -247,9 +262,11 @@
                                         <input type="file" class="form-control" name="images" id="images" multiple='multiple' accept="image/*">
                                         <br>
                                         <div class="mb-3">
-                                            <label for="reviewHeadline" class="form-label text-dark">Add a Headline</label>
+                                            <label for="reviewHeadline" class="form-label text-dark">Add a
+                                                Headline</label>
                                             <input type="text" class="form-control" id="reviewHeadline" name="reviewHeadline" required /><br>
-                                            <label for="reviewText" class="form-label text-dark">Review & Feedback</label>
+                                            <label for="reviewText" class="form-label text-dark">Review &
+                                                Feedback</label>
                                             <textarea class="form-control" id="reviewText" name="reviewText" rows="3" required></textarea>
                                         </div>
                                     </div>
@@ -264,7 +281,10 @@
                     <div class="row">
                         <% if(rating !=0){ %>
                             <div class="col-md-8">
-                                <p class="card-text text-dark"><span class="btn  btn-success" style="font-size: 15px"><i class="fa fa-star"> <%=rating%></i></span>&nbsp
+                                <p class="card-text text-dark"><span class="btn  btn-success" style="font-size: 15px"><i
+                                            class="fa fa-star">
+                                            <%=rating%>
+                                        </i></span>&nbsp
                                     <%=totalrating%> Ratings &
                                         <%=reviewData.length%> Reviews
                                 </p>
@@ -277,26 +297,35 @@
                                 </div>
                                 <%}%>
                                     <div class="col-md-4">
-                                        <button type="button" onclick="check('<%=productData._id%>')" class="btn header-color float-end" style="color: white">Rate Product</button>
+                                        <button type="button" onclick="check('<%=productData._id%>')" class="btn header-color float-end" style="color: white">Rate
+                                            Product</button>
                                     </div>
                     </div>
                     <hr>
 
                     <div class="container">
                         <div class="row g-3">
-                            <%if(reviewData.length > 2){%>
+                            <%if(reviewData.length> 2){%>
                                 <%for(let i=0; i < 2; i++){%>
                                     <div class="col-md-6">
                                         <div class="card">
                                             <div class="card-header">
-                                                <% if(reviewData[i].rating > 3){ %>
-                                                    <span class="btn btn-success"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                <% if(reviewData[i].rating> 3){ %>
+                                                    <span class="btn btn-success"><i class="fa fa-star"></i>
+                                                        <%=reviewData[i].rating%>
+                                                    </span>
                                                     <% } else if(reviewData[i].rating < 3){ %>
-                                                        <span class="btn btn-danger"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                        <span class="btn btn-danger"><i class="fa fa-star"></i>
+                                                            <%=reviewData[i].rating%>
+                                                        </span>
                                                         <% } else { %>
-                                                            <span class="btn btn-warning"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                            <span class="btn btn-warning"><i class="fa fa-star"></i>
+                                                                <%=reviewData[i].rating%>
+                                                            </span>
                                                             <%}%>
-                                                                <b class="ms-1 mt-1"><%=reviewData[i].reviewHeadline%></b>
+                                                                <b class="ms-1 mt-1">
+                                                                    <%=reviewData[i].reviewHeadline%>
+                                                                </b>
                                             </div>
 
                                             <div class="card-body">
@@ -311,7 +340,8 @@
                                                     <%if(reviewData[i].images.length !=0){%>
                                                         <div class="row mt-2 mb-1">
                                                             <div class="col-md-12 p-0 ms-2" id="review-img">
-                                                                <% for (let b=0; b < reviewData[i].images.length; b++){ %>
+                                                                <% for (let b=0; b < reviewData[i].images.length; b++){
+                                                                    %>
                                                                     <img src="<%= reviewData[i].images[b]%>" class="img-fluid img-thumbnail" onclick="imageModal('<%= reviewData[i].images[b]%>')">
                                                                     <%}%>
                                                             </div>
@@ -336,14 +366,25 @@
                                                     <div class="col-md-6">
                                                         <div class="card">
                                                             <div class="card-header">
-                                                                <% if(reviewData[i].rating > 3){ %>
-                                                                    <span class="btn btn-success"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                                <% if(reviewData[i].rating> 3){ %>
+                                                                    <span class="btn btn-success"><i
+                                                                            class="fa fa-star"></i>
+                                                                        <%=reviewData[i].rating%>
+                                                                    </span>
                                                                     <% } else if(reviewData[i].rating < 3){ %>
-                                                                        <span class="btn btn-danger"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                                        <span class="btn btn-danger"><i
+                                                                                class="fa fa-star"></i>
+                                                                            <%=reviewData[i].rating%>
+                                                                        </span>
                                                                         <% } else { %>
-                                                                            <span class="btn btn-warning"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                                            <span class="btn btn-warning"><i
+                                                                                    class="fa fa-star"></i>
+                                                                                <%=reviewData[i].rating%>
+                                                                            </span>
                                                                             <%}%>
-                                                                                <b class="ms-1 mt-1"><%=reviewData[i].reviewHeadline%></b>
+                                                                                <b class="ms-1 mt-1">
+                                                                                    <%=reviewData[i].reviewHeadline%>
+                                                                                </b>
                                                             </div>
 
                                                             <div class="card-body">
@@ -358,7 +399,9 @@
                                                                     <%if(reviewData[i].images.length !=0){%>
                                                                         <div class="row mt-2 mb-1">
                                                                             <div class="col-md-12 p-0 ms-2" id="review-img">
-                                                                                <% for (let b=0; b < reviewData[i].images.length; b++){ %>
+                                                                                <% for (let b=0; b <
+                                                                                    reviewData[i].images.length; b++){
+                                                                                    %>
                                                                                     <img src="<%= reviewData[i].images[b]%>" class="img-fluid img-thumbnail" onclick="imageModal('<%= reviewData[i].images[b]%>')">
                                                                                     <%}%>
                                                                             </div>
@@ -384,14 +427,24 @@
                                                 <div class="col-md-6">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <% if(reviewData[i].rating > 3){ %>
-                                                                <span class="btn btn-success"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                            <% if(reviewData[i].rating> 3){ %>
+                                                                <span class="btn btn-success"><i class="fa fa-star"></i>
+                                                                    <%=reviewData[i].rating%>
+                                                                </span>
                                                                 <% } else if(reviewData[i].rating < 3){ %>
-                                                                    <span class="btn btn-danger"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                                    <span class="btn btn-danger"><i
+                                                                            class="fa fa-star"></i>
+                                                                        <%=reviewData[i].rating%>
+                                                                    </span>
                                                                     <% } else { %>
-                                                                        <span class="btn btn-warning"><i class="fa fa-star"></i> <%=reviewData[i].rating%></span>
+                                                                        <span class="btn btn-warning"><i
+                                                                                class="fa fa-star"></i>
+                                                                            <%=reviewData[i].rating%>
+                                                                        </span>
                                                                         <%}%>
-                                                                            <b class="ms-1 mt-1"><%=reviewData[i].reviewHeadline%></b>
+                                                                            <b class="ms-1 mt-1">
+                                                                                <%=reviewData[i].reviewHeadline%>
+                                                                            </b>
                                                         </div>
 
                                                         <div class="card-body">
@@ -406,7 +459,8 @@
                                                                 <%if(reviewData[i].images.length !=0){%>
                                                                     <div class="row mt-2 mb-1">
                                                                         <div class="col-md-12 p-0 ms-2" id="review-img">
-                                                                            <% for (let b=0; b < reviewData[i].images.length; b++){ %>
+                                                                            <% for (let b=0; b <
+                                                                                reviewData[i].images.length; b++){ %>
                                                                                 <img src="<%= reviewData[i].images[b]%>" class="img-fluid img-thumbnail" onclick="imageModal('<%= reviewData[i].images[b]%>')">
                                                                                 <%}%>
                                                                         </div>
@@ -438,10 +492,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <% 
-                        if(similarProds.length!=0){
-                            similarProds.forEach(function(product){ 
-                        %>
+                        <% if(similarProds.length!=0){ similarProds.forEach(function(product){ %>
                             <div class="col-lg-3 col-xs-6 col-md-6 col-sm-6 col-6">
                                 <div class="card d-flex position-relative">
                                     <img class="card-img-top mt-1" style="height: 200px;" src="<%= product.images[0] %>">
@@ -461,10 +512,14 @@
                                                 <p class="card-text mb-2">
                                                     <% if(product.sizes[0].discount){ %>
 
-                                                        <span class="prodPrice">₹<%= product.sizes[0].finalPrice %></span>
-                                                        <span class="text-muted fs-12"><s><%=product.sizes[0].actualPrice%></s></span>
+                                                        <span class="prodPrice">₹<%= product.sizes[0].finalPrice %>
+                                                                </span>
+                                                        <span class="text-muted fs-12"><s>
+                                                                <%=product.sizes[0].actualPrice%>
+                                                            </s></span>
                                                         <% } else { %>
-                                                            <span class="prodPrice">₹<%= product.sizes[0].actualPrice %></span>
+                                                            <span class="prodPrice">₹<%= product.sizes[0].actualPrice %>
+                                                                    </span>
                                                             <% } %>
                                                 </p>
                                                 <a style="width: -webkit-fill-available; font-size: 14px;" class="btn btn-outline-primary" href="/product/variant/<%= product.slugID %>">View Product</a>
@@ -477,6 +532,48 @@
             </div>
         </div>
 
+        <div class="container mt-3 mb-3 rounded">
+            <div class="card shadow">
+                <div class="card-header header-color">
+                    Must Buy Products
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <% promotedProducts.forEach(function(product){ %>
+                            <div class="col-lg-3 col-xs-12 mb-2 col-6">
+                                <div class="card">
+                                    <% if (product.productID.hasVariant){ for(j=0; j < varDocs.length; j++){
+                                        if(varDocs[j].prodID.equals(product.productID._id)){ %>
+                                        <img class="card-img-top mt-1" style="height: 120px; width: auto;" src="<%= varDocs[j].images %>" href="/product/variant/<%= varDocs[j].slugID %>">
+
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <%= product.productID.productName %>
+                                            </h6>
+                                            <p class="card-subtitle text-muted">
+                                                Sold By:
+                                                <%= product.sellerID.busName %>
+                                            </p>
+                                            <p class="card-text prodPrice mb-1">
+                                                <%= (varDocs[j].sizes[0].discount==null) ?
+                                                    varDocs[j].sizes[0].actualPrice : varDocs[j].sizes[0].finalPrice %>
+                                            </p>
+                                            <% if(product.productID.hasVariant){ %>
+                                                <a style="width: -webkit-fill-available;" class="btn btn-outline-primary" id="buy" href="/product/variant/<%= varDocs[j].slugID %>">Buy Now</a>
+                                                <% } else { %>
+                                                    <a style="width: -webkit-fill-available;" class="btn btn-outline-primary" id="buy" href="/product/variant/<%= product.slugID %>" ">Buy Now</a>
+                                                    <% } %>
+                                        </div>
+                                        <% }}} %>
+
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <%- include('components/footer') %>
             <!-- Login Modal -->
             <%- include('components/login') %>
@@ -484,10 +581,10 @@
                 <%- include('../imageModal') %>
 </body>
 
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/js/user/login.js"></script>
-<script src="/js/user/swiper-bundle.min.js"></script>
+<script src=" /vendor/jquery/jquery.min.js "></script>
+<script src=" /vendor/bootstrap/js/bootstrap.bundle.min.js "></script>
+<script src=" /js/user/login.js "></script>
+<script src=" /js/user/swiper-bundle.min.js "></script>
 
 <script>
     const finalPrice = document.getElementById("finalPrice");
@@ -504,89 +601,82 @@
     function findsize(size) {
         const btnval = window.event.target.value;
         $.ajax({
-            url: "/product/findsize/<%=variantData._id%>/" + size,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            success: function(res) {
-                console.log(res)
-                '<% if(variantsData.length!=0){ for (let i in variantData.sizes){ %>'
-                document.getElementById('<%= i%>size').classList.remove('sizebutton')
-                '<% } %>'
-                count = btnval;
-                document.getElementById(btnval + 'size').classList.add('sizebutton')
-                if (res.discount == null) {
-                    withDiscount.style.display = "none"
-                    noDiscount.style.display = "inline"
-                    noDiscount.innerText = '₹' + res.finalPrice
-                } else {
-                    withDiscount.style.display = "inline"
-                    noDiscount.style.display = "none"
-                    finalPrice.innerText = '₹' + res.finalPrice
-                    actualPrice.innerText = "₹" + res.actualPrice
-                    discount.innerHTML = res.discount + "% off"
-                }
-                //Out Of Stock
-                if (res.out_of_stock) {
-                    if (variantCartBtn) {
-                        variantCartBtn.style.display = "none"
-                    }
-                    if (outOfStock) {
-                        outOfStock.style.display = "inline"
-                    }
-                } else {
-                    if (variantCartBtn) {
-                        variantCartBtn.style.display = "inline"
-                    }
-                    if (outOfStock) {
-                        outOfStock.style.display = "none"
-                    }
-                }
-            }
-        })
-    }
-
-    if ('<% variantData.sizes[0].discount%>' == null) {
-        withDiscount.style.display = "none"
-        noDiscount.style.display = "inline"
-        noDiscount.innerText = '₹<%=variantData.sizes[0].finalPrice%>'
-    } else {
-        withDiscount.style.display = "inline"
-        noDiscount.style.display = "none"
-        finalPrice.innerText = '₹<%=variantData.sizes[0].finalPrice%>'
-        actualPrice.innerText = "₹<%=variantData.sizes[0].actualPrice%>"
-        discount.innerHTML = '<%=variantData.sizes[0].discount%>' + "% off"
-    }
-
-
-    if ('<%= variantData.sizes[0].out_of_stock %>' == 'true') {
-        if (variantCartBtn) {
-            variantCartBtn.style.display = "none"
-        }
-        if (outOfStock) {
-            outOfStock.style.display = "inline"
-        }
-    }
-    document.getElementById('0size').classList.add('sizebutton')
-
-    '<%variantsData.forEach(function(data){ %>'
-    ' <%if(data.colours==variantData.colours){%>'
-    document.getElementById('<%= i%>color').classList.add('colorbutton')
-    '<% } i++; })} %>'
-    '<% } else { %>'
-    if ('<%=productData.discount%>' == null) {
-        withDiscount.style.display = "none"
-        noDiscount.style.display = "inline"
-        noDiscount.innerText = '₹ <%=productData.finalPrice%>'
-    } else {
-        withDiscount.style.display = "inline"
-        noDiscount.style.display = "none"
-        finalPrice.innerText = '₹ <%=productData.finalPrice%>'
-        actualPrice.innerText = "₹ <%=productData.actualPrice%>"
-        discount.innerHTML = '<%=productData.discount%>' + "% off"
-    }
-    '<% } %>'
+            url: "/product/findsize/<%=variantData._id%>/" + size, 
+            method: 'GET', 
+            headers: { 'Content-Type': 'application/json' }, 
+            success: function (res) { 
+                '<% if (variantsData.length != 0) { for (let i in variantData.sizes) { %>' 
+                document.getElementById('<%=i%>size').classList.remove('sizebutton'); 
+                '<% } %>' 
+                count=btnval; 
+                document.getElementById(btnval + 'size').classList.add('sizebutton'); 
+                if (res.discount == null) { 
+                    withDiscount.style.display = "none"; 
+                    noDiscount.style.display = "inline"; 
+                    noDiscount.innerText = '₹' + res.finalPrice 
+                } else { 
+                    withDiscount.style.display = "inline";
+                    noDiscount.style.display = "none"; 
+                    finalPrice.innerText = '₹' + res.finalPrice; 
+                    actualPrice.innerText = "₹" + res.actualPrice;                   
+                    discount.innerHTML = res.discount + "% off" 
+                } 
+                
+                //Out Of Stock 
+                if (res.out_of_stock) { 
+                    if (variantCartBtn) { 
+                        variantCartBtn.style.display = "none" 
+                    } 
+                    if (outOfStock) { 
+                        outOfStock.style.display = "inline" 
+                    } 
+                    } else { 
+                        if (variantCartBtn) { 
+                            variantCartBtn.style.display = "inline" 
+                        } 
+                        if (outOfStock) { 
+                            outOfStock.style.display = "none" 
+                        } 
+                    } 
+                } 
+            }) 
+        } if ('<% variantData.sizes[0].discount %>' == null) { 
+            withDiscount.style.display = "none"; 
+            noDiscount.style.display = "inline"; 
+            noDiscount.innerText = '₹ <%=variantData.sizes[0].finalPrice %> ' 
+        } else { 
+            withDiscount.style.display = "inline"; 
+            noDiscount.style.display = "none"; 
+            finalPrice.innerText = '₹<%=variantData.sizes[0].finalPrice %>'; 
+            actualPrice.innerText = "₹<%=variantData.sizes[0].actualPrice %>"; 
+            discount.innerHTML = '<%=variantData.sizes[0].discount %>' + "% off" 
+        } 
+        if ('<%= variantData.sizes[0].out_of_stock%>' == 'true' ) { 
+            if (variantCartBtn) { 
+                variantCartBtn.style.display = "none" 
+            } 
+            if (outOfStock) { 
+                outOfStock.style.display = "inline" 
+            } 
+        } 
+        document.getElementById('0size').classList.add('sizebutton');
+        '<% variantsData.forEach(function(data) { %> ' 
+        '<% if (data.colours == variantData.colours) { %>' 
+        document.getElementById('<%=i%>color').classList.add('colorbutton'); 
+        '<% } i++; })} %>' 
+        '<% } else { %> ' 
+        if ('<%=productData.discount %>' == null) { 
+            withDiscount.style.display = "none"; 
+            noDiscount.style.display = "inline"; 
+            noDiscount.innerText = '₹<%=productData.finalPrice %>' 
+        } else { 
+            withDiscount.style.display = "inline"; 
+            noDiscount.style.display = "none"; 
+            finalPrice.innerText = '₹<%=productData.finalPrice %>'; 
+            actualPrice.innerText = "₹<%=productData.actualPrice %>"; 
+            discount.innerHTML = '<%=productData.discount %>' + "% off"; 
+        } 
+            '<% } %>'
 </script>
 
 <script src="/js/user/product.js"></script>

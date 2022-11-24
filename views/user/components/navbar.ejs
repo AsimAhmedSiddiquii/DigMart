@@ -177,65 +177,62 @@
                     <ul id="results-sellers"></ul>
                 </div>
             </form>
-            <% } %>
 
 
-                <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
-                    <% if (user) { %>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle pe-md-3 pe-2" href="#" id="nav-dropdown-btn" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
-                            <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="nav-dropdown-btn">
-                                <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                                <li><a class="dropdown-item" href="/account"><i class="fas fa-user-circle"></i> View profile</a></li>
-                                <hr class="dropdown-divider">
-                                <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link pe-md-3 pe-2" href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
-                        </div>
-                        <% } else { %>
-                            <div class="nav-item mx-2 text-center">
-                                <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
-                            </div>
-                            <% } %>
-                </div>
-
-                <% if (!user) { %>
-                    <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-target="#loginpopup" data-bs-toggle="modal">
-                                <i class="fas fa-bars"></i>
-                            </button>
+            <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
+                <% if (user) { %>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle pe-md-3 pe-2" href="#" id="nav-dropdown-btn" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
+                        <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="nav-dropdown-btn">
+                            <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
+                            <li><a class="dropdown-item" href="/account"><i class="fas fa-user-circle"></i> View profile</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link pe-md-3 pe-2" href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+                    </div>
                     <% } else { %>
-                        <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                                    <i class="fas fa-bars"></i>
-                                </button>
+                        <div class="nav-item mx-2 text-center">
+                            <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        </div>
                         <% } %>
-                            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                                <div class="offcanvas-header">
-                                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welcome Back!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                </div>
-                                <div class="offcanvas-body">
-                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3" href="/account"><i class="fas fa-user-circle"></i>Profile</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3" href="/orders"><i class="fas fa-list"></i> My Orders</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3" href="/wishlist/<%=user%>"><i class="fas fa-heart"></i>Wishlist</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3" href="/cart/<%=user%>"><i class="fas fa-shopping-cart"></i>View Cart</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
+            </div>
+
+            <% if (!user) { %>
+                <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-bars"></i></button>
+                <% } else { %>
+                    <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"><i class="fas fa-bars"></i></button>
+                    <% } %>
+                        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welcome Back!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
+                            <div class="offcanvas-body">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-3" href="/account"><i class="fas fa-user-circle"></i> My Account</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-3" href="/orders"><i class="fas fa-list"></i> My Orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-3" href="/wishlist/<%=user%>"><i class="fas fa-heart"></i> Wishlist</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-3" href="/cart/<%=user%>"><i class="fas fa-shopping-cart"></i> View Cart</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <% } %>
     </div>
 </nav>
 
