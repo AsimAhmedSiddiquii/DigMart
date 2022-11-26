@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <title>Promoted Products | DigMart</title>
+    <title>Notifications | DigMart</title>
     <link href="/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
     <link href="/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
@@ -23,8 +23,8 @@
                     <div class="content">
                         <div class="container">
                             <div class="page-title">
-                                <h3><i class="fas fa-rocket"></i> Promoted Products
-                                    <a href="/seller/products/?status=Verified" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-rocket"></i> Promote Product</a>
+                                <h3><i class="fas fa-rocket"></i> Notifications
+                                    <a href="/seller/notifications/send-notification" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-bell"></i> Send a Notification</a>
                                 </h3>
                             </div>
                             <div class="box box-primary">
@@ -32,16 +32,20 @@
                                     <table width="100%" class="table table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>Product Name</th>
-                                                <th>Expiry Date</th>
+                                                <th>Title</th>
+                                                <th>Message</th>
+                                                <th>Valid till</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% if (promotedProducts.length!=0) { 
-                                                promotedProducts.forEach(function(data){ %>
+                                            <% if (notifications.length!=0) { 
+                                                notifications.forEach(function(data){ %>
                                                 <tr>
                                                     <td>
-                                                        <%= data.productID.productName %>
+                                                        <%= data.title %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.message %>
                                                     </td>
                                                     <td>
                                                         <%= data.expireDate %>
@@ -49,7 +53,7 @@
                                                 </tr>
                                                 <% }) } else { %>
                                                     <tr>
-                                                        <td colspan="3">No Data Found</td>
+                                                        <td colspan="4">No Notifications</td>
                                                     </tr>
                                                     <% } %>
                                         </tbody>

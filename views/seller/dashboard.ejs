@@ -35,9 +35,9 @@
 
 <body>
     <div class="wrapper">
-        <%- include('sidebar') %>
+        <%- include('components/sidebar') %>
             <div id="body" class="active">
-                <%- include('navbar') %>
+                <%- include('components/navbar') %>
                     <div class="content">
                         <div class="container">
                             <!-- PRODUCTS -->
@@ -238,12 +238,12 @@
                                 </div>
                             </div>
                             <div class="row mt-3 mb-3 position-relative" style="min-height: 200px;">
-                                <% if(selDoc.plan.title=='Basic'){ %>
+                                <% if(plan == 'Basic'){ %>
                                     <div id="overlay" class="d-flex justify-content-center ">
                                         <div id="overlay-content" class="align-self-center text-center">
                                             <i class="fas fa-lock fs-2"></i>
                                             <h5 class="my-2">Available only for Pro members</h5>
-                                            <button class="btn btn-outline-success mt-2" data-bs-toggle="modal" data-bs-target="#subscription-modal">Upgrade to Pro <i class="fas fa-angle-double-up"></i></button>
+                                            <a class="btn btn-outline-success mt-2" href="/seller/upgrade-to-pro"><i class="fas fa-angle-double-up"></i> Upgrade to Pro</a>
                                         </div>
                                     </div>
                                     <% } else { %>
@@ -358,9 +358,6 @@
                     </div>
             </div>
     </div>
-
-    <!-- SUBSCRIPTION MODAL -->
-    <%- include('subscriptionModal') %>
 
         <script src="/vendor/jquery/jquery.min.js"></script>
         <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

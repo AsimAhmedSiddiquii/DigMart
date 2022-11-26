@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <title>Promote Product | DigMart</title>
+    <link href="/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- sidebar navigation component -->
+        <%- include('../sidebar') %>
+            <!-- end of sidebar component -->
+            <div id="body" class="active">
+                <!-- navbar navigation component -->
+                <%- include('../navbar') %>
+                    <!-- end of navbar navigation -->
+                    <div class="content">
+                        <div class="container">
+                            <div class="card">
+                                <div class="content">
+                                    <h5 class="mb-3"><i class="fas fa-bell"></i> Send Notification to DigMart Users.</h5>
+                                    
+                                    <form method="post" action="/seller/notifications/send-notification">
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <label for="state" class="form-label">Notification Title</label>
+                                                <input type="text" class="form-control col-md-6" name="title" placeholder="Enter Notification Title" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="district" class="form-label">Notification Message</label>
+                                                <input type="text" class="form-control col-md-6" name="message" placeholder="Enter Notification Message" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-12">
+                                                <label class="form-label"><i class="fas fa-link"></i> Link to redirect</label>
+                                                <input type="url" class="form-control col-md-6" name="link" placeholder="https://digmart.co/..." required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <label for="state" class="form-label">Notification Duration</label>
+                                                <select name="days" class="form-select" id="days" onchange="calculate(this)" required>
+                                                    <option value="3" selected>3 days</option>
+                                                    <option value="5">5 days</option>
+                                                    <option value="10">10 days</option>
+                                                    <option value="20">20 days</option>
+                                                    <option value="30">30 days</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="district" class="form-label">Notification Charge</label>
+                                                <input class="form-control col-md-6" value="₹87" id="charge" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" style="width:25%;" type="submit"><i class="fa fa-bell"></i> Send Notification</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        function calculate(option) {
+            var amount = 29 * Number(option.value)
+            document.getElementById('charge').value = '₹' + amount
+        }
+    </script>
+
+</body>
+
+</html>

@@ -2,39 +2,31 @@ const express = require("express")
 const router = express.Router()
 const https = require('https')
 
-const Ads = require('../../models/seller/ads');
-const Products = require('../../models/seller/product');
+const Notification = require('../../models/user/notification');
+
+const checkPro = require("../../middleware/seller/checkPro")
 const checkAuth = require("../../middleware/seller/checkAuth")
+const useLocals = require("../../middleware/seller/useLocals")
 
 const { sendEmail } = require('../../utils/emailOtp')
+
 const checksum_lib = require('../../utils/checksum')
 const config = require('../../utils/config')
 
-router.get('/promoted-products', checkAuth, async(req, res) => {
-    var promotedProducts = await Ads.find({ sellerID: req.session.sellerID, paymentDone: true, expireDate: { $gte: new Date() } }).populate('productID')
-    res.render("./seller/promote/promoted", { promotedProducts, sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname })
+router.get('/', [checkAuth, checkPro, useLocals], async(req, res) => {
+    var notifications = await Notification.find({ sellerID: req.session.sellerID, paymentDone: true, expireDate: { $gte: new Date() } }).populate('productID')
+    res.render("./seller/notifications/notifications", { notifications })
 })
 
-router.get('/promote-product/(:productID)', checkAuth, async(req, res) => {
-
-    var checkAd = await Ads.find({
-        productID: req.params.productID,
-        expireDate: { $gte: new Date() }
-    })
-
-    if (checkAd.length == 0) {
-        var product = await Products.findById(req.params.productID).populate('category')
-        res.render('./seller/promote/promote-product', { product, sellerID: req.session.sellerID, pFname: req.session.pFname, pLname: req.session.pLname })
-    } else {
-        res.redirect('/seller/promote/promoted-products')
-    }
+router.get('/send-notification', [checkAuth, checkPro, useLocals], async(req, res) => {
+    res.render('./seller/notifications/add-notification')
 })
 
-router.post('/promote-product', checkAuth, async(req, res) => {
+router.post('/send-notification', [checkAuth, checkPro], async(req, res) => {
     var expdate = new Date();
     expdate.setDate(expdate.getDate() + Number(req.body.days))
 
-    var amount = 49 * Number(req.body.days)
+    var amount = 29 * Number(req.body.days)
 
     var params = {};
     params['MID'] = config.PaytmConfig.mid;
@@ -44,12 +36,14 @@ router.post('/promote-product', checkAuth, async(req, res) => {
     params['ORDER_ID'] = 'DIG_' + new Date().getTime();
     params['CUST_ID'] = req.session.sellerID;
     params['TXN_AMOUNT'] = amount.toString();
-    params['CALLBACK_URL'] = 'http://localhost:8080/seller/promote/callback';
+    params['CALLBACK_URL'] = 'http://localhost:8080/seller/notifications/callback';
 
-    var adsData = new Ads({
+    var notifyData = new Notification({
         orderID: params['ORDER_ID'],
-        productID: req.body.prodID,
         sellerID: req.session.sellerID,
+        title: req.body.title,
+        message: req.body.message,
+        link: req.body.link,
         expireDate: expdate
     })
 
@@ -63,7 +57,7 @@ router.post('/promote-product', checkAuth, async(req, res) => {
         }
         form_fields += "<input type='hidden' name='CHECKSUMHASH' value='" + checksum + "' >";
 
-        await adsData.save()
+        await notifyData.save()
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write('<html><head><title>Promote Product</title></head><body><center><h2>Redirecting, Please do not refresh this page...</h2></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>');
         res.end();
@@ -105,10 +99,9 @@ router.post('/callback', (req, res) => {
                 var _result = JSON.parse(response);
 
                 if (_result.STATUS == 'TXN_SUCCESS') {
-                    await Ads.findOneAndUpdate({ orderID: req.body.ORDERID }, { $set: { paymentDone: true } })
-                    res.redirect("/seller/promote/payment-success/" + req.body.ORDERID)
+                    res.redirect("/seller/notifications/payment-success/" + req.body.ORDERID)
                 } else {
-                    await Ads.deleteOne({ orderID: req.body.ORDERID })
+                    await Notification.deleteOne({ orderID: req.body.ORDERID })
                     res.redirect('/seller/payment-failed')
                 }
             });
@@ -119,9 +112,9 @@ router.post('/callback', (req, res) => {
 })
 
 router.get('/payment-success/(:orderID)', async(req, res) => {
-    var ads = await Ads.findOne({ orderID: req.params.orderID }).populate('sellerID')
-    await sendEmail({ email: ads.sellerID.busEmail, subj: 'DigMart - Product Promoted Successfully', msg: "Hello :D" })
-    res.render('./seller/promote/order-confirmed')
+    var notifyData = await Notification.findOne({ orderID: req.params.orderID }).populate('sellerID')
+    await sendEmail({ email: notifyData.sellerID.busEmail, subj: 'DigMart - Notification Sent Successfully!', msg: "Hello :D" })
+    res.render('./seller/notifications/order-confirmed')
 })
 
 module.exports = router

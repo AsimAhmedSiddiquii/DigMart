@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Failed</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/master.css" rel="stylesheet">
+</head>
+<style>
+    .clipPath-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #a1110e;
+        transition: clip-path 2s ease-out;
+        clip-path: circle(1% at 0 0);
+    }
+    
+    .clipPath-circle.active {
+        clip-path: circle(150% at 0 0);
+    }
+    
+    .moveToCenter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="clipPath-circle">
+        <div class="moveToCenter">
+            <img src="https://firebasestorage.googleapis.com/v0/b/digmart-7f2d3.appspot.com/o/images%2Falert.webp?alt=media&token=9a0db2a5-597a-4807-b0b5-b67cbb9d93da" style="width:40%">
+            <br><br><label class="fw-bold fs-3" style="color:white">Payment Failed</label>
+            <br><label style="color: white">Oops, Something Went Wrong!</label>
+            <br><a href="/checkout" class="mt-2 btn btn-outline-danger text-white">Try Again</a>
+        </div>
+    </div>
+
+    <script>
+        const circle = document.querySelector('.clipPath-circle')
+        circle.classList.add('active')
+
+        setTimeout(setbg, 2000)
+
+        function setbg() {
+            circle.classList.remove("clipPath-circle");
+            circle.classList.remove("active");
+            document.body.style.backgroundColor = "#a1110e"
+        }
+    </script>
+
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/form-validator.js"></script>
+    <script src="/js/user/swiper-bundle.min.js"></script>
+</body>
+
+</html>

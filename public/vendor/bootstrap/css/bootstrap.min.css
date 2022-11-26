@@ -10604,5 +10604,10 @@ fieldset:disabled .btn {
     font-weight: bold;
 }
 
+.header-color {
+    color: white;
+    background-color: #1e686dfa;
+    cursor: pointer;
+}
 
 /*# sourceMappingURL=bootstrap.min.css.map */

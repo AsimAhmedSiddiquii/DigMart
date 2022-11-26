@@ -24,7 +24,9 @@
                 <a class="navbar-brand px-3" href="/">
                     <img id="BrandLogo" src="/img/DigMart.png" class="img-fluid">
                 </a>
-                <button class="navbar-toggler collapsed d-flex d-md-none flex-column justify-content-around me-1 position-relative" id="navbar-toggler">
+                <button
+                    class="navbar-toggler collapsed d-flex d-md-none flex-column justify-content-around me-1 position-relative"
+                    id="navbar-toggler">
                     <span class="fas fa-bars fs-4 text-white"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbar-menu">
@@ -38,18 +40,24 @@
                         <li class="nav-item mx-2 text-center">
                             <a class="nav-link" href="#Sellers">Sellers</a>
                         </li>
-                        <% if (user) { %>
+                        <% if (userID) { %>
                             <li class="nav-item mx-2 text-center">
                                 <div class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                                    <ul class="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarScrollingDropdown2">
-                                        <li><a class="dropdown-item" href="/orders"><i class="fas fa-list"></i> Orders</a></li>
-                                        <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                                        <li><a class="dropdown-item" href="/account"><i class="fas fa-user"></i> Profile</a></li>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                                    <ul class="dropdown-menu dropdown-menu-md-end"
+                                        aria-labelledby="navbarScrollingDropdown2">
+                                        <li><a class="dropdown-item" href="/orders"><i class="fas fa-list"></i>
+                                                Orders</a></li>
+                                        <li><a class="dropdown-item" href="/wishlist"><i class="fas fa-heart"></i>
+                                                Wishlist</a></li>
+                                        <li><a class="dropdown-item" href="/account"><i class="fas fa-user"></i>
+                                                Profile</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                        <li><a class="dropdown-item" href="/login/logout"><i
+                                                    class="fas fa-sign-out-alt"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -58,7 +66,8 @@
                             </li>
                             <% } else { %>
                                 <li class="nav-item mx-2 text-center">
-                                    <a class="nav-link" role="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
+                                    <a class="nav-link" role="button" data-bs-target="#loginpopup"
+                                        data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i> Login</a>
                                 </li>
                                 <% } %>
 
@@ -66,57 +75,70 @@
                     </ul>
                 </div>
 
-                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="homeOffCanvas" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="homeOffCanvas"
+                    aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welcome Back!</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <% if (!user) { %>
+                            <% if (!userID) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link p-3" data-bs-dismiss="offcanvas" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i>Login</a>
+                                    <a class="nav-link p-3" data-bs-dismiss="offcanvas" data-bs-target="#loginpopup"
+                                        data-bs-toggle="modal"><i class="fas fa-sign-in-alt"></i>Login</a>
                                 </li>
                                 <% } else { %>
                                     <div class="accordion accordion-flush nav-item" id="accordionFlushExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header nav-link p-3" id="flush-headingOne">
-                                                <button class="accordion-button collapsed p-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                <button class="accordion-button collapsed p-0" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                    aria-expanded="false" aria-controls="flush-collapseOne">
                                                     <i class="fas fa-user-circle"></i> Profile</button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                                aria-labelledby="flush-headingOne"
+                                                data-bs-parent="#accordionFlushExample">
                                                 <div class="accordion-body py-0">
                                                     <li class="nav-item">
-                                                        <a class="nav-link p-3" href="#"><i class="fas fa-list"></i> My Orders</a>
+                                                        <a class="nav-link p-3" href="#"><i class="fas fa-list"></i> My
+                                                            Orders</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+                                                        <a class="nav-link p-3" href="/wishlist"><i
+                                                                class="fas fa-heart"></i> Wishlist</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link p-3" href="/cart"><i class="fas fa-shopping-cart"></i> View Cart</a>
+                                                        <a class="nav-link p-3" href="/cart"><i
+                                                                class="fas fa-shopping-cart"></i> View Cart</a>
                                                     </li>
                                                 </div>
                                             </div>
                                         </div>
                                         <% } %>
                                             <li class="nav-item">
-                                                <a class="nav-link p-3" href="#Sellers" data-bs-dismiss="offcanvas"><i class="fas fa-user-tie"></i> Featured Sellers</a>
+                                                <a class="nav-link p-3" href="#Sellers" data-bs-dismiss="offcanvas"><i
+                                                        class="fas fa-user-tie"></i> Featured Sellers</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link p-3" href="#deals" data-bs-dismiss="offcanvas"><i class="fas fa-bolt"></i> Lightning Deals</a>
+                                                <a class="nav-link p-3" href="#deals" data-bs-dismiss="offcanvas"><i
+                                                        class="fas fa-bolt"></i> Lightning Deals</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link p-3" href="/seller/signup"><i class="fas fa-handshake"></i> Become a Seller</a>
+                                                <a class="nav-link p-3" href="/seller/signup"><i
+                                                        class="fas fa-handshake"></i> Become a Seller</a>
                                             </li>
-                                            <% if (user) { %>
+                                            <% if(userID) { %>
                                                 <li class="nav-item">
-                                                    <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                                    <a class="nav-link p-3" href="/login/logout"><i
+                                                            class="fas fa-sign-out-alt"></i> Logout</a>
                                                 </li>
                                                 <%}%>
                         </ul>
-                        </div>
                     </div>
                 </div>
+            </div>
         </nav>
     </section>
 
@@ -128,8 +150,11 @@
                 <h2 class="fs-2" style="letter-spacing: 1.75px;">Discover the best in your Locality</h2>
             </div>
             <div class="search-wrapper pt-4  mx-auto">
-                <form class="d-flex search-container justify-content-center align-items-center" role="search" method="post" action="/search-results">
-                    <input id="searchField" class="form-control" type="search" placeholder="Search what you are looking for?" aria-label="Search" onkeyup="searchData(this)" required name="payload">
+                <form class="d-flex search-container justify-content-center align-items-center" role="search"
+                    method="post" action="/search-results">
+                    <input id="searchField" class="form-control" type="search"
+                        placeholder="Search what you are looking for?" aria-label="Search" onkeyup="searchData(this)"
+                        required name="payload">
                     <button id="searchBtn" class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div id="search-results">
@@ -189,13 +214,13 @@
                                 </div>
                                 <div class="des px-2 text-center">
                                     <span class="selName fs-5 d-block"><b>
-                                        <%= data.busName %>
-                                    </b></span>
+                                            <%= data.busName %>
+                                        </b></span>
                                     <span class="selCat text-muted d-block">
-                                    <% data.busCat.forEach(function(cat){%>
-                                        <%= cat.catName %>,
-                                            <% })%>
-                                </span>
+                                        <% data.busCat.forEach(function(cat){%>
+                                            <%= cat.catName %>,
+                                                <% })%>
+                                    </span>
                                 </div>
                             </div>
                             <% }) %>
@@ -216,11 +241,8 @@
                         <div id="product1" class="swiper-wrapper">
                             <% promotedProducts.forEach(function(product){ %>
                                 <div class="pro swiper-slide">
-                                    <% 
-                                        if(product.productID.hasVariant){ 
-                                            for(j=0; j < varDocs.length; j++){
-                                                if(varDocs[j].prodID.equals(product.productID._id)){ 
-                                    %>
+                                    <% if(product.productID.hasVariant){ for(j=0; j < varDocs.length; j++){
+                                        if(varDocs[j].prodID.equals(product.productID._id)){ %>
                                         <div class="imgDiv" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
                                             <% if(varDocs[j].sizes[0].discount){ %>
                                                 <div class="prodDiscount">
@@ -229,17 +251,27 @@
                                                 <%}%>
                                                     <img src="<%=varDocs[j].images%>" alt="<%=product.productName%>">
                                         </div>
-                                        <div class="des px-2 mt-1 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
-                                            <span class="prodCat d-block"><%= product.sellerID.busName %>'s</span>
-                                            <span class="prodName"><%= product.productID.productName %></span>
+                                        <div class="des px-2 mt-1 text-start"
+                                            onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
+                                            <span class="prodCat d-block">
+                                                <%= product.sellerID.busName %>'s
+                                            </span>
+                                            <span class="prodName">
+                                                <%= product.productID.productName %>
+                                            </span>
                                             <div>
-                                                <span class="prodPrice"><%=varDocs[j].sizes[0].finalPrice%></span>
+                                                <span class="prodPrice">
+                                                    <%=varDocs[j].sizes[0].finalPrice%>
+                                                </span>
                                                 <%if(varDocs[j].sizes[0].discount){%>
-                                                    <span class="discPrice text-muted"><%=varDocs[j].sizes[0].actualPrice%></span>
+                                                    <span class="discPrice text-muted">
+                                                        <%=varDocs[j].sizes[0].actualPrice%>
+                                                    </span>
                                                     <%}%>
                                             </div>
                                         </div>
-                                        <i class="fa fa-heart" onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', '<%=varDocs[j]._id%>', '<%=varDocs[j].sizes[0].sizes%>')"></i>
+                                        <i class="fa fa-heart"
+                                            onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', '<%=varDocs[j]._id%>', '<%=varDocs[j].sizes[0].sizes%>')"></i>
                                         <%}}} else {%>
                                             <div class="imgDiv" onclick="openProduct('<%=product.slugID%>', null)">
                                                 <%if(product.discount){%>
@@ -247,19 +279,30 @@
                                                         <%=product.discount%>
                                                     </div>
                                                     <%}%>
-                                                        <img src="<%= product.images %>" alt="<%= product.productName %>">
+                                                        <img src="<%= product.images %>"
+                                                            alt="<%= product.productName %>">
                                             </div>
-                                            <div class="des px-2 text-start" onclick="openProduct('<%= product.slugID %>', null)">
-                                                <span class="prodCat d-block"><%=product.category%></span>
-                                                <span class="prodName"><%=product.productName%></span>
+                                            <div class="des px-2 text-start"
+                                                onclick="openProduct('<%= product.slugID %>', null)">
+                                                <span class="prodCat d-block">
+                                                    <%=product.category%>
+                                                </span>
+                                                <span class="prodName">
+                                                    <%=product.productName%>
+                                                </span>
                                                 <div>
-                                                    <span class="prodPrice"><%= product.finalPrice %></span>
+                                                    <span class="prodPrice">
+                                                        <%= product.finalPrice %>
+                                                    </span>
                                                     <%if(product.discount){%>
-                                                        <span class="discPrice text-muted"><%=product.actualPrice%></span>
+                                                        <span class="discPrice text-muted">
+                                                            <%=product.actualPrice%>
+                                                        </span>
                                                         <%}%>
                                                 </div>
                                             </div>
-                                            <i class="fa fa-heart" onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', null, null)"></i>
+                                            <i class="fa fa-heart"
+                                                onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', null, null)"></i>
                                             <%}%>
                                 </div>
                                 <%})%>

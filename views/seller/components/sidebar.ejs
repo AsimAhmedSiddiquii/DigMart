@@ -7,7 +7,8 @@
             <a href="/seller/dashboard"><i class="fas fa-home"></i> Dashboard</a>
         </li>
         <li>
-            <a href="#productsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-archive"></i> Products <i class="fas fa-caret-down float-end"></i></a>
+            <a href="#productsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                    class="fas fa-archive"></i> Products <i class="fas fa-caret-down float-end"></i></a>
 
             <ul class="collapse list-unstyled" id="productsmenu">
                 <li>
@@ -29,7 +30,8 @@
             </ul>
         </li>
         <li>
-            <a href="#ordersmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-money-bill"></i> Orders <i class="fas fa-caret-down float-end"></i></a>
+            <a href="#ordersmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                    class="fas fa-money-bill"></i> Orders <i class="fas fa-caret-down float-end"></i></a>
             <ul class="collapse list-unstyled" id="ordersmenu">
                 <li>
                     <a href="/seller/orders/new-orders"><i class="fas fa-arrow-circle-down"></i> New Orders</a>
@@ -45,11 +47,23 @@
         <li>
             <a href="/seller/gallery"><i class="fas fa-image"></i> Gallery</a>
         </li>
+
         <li>
             <a href="/seller/promote/promoted-products"><i class="fas fa-rocket"></i> Promoted Products</a>
         </li>
-        <li>
-            <a href="/seller/coverage"><i class="fas fa-map-marked-alt"></i> Coverage Area</a>
-        </li>
+
+        <% if(plan=="Pro" ){ %>
+            <li>
+                <a href="/seller/notifications"><i class="fas fa-bell"></i> Send Notification</a>
+            </li>
+            <% } else {%>
+                <li>
+                    <a href="/seller/upgrade-to-pro"><i class="fas fa-angle-double-up"></i> Upgrade to Pro</a>
+                </li>
+                <% } %>
+
+                <li>
+                    <a href="/seller/coverage"><i class="fas fa-map-marked-alt"></i> Coverage Area</a>
+                </li>
     </ul>
 </nav>

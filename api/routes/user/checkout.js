@@ -14,8 +14,9 @@ const checksum_lib = require('../../utils/checksum')
 const config = require('../../utils/config')
 
 const checkAuth = require("../../middleware/user/checkAuth")
+const useLocals = require("../../middleware/user/useLocals")
 
-router.get('/', checkAuth, async(req, res) => {
+router.get('/', [checkAuth, useLocals], async(req, res) => {
     var addressData = await Address.find({ userID: req.session.userID }).select().exec()
     var cartData = await Cart.find({ userID: req.session.userID }).populate('sellerID productID variantID').exec();
 
@@ -55,7 +56,7 @@ router.get('/', checkAuth, async(req, res) => {
     if (deliveryFee != "FREE") {
         finalPrice += 99
     }
-    res.render('./user/checkout', { addressData, cartData, totalMRP, discountOnMRP, couponDiscount, deliveryFee, finalPrice, user: req.session.userID, size, noSearch: true })
+    res.render('./user/checkout', { addressData, cartData, totalMRP, discountOnMRP, couponDiscount, deliveryFee, finalPrice, size, noSearch: true })
 })
 
 router.post('/add-address', async(req, res, next) => {
@@ -195,12 +196,12 @@ router.post('/callback', (req, res) => {
             post_res.on('end', async function() {
                 var currentDate = new Date();
                 var _result = JSON.parse(response);
+
                 if (_result.STATUS == 'TXN_SUCCESS') {
                     var user = await Order.findOne({ orderID: req.body.ORDERID })
                     var userID = user.userID
 
                     var cartData = await Cart.find({ userID: userID }).populate('productID variantID').exec()
-                    console.log(cartData)
 
                     for (var i = 0; i < cartData.length; i++) {
                         var prodTotal = 0;
@@ -254,7 +255,8 @@ router.post('/callback', (req, res) => {
 
                     res.redirect("/checkout/payment-success/" + req.body.ORDERID)
                 } else {
-                    res.send('payment failed')
+                    await Order.deleteOne({ orderID: req.body.ORDERID })
+                    res.redirect('/checkout/payment-failed')
                 }
             });
         });
@@ -267,9 +269,12 @@ router.post('/callback', (req, res) => {
 
 router.get('/payment-success/(:id)', async(req, res) => {
     var order = await Order.find({ orderID: req.params.id }).populate('addressID').select().exec();
-    console.log(order[0].addressID.email)
     await sendEmail({ email: order[0].addressID.email, subj: 'DigMart - Order Confirmation Mail', msg: "Your OTP for Email Authentication is " })
     res.render('./user/order-confirmed', { orderID: req.params.id })
+})
+
+router.get('/payment-failed', async(req, res) => {
+    res.render('./user/order-failed')
 })
 
 module.exports = router

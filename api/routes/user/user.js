@@ -11,12 +11,14 @@ const Ads = require("../../models/seller/ads")
 const Products = require('../../models/seller/product')
 const Variants = require('../../models/seller/variants')
 
-router.get('/', async(req, res) => {
+const useLocals = require("../../middleware/user/useLocals")
+
+router.get('/', useLocals, async(req, res) => {
     var varDocs = []
     var catData = await Category.find()
-    var selData = await Seller.find({ featured: true, status: 'Verified' }).populate('busCat')
+    var selData = await Seller.find({ 'plan.title': 'Pro', status: 'Verified' }).populate('busCat')
+    
     var promotedProducts = await Ads.find({ expireDate: { $gte: new Date() } }).populate('productID sellerID')
-
     promotedProducts.sort(() => Math.random() - 0.5);
 
     for (let i = 0; i < promotedProducts.length; i++) {
@@ -25,10 +27,11 @@ router.get('/', async(req, res) => {
             varDocs.push(doc[0])
         }
     }
-    res.render('./user/home', { promotedProducts, catData, selData, varDocs, user: req.session.userID })
+    
+    res.render('./user/home', { promotedProducts, catData, selData, varDocs })
 })
 
-router.get('/shop-by-category', async(req, res) => {
+router.get('/shop-by-category', useLocals, async(req, res) => {
     var varDocs = []
 
     var catDocs = await Category.findOne({ catName: req.query.cat })
@@ -50,7 +53,7 @@ router.get('/shop-by-category', async(req, res) => {
             varDocs.push(doc[0])
         }
     }
-    res.render('./user/shop-by-category', { catDocs: catDocs, subcatDocs, proDocs: proDocs, varDocs: varDocs, user: req.session.userID })
+    res.render('./user/shop-by-category', { catDocs: catDocs, subcatDocs, proDocs: proDocs, varDocs: varDocs })
 })
 
 router.post('/api/pincode', (req, res) => {

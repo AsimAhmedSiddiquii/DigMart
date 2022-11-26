@@ -187,3 +187,7 @@ function sortProd(val, tab) {
         })
     }
 }
+
+function shareviaMail(sellerName) {
+   window.location.href = 'mailto:?Subject=Check this Seller on DigMart&body=Hey!%0D%0DI found a seller ' + sellerName +' on DigMart.%0D%0DFollow this link: ' + window.location.href+'%0D'; 
+}

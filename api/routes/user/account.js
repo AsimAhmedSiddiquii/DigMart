@@ -2,13 +2,13 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require('mongoose')
 
-const checkAuth = require("../../middleware/user/checkAuth")
 const Address = require("../../models/user/address");
-const User = require('../../models/user/user');
 
-router.get('/', checkAuth, async(req, res) => {
-    var personalData = await User.findById(req.session.userID)
-    res.render('./user/account', { personalData, user: req.session.userID })
+const checkAuth = require("../../middleware/user/checkAuth")
+const useLocals = require("../../middleware/user/useLocals")
+
+router.get('/', [checkAuth, useLocals], async(req, res) => {
+    res.render('./user/account/account')
 })
 
 router.post('/', async(req, res, next) => {
@@ -34,10 +34,9 @@ router.post('/', async(req, res, next) => {
         })
 })
 
-router.get('/addresses', checkAuth, async(req, res) => {
-    var personalData = await User.findById(req.session.userID)
-    var docs = await Address.find({ userID: req.session.userID }).select().exec();
-    res.render('./user/account-addresses', { personalData, addressData: docs, user: req.session.userID })
+router.get('/addresses', [checkAuth, useLocals], async(req, res) => {
+    var addressData = await Address.find({ userID: req.session.userID }).select().exec();
+    res.render('./user/account/account-addresses', { addressData })
 })
 
 router.post('/add-address', async(req, res, next) => {

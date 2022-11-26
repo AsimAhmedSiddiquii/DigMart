@@ -6,6 +6,8 @@ const Products = require("../../models/seller/product");
 const Review = require("../../models/user/reviews");
 const Ads = require('../../models/seller/ads')
 
+const useLocals = require("../../middleware/user/useLocals")
+
 router.get('/view-product/(:id)', async(req, res) => {
     var slugid = req.params.id;
     var productData = await Products.findOne({ slugID: slugid })
@@ -27,10 +29,10 @@ router.get('/view-product/(:id)', async(req, res) => {
     }
 
     var similarProds = await Products.find({ category: productData.category, subcategory: productData.subcategory }).limit(10)
-    res.render('./user/product', { totalrating: response, rating: rating.toFixed(1), reviewData, variantData: docs[0], variantsData: docs, productData, user: req.session.userID, similarProds });
+    res.render('./user/product', { totalrating: response, rating: rating.toFixed(1), reviewData, variantData: docs[0], variantsData: docs, productData, similarProds });
 })
 
-router.get('/variant/(:variantslugID)', async(req, res) => {
+router.get('/variant/(:variantslugID)', useLocals, async(req, res) => {
     var variantData = await Variants.findOne({ slugID: req.params.variantslugID });
     var productData = await Products.findOne({ _id: variantData.prodID })
     await Products.updateOne({ _id: productData._id }, { $inc: { "views": 1 } })
@@ -74,7 +76,7 @@ router.get('/variant/(:variantslugID)', async(req, res) => {
         }
     }
 
-    res.render('./user/product', { promotedProducts, varDocs, similarProds, totalrating: response, rating: rating.toFixed(1), reviewData, variantData, variantsData, productData, user: req.session.userID });
+    res.render('./user/product', { promotedProducts, varDocs, similarProds, totalrating: response, rating: rating.toFixed(1), reviewData, variantData, variantsData, productData });
 })
 
 router.get('/findsize/(:id)/(:size)', async(req, res) => {

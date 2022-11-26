@@ -8,7 +8,8 @@ const User = require('../../models/user/user');
 const Products = require('../../models/seller/product');
 const OrderItem = require('../../models/user/order_item')
 
-const CheckAuth = require('../../middleware/user/checkAuth');
+const checkAuth = require('../../middleware/user/checkAuth');
+const useLocals = require('../../middleware/user/useLocals');
 
 const firebase = require("../../utils/firebase");
 const storage = firebase.storage().ref();
@@ -89,13 +90,13 @@ router.post('/checkprof', async(req, res) => {
     }
 })
 
-router.get('/reviews-and-ratings', CheckAuth, async(req, res) => {
+router.get('/reviews-and-ratings', [checkAuth, useLocals], async(req, res) => {
     var personalData = await User.findById(req.session.userID)
     var reviews = await Review.find({ userID: req.session.userID }).sort({ "rating": -1 });
-    res.render('./user/review-page', { reviews, personalData, user: req.session.userID })
+    res.render('./user/review-page', { reviews, personalData })
 })
 
-router.get('/delete-review/(:reviewID)', CheckAuth, async(req, res) => {
+router.get('/delete-review/(:reviewID)', [checkAuth], async(req, res) => {
     await Review.findByIdAndRemove(req.params.reviewID)
     res.redirect('/review/reviews-and-ratings')
 })

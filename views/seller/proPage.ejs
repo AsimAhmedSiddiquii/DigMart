@@ -1,13 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <title>
+        Upgrade to Pro
+    </title>
+
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/user/seller-profile.css" rel="stylesheet" />
+    <link href="/css/user/shop-by-category.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6edf2362ba.js" crossorigin="anonymous"></script>
+</head>
+
 <style>
     .modal-backdrop {
         opacity: 0.9 !important;
     }
-    
+
     .modal-content {
         border-radius: .3rem;
         box-shadow: rgba(4, 255, 66, 0.24) 0px 3px 8px;
     }
-    
+
     .modal-body {
         border-radius: .3rem;
         border-bottom-left-radius: 10rem;
@@ -15,55 +34,59 @@
         border-bottom: 2px solid #198754;
         background-color: #eaffebf8;
     }
-    
+
     .btn-close {
         top: .5rem;
         right: .5rem;
     }
-    
+
     .btn-close:focus {
         box-shadow: none;
     }
-    
+
     #features p {
         color: #198754;
         font-weight: bold;
         margin-bottom: .5rem;
         margin-left: 24%;
     }
-    
+
     .modal-footer {
         border-top: none;
     }
-    
+
     #totalPrice::before {
         content: '₹';
     }
-    
+
     #perPrice {
         margin-top: -0.8rem;
     }
-    
+
     .btn-check:checked+.btn-outline-dark:focus {
         box-shadow: none;
     }
-    
+
     .btn-group label::after {
         content: ' months';
     }
-    
+
     .cutout {
         color: #6c757d !important;
         text-decoration: line-through;
     }
 </style>
-<div class="modal fade" id="subscription-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<body>
+
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
         <div class="modal-content">
             <form action="/seller/pro-payment" method="post">
                 <div class="modal-body position-relative">
-                    <h3 class="modal-title text-center text-success mt-2 mx-3" id="staticBackdropLabel">Pro Plan</h3>
-                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h3 class="modal-title text-center text-success mt-2 mx-3" id="staticBackdropLabel">Pro Plan
+                    </h3>
+                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
 
                     <div class="text-center">
                         <span id='totalPrice' class="mt-3 fw-bold" style="font-size: 3.5rem;">99</span>
@@ -73,14 +96,19 @@
                     </div>
                     <div class="d-flex justify-content-center">
                         <div class="btn-group" role="group" aria-label="Vertical radio toggle button group">
-                            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
-                            <label class="btn btn-outline-dark" for="vbtn-radio1" onclick="changePricing(1, 99)">1</label>
+                            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-dark" for="vbtn-radio1"
+                                onclick="changePricing(1, 99)">1</label>
                             <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="vbtn-radio1" onclick="changePricing(3, 279)">3</label>
+                            <label class="btn btn-outline-dark" for="vbtn-radio1"
+                                onclick="changePricing(3, 279)">3</label>
                             <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="vbtn-radio2" onclick="changePricing(6, 549)">6</label>
+                            <label class="btn btn-outline-dark" for="vbtn-radio2"
+                                onclick="changePricing(6, 549)">6</label>
                             <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
-                            <label class="btn btn-outline-dark" for="vbtn-radio3" onclick="changePricing(12, 999)">12</label>
+                            <label class="btn btn-outline-dark" for="vbtn-radio3"
+                                onclick="changePricing(12, 999)">12</label>
                         </div>
                     </div>
                     <div id="features" class="mt-4">
@@ -97,7 +125,10 @@
             </form>
         </div>
     </div>
-</div>
+
+</body>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
 
 <script>
     function changePricing(months, price) {
@@ -108,3 +139,5 @@
         $('#perPrice').html('@ ₹' + permon + '/month)')
     }
 </script>
+
+</html>

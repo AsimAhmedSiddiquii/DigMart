@@ -19,6 +19,7 @@ const productVariantRoute = require("./api/routes/seller/variant");
 const sellerGalleryRoute = require("./api/routes/seller/gallery");
 const sellerCoverageRoute = require("./api/routes/seller/coverage");
 const sellerPromoteRoute = require("./api/routes/seller/promote");
+const sellerNotifyRoute = require("./api/routes/seller/notifications");
 
 const orderRoute = require("./api/routes/seller/orders");
 const userLoginRoute = require("./api/routes/user/user-login");
@@ -32,6 +33,7 @@ const userCheckoutRoute = require("./api/routes/user/checkout");
 const userAccountRoute = require("./api/routes/user/account");
 const userReviewRoute = require("./api/routes/user/review");
 const userOrdersRoute = require("./api/routes/user/orders");
+const userNotifyRoute = require("./api/routes/user/notifications");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,10 +50,10 @@ mongoose.connect(
     "mongodb+srv://entwicklera:" +
     process.env.MONGO_PASS +
     "@cluster0.ns4yy5i.mongodb.net/?retryWrites=true&w=majority", {
-        useNewUrlParser: true,
-        keepAlive: true,
-        useUnifiedTopology: true,
-    }
+    useNewUrlParser: true,
+    keepAlive: true,
+    useUnifiedTopology: true,
+}
 );
 
 app.use(express.json());
@@ -79,6 +81,7 @@ app.use("/seller/products/variant", productVariantRoute);
 app.use("/seller/coverage", sellerCoverageRoute);
 app.use("/seller/promote", sellerPromoteRoute);
 app.use("/seller/orders", orderRoute);
+app.use("/seller/notifications", sellerNotifyRoute);
 
 app.use("/", userRoute);
 app.use("/product", userProductRoute);
@@ -91,6 +94,7 @@ app.use("/checkout", userCheckoutRoute);
 app.use("/account", userAccountRoute);
 app.use("/review", userReviewRoute);
 app.use("/orders", userOrdersRoute);
+app.use("/notifications", userNotifyRoute);
 
 const server = http.createServer(app);
 server.listen(port, () => {

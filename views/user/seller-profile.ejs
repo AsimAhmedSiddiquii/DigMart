@@ -11,10 +11,10 @@
         <%= sellerData.busName %>
     </title>
 
-    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/user/seller-profile.css" rel="stylesheet" />
     <link href="/css/user/shop-by-category.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6edf2362ba.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         <%- include('components/navbar') %>
     </section>
 
-    <div class="container bg-white p-3 mt-3">
+    <div class="container-fluid bg-white p-3 mt-3 col-md-11 col-sm-11 col-11">
         <div class="page-title">
             <div class="card w-100 align-middle">
                 <div class="gallery">
@@ -33,16 +33,20 @@
                                 <img src="<%= sellerData.busLogo %>" alt="" id="gallImage" class="gallery__img" />
                             </div>
                             <div class="gallery__item gallery__item--2">
-                                <img src="<%=galleryData.images[0].url%>" alt="<%= sellerData.busLogo %>" id="gallImage" class="gallery__img" />
+                                <img src="<%=galleryData.images[0].url%>" alt="<%= sellerData.busLogo %>" id="gallImage"
+                                    class="gallery__img" />
                             </div>
                             <div class="gallery__item gallery__item--3">
-                                <img src="<%=galleryData.images[1].url%>" alt="<%= sellerData.busLogo %>" id="gallImage" class="gallery__img" />
+                                <img src="<%=galleryData.images[1].url%>" alt="<%= sellerData.busLogo %>" id="gallImage"
+                                    class="gallery__img" />
                             </div>
                             <div class="gallery__item gallery__item--4">
-                                <img src="<%=galleryData.images[2].url%>" alt="<%= sellerData.busLogo %>" id="gallImage" class="gallery__img" />
+                                <img src="<%=galleryData.images[2].url%>" alt="<%= sellerData.busLogo %>" id="gallImage"
+                                    class="gallery__img" />
                             </div>
                             <div class="gallery__item gallery__item--5">
-                                <img src="<%=galleryData.images[3].url%>" alt="<%= sellerData.busLogo %>" id="gallImage" class="gallery__img" />
+                                <img src="<%=galleryData.images[3].url%>" alt="<%= sellerData.busLogo %>" id="gallImage"
+                                    class="gallery__img" />
                             </div>
                             <div class="gallery__item image_overlay" onclick="showgallery()">
                                 <a>
@@ -54,16 +58,20 @@
                                     <img src="<%= sellerData.busLogo %>" alt="" id="gallImage" class="gallery__img" />
                                 </div>
                                 <div class="gallery__item gallery__item--2">
-                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 2" id="gallImage" class="gallery__img" />
+                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 2" id="gallImage"
+                                        class="gallery__img" />
                                 </div>
                                 <div class="gallery__item gallery__item--3">
-                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 3" id="gallImage" class="gallery__img" />
+                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 3" id="gallImage"
+                                        class="gallery__img" />
                                 </div>
                                 <div class="gallery__item gallery__item--4">
-                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 4" id="gallImage" class="gallery__img" />
+                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 4" id="gallImage"
+                                        class="gallery__img" />
                                 </div>
                                 <div class="gallery__item gallery__item--5">
-                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 4" id="gallImage" class="gallery__img" />
+                                    <img src="<%=sellerData.busLogo%>" alt="Gallery image 4" id="gallImage"
+                                        class="gallery__img" />
                                 </div>
                                 <div class="gallery__item image_overlay" onclick="showgallery()">
                                     <a>
@@ -74,27 +82,40 @@
                 </div>
 
                 <span class="p-3">
-                  <p class="fs-3 mb-0"><%= sellerData.busName %> 
-                    <% if (pro) { %>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/digmart-7f2d3.appspot.com/o/images%2Fpro-tick.png?alt=media&token=5e0da827-8e85-4168-b24b-8dc46fb85463" title="Pro Seller" height="24px">
-                    <% } %>
-                </p>
-                  <p class="fs-6 text-black-50 mb-0"><%= sellerData.busAddress %><br /><span class="fs-6 text-success">Delivery available at: <%=sellerData.busZip%></span></p>
-                <div class="mt-2">
-                    <% if(subscribed){ %>
-                        <a role="button" onclick="unsubscribe('<%= sellerData._id %>')" class="btn btn-success me-2"><i class="fas fa-check"></i> Subscribed</a>
-                        <% } else { %>
-                            <a role="button" onclick="subscribe('<%= sellerData._id %>')" class="btn btn-outline-success me-2"><i class="fas fa-plus-circle"></i> Subscribe</a>
-                            <% } %>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-share-square"></i> Share</button>
-                                    <div class="dropdown-menu">
-                                        <a role="button" class="dropdown-item" onclick="shareonWhatsApp()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a role="button" class="dropdown-item" onclick="copyFunction()"><i class="fa fa-link"></i> Copy link address</a>
-                                    </div>
-                                </div>
-                </div>
+                    <p class="fs-3 mb-0">
+                        <%= sellerData.busName %>
+                            <% if (pro) { %>
+                                <img src="https://firebasestorage.googleapis.com/v0/b/digmart-7f2d3.appspot.com/o/images%2Fpro-tick.png?alt=media&token=5e0da827-8e85-4168-b24b-8dc46fb85463" title="Pro Seller" height="24px">
+                                <% } %>
+                    </p>
+                    <p class="fs-6 text-black-50 mb-0">
+                        <%= sellerData.busAddress %><br /><span class="fs-6 text-success">Delivery available at:
+                                <%= sellerData.busZip %></span>
+                    </p>
+                    <div class="mt-2">
+                        <% if(subscribed){ %>
+                            <a role="button" onclick="unsubscribe('<%= sellerData._id %>')"
+                                class="btn btn-success me-2"><i class="fas fa-check"></i> Subscribed</a>
+                            <% } else { %>
+                                <a role="button" onclick="subscribe('<%= sellerData._id %>')"
+                                    class="btn btn-outline-success me-2"><i class="fas fa-plus-circle"></i>
+                                    Subscribe</a>
+                                <% } %>
+                                    <% if (pro) { %>
+                                        <a role="button" href="tel: <%= sellerData.busMobile %>" class="btn btn-outline-success me-2"><i class="fa-solid fa-phone-volume"></i> Call Now</a>
+                                        <% } %>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-outline-success"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false"><i class="fas fa-share-square"></i> Share</button>
+                                                <div class="dropdown-menu">
+                                                    <a role="button" class="dropdown-item" onclick="shareonWhatsApp()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+                                                    <a role="button" class="dropdown-item" onclick="shareviaMail('<%= sellerData.busName %>')"><i class="fa-solid fa-envelope"></i> Share via Mail</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a role="button" class="dropdown-item" onclick="copyFunction()"><i class="fa fa-link"></i> Copy link address</a>
+                                                </div>
+                                            </div>
+                    </div>
                 </span>
             </div>
         </div>
@@ -103,27 +124,32 @@
         <div class="page-title">
             <ul class="nav nav-justified nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item shadow-sm" role="presentation">
-                    <button class="nav-link text-dark fs-6 active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane" aria-selected="true">Explore Products</button>
+                    <button class="nav-link text-dark fs-6 active" id="product-tab" data-bs-toggle="tab"
+                        data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane"
+                        aria-selected="true">Explore Products</button>
                 </li>
 
                 <li class="nav-item shadow-sm" role="presentation">
-                    <button class="nav-link text-dark fs-6" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="false">Gallery</button>
+                    <button class="nav-link text-dark fs-6" id="gallery-tab" data-bs-toggle="tab"
+                        data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane"
+                        aria-selected="false">Gallery</button>
                 </li>
             </ul>
 
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade p-2 show active" id="product-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                <div class="tab-pane fade p-2 show active" id="product-tab-pane" role="tabpanel"
+                    aria-labelledby="contact-tab" tabindex="0">
                     <div class="card">
                         <nav class="position-relative">
                             <button id="navLeft" class="btn"><i class="fas fa-angle-left"></i></button>
                             <div class="nav nav-tabs ms-3 me-3 flex-nowrap pb-1" id="nav-tab" role="tablist">
-                                <% 
-                                    if(subcatsDocs.length != 0){
-                                        subcatsDocs.forEach(function(subcat){
-                                %>
+                                <% if(subcatsDocs.length !=0){ subcatsDocs.forEach(function(subcat){ %>
 
-                                    <button class="nav-link flex-fill" id="nav-<%=subcat._id%>" data-bs-toggle="tab" data-bs-target="#tab-<%=subcat._id%>" type="button" role="tab" aria-controls="tab-<%=subcat._id%>" aria-selected="false">
-                                        <img src="<%= subcat.subImage %>" height="50px" /> <%= subcat.subCatName %>
+                                    <button class="nav-link flex-fill" id="nav-<%=subcat._id%>" data-bs-toggle="tab"
+                                        data-bs-target="#tab-<%=subcat._id%>" type="button" role="tab"
+                                        aria-controls="tab-<%=subcat._id%>" aria-selected="false">
+                                        <img src="<%= subcat.subImage %>" height="50px" />
+                                        <%= subcat.subCatName %>
                                     </button>
                                     <% }) %>
                                         <input type="hidden" id="firstnav" value="#nav-<%=subcatsDocs[0]._id%>">
@@ -133,82 +159,106 @@
                         </nav>
 
                         <div class="card-body tab-content" id="nav-tabContent">
-                            <% 
-                            if(subcatsDocs.length != 0){
-                                subcatsDocs.forEach(function(subcat){
-                            %>
-                                <div class="tab-pane fade" id="tab-<%=subcat._id%>" role="tabpanel" aria-labelledby="nav-<%=subcat._id%>" tabindex="0">
+                            <% if(subcatsDocs.length !=0){ subcatsDocs.forEach(function(subcat){ %>
+                                <div class="tab-pane fade" id="tab-<%=subcat._id%>" role="tabpanel"
+                                    aria-labelledby="nav-<%=subcat._id%>" tabindex="0">
                                     <div class="row justify-content-evenly ps-auto pe-auto">
                                         <div class="col-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-1">
                                             <div id="searchDiv" class="form-control p-0 d-flex align-items-center">
                                                 <i class="fas fa-search px-2"></i>
-                                                <input class="flex-fill" type="search" placeholder="Search" aria-label="Search" onkeyup="searchProd(this,'#tab-<%=subcat._id%>')">
+                                                <input class="flex-fill" type="search" placeholder="Search"
+                                                    aria-label="Search"
+                                                    onkeyup="searchProd(this,'#tab-<%=subcat._id%>')">
                                             </div>
                                         </div>
-                                        <div class="col-6 col-md-6 col-lg-3 order-lg-first col-xl-3 order-xl-first col-xxl-3 order-xxl-first mt-1">
+                                        <div
+                                            class="col-6 col-md-6 col-lg-3 order-lg-first col-xl-3 order-xl-first col-xxl-3 order-xxl-first mt-1">
                                             <div class="sortSelect d-flex">
                                                 <div class="align-self-stretch px-1">Sort by:</div>
-                                                <select name="sortCriteria" class="form-select flex-fill" onchange="sortProd(this.value, '#tab-<%=subcat._id%>')">
-                                                        <option value="" selected>Recommended</option>
-                                                        <option value="Price Low to High">Price Low to high</option>
-                                                        <option value="Price High to Low">Price High to Low</option>
-                                                        <option value="Discounts">Discounts</option>
-                                                        <option value="Ratings">Ratings</option>
-                                                    </select>
+                                                <select name="sortCriteria" class="form-select flex-fill"
+                                                    onchange="sortProd(this.value, '#tab-<%=subcat._id%>')">
+                                                    <option value="" selected>Recommended</option>
+                                                    <option value="Price Low to High">Price Low to high</option>
+                                                    <option value="Price High to Low">Price High to Low</option>
+                                                    <option value="Discounts">Discounts</option>
+                                                    <option value="Ratings">Ratings</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-1">
-                                            <button type="button" class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="fas fa-filter"></i> Filters</button>
+                                            <button type="button" class="btn btn-outline-secondary w-100"
+                                                data-bs-toggle="modal" data-bs-target="#filterModal"><i
+                                                    class="fas fa-filter"></i> Filters</button>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <% 
-                                        proDocs.forEach(function(product){ 
-                                                if(product.subcategory.equals(subcat._id)) { %>
-                                            <div class="prodContainer col-6 col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-2 mt-3">
+                                        <% proDocs.forEach(function(product){ if(product.subcategory.equals(subcat._id)) { %>
+                                            <div
+                                                class="prodContainer col-6 col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-2 mt-3">
                                                 <div class="pro ms-auto me-auto">
-                                                    <% if(product.hasVariant){ 
-                                                        for(j=0; j < varDocs.length; j++){
-                                                            if(varDocs[j].prodID.equals(product._id)){ %>
-                                                        <div class="imgDiv" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
+                                                    <% if(product.hasVariant){ for(j=0; j < varDocs.length; j++){
+                                                        if(varDocs[j].prodID.equals(product._id)){ %>
+                                                        <div class="imgDiv"
+                                                            onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
                                                             <%if(varDocs[j].sizes[0].discount){%>
                                                                 <div class="prodDiscount">
                                                                     <%= varDocs[j].sizes[0].discount %>
                                                                 </div>
                                                                 <%}%>
-                                                                    <img src="<%=varDocs[j].images%>" alt="<%=product.productName%>">
+                                                                    <img src="<%=varDocs[j].images%>"
+                                                                        alt="<%=product.productName%>">
                                                         </div>
-                                                        <div class="des px-2 text-start" onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
-                                                            <span class="prodName mt-1"><%= product.productName %></span>
+                                                        <div class="des px-2 text-start"
+                                                            onclick="openProduct( null , '<%=varDocs[j].slugID%>')">
+                                                            <span class="prodName mt-1">
+                                                                <%= product.productName %>
+                                                            </span>
                                                             <div>
-                                                                <span class="prodPrice"><%=varDocs[j].sizes[0].finalPrice%></span>
+                                                                <span class="prodPrice">
+                                                                    <%=varDocs[j].sizes[0].finalPrice%>
+                                                                </span>
                                                                 <%if(varDocs[j].sizes[0].discount){%>
-                                                                    <span class="discPrice text-muted px-2"><%=varDocs[j].sizes[0].actualPrice%></span>
+                                                                    <span class="discPrice text-muted px-2">
+                                                                        <%=varDocs[j].sizes[0].actualPrice%>
+                                                                    </span>
                                                                     <%}%>
                                                             </div>
                                                         </div>
-                                                        <i class="fa fa-heart" onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', '<%=varDocs[j]._id%>', '<%=varDocs[j].sizes[0].sizes%>')"></i>
+                                                        <i class="fa fa-heart"
+                                                            onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', '<%=varDocs[j]._id%>', '<%=varDocs[j].sizes[0].sizes%>')"></i>
                                                         <%}}} else {%>
-                                                            <div class="imgDiv" onclick="openProduct('<%=product.slugID%>', null)">
+                                                            <div class="imgDiv"
+                                                                onclick="openProduct('<%=product.slugID%>', null)">
                                                                 <% if(product.discount){ %>
                                                                     <div class="prodDiscount">
                                                                         <%= product.discount %>
                                                                     </div>
                                                                     <%}%>
-                                                                        <img src="<%=product.images%>" alt="<%=product.productName%>">
+                                                                        <img src="<%=product.images%>"
+                                                                            alt="<%=product.productName%>">
                                                             </div>
-                                                            <div class="des px-2 text-start" onclick="openProduct('<%=product.slugID%>', null)">
-                                                                <span class="prodCat d-block"><%=product.subcategory%></span>
-                                                                <span class="prodName"><%=product.productName%></span>
+                                                            <div class="des px-2 text-start"
+                                                                onclick="openProduct('<%=product.slugID%>', null)">
+                                                                <span class="prodCat d-block">
+                                                                    <%=product.subcategory%>
+                                                                </span>
+                                                                <span class="prodName">
+                                                                    <%=product.productName%>
+                                                                </span>
                                                                 <div>
-                                                                    <span class="prodPrice"><%=product.finalPrice%></span>
+                                                                    <span class="prodPrice">
+                                                                        <%=product.finalPrice%>
+                                                                    </span>
                                                                     <%if(product.discount){%>
-                                                                        <span class="discPrice text-muted px-2"><%=product.actualPrice%></span>
+                                                                        <span class="discPrice text-muted px-2">
+                                                                            <%=product.actualPrice%>
+                                                                        </span>
                                                                         <%}%>
                                                                 </div>
                                                             </div>
-                                                            <i class="fa fa-heart" onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', null, null)"></i>
+                                                            <i class="fa fa-heart"
+                                                                onclick="wishlist(this, '<%=product.sellerID%>', '<%=product._id%>', null, null)"></i>
                                                             <%}%>
                                                 </div>
                                             </div>
@@ -225,13 +275,14 @@
 
                 </div>
 
-                <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                    tabindex="0">
                     <div class="container text-center">
                         <div class="row">
-                            <% if(galleryData){ 
-                                    galleryData.images.forEach(function(image, index){%>
+                            <% if(galleryData){ galleryData.images.forEach(function(image, index){%>
                                 <div class="col-lg-3 col-md-4 col-xs-6 mt-3">
-                                    <img onclick="showmodal('<%=image.url%>')" class="img-fluid img-thumbnail img-gallery" src="<%=image.url%>" />
+                                    <img onclick="showmodal('<%=image.url%>')"
+                                        class="img-fluid img-thumbnail img-gallery" src="<%=image.url%>" />
                                 </div>
                                 <%})} else {%>
                                     <h4 class="mt-4">No photos to show!</h4>

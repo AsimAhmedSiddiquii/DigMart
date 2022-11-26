@@ -153,44 +153,7 @@
                 </div>
             </div>
 
-            <% if(promotedProducts.length!=0){ %>
-                <div class="container-fluid col-md-11 col-sm-11 col-11">
-                    <div class="row mt-3 mb-3">
-                        <% promotedProducts.forEach(function(product){ %>
-
-                            <div class="col-lg-3 col-xs-12 mb-2 col-6">
-                                <div class="card">
-                                    <% if (product.productID.hasVariant){ 
-                                            for(j=0; j < varDocs.length; j++){
-                                                if(varDocs[j].prodID.equals(product.productID._id)){ 
-                                    %>
-                                        <img class="card-img-top mt-1" style="height: 120px; width: auto;" src="<%= varDocs[j].images %>" onclick="openProduct('<%=product.productID.slugID%>', '<%= varDocs[j].slugID %>')">
-
-                                        <div class="card-body">
-                                            <h6 class="card-title">
-                                                <%= product.productID.productName %>
-                                            </h6>
-                                            <p class="card-subtitle text-muted">
-                                                Sold By:
-                                                <%= product.sellerID.busName %>
-                                            </p>
-                                            <p class="card-text prodPrice mb-1">
-                                                <%= (varDocs[j].sizes[0].discount == null) ? varDocs[j].sizes[0].actualPrice : varDocs[j].sizes[0].finalPrice %>
-                                            </p>
-                                            <% if(product.productID.hasVariant){ %>
-                                                <button style="width: -webkit-fill-available;" class="btn btn-main" id="buy" onclick="openProduct('<%=product.productID.slugID%>', '<%= varDocs[j].slugID %>')">Buy Now</button>
-                                                <% } else { %>
-                                                    <button style="width: -webkit-fill-available;" class="btn btn-main" id="buy" onclick="openProduct('<%=product.productID.slugID%>', '<%= varDocs[j].slugID %>')">Buy Now</button>
-                                                    <% } %>
-                                        </div>
-                                        <% }}} %>
-
-                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
-                </div>
-                <% } %>
+            <%- include('components/ads') %>
         </div>
 
         <!-- Login Modal -->

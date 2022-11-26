@@ -157,7 +157,7 @@
     <div class="container-fluid">
         <a class="navbar-brand px-3 me-0" href="/">
             <img id="BrandLogo" src="/img/DigMart.png" class="img-fluid">
-            <% if (locals.catDocs) { %>
+            <% if(locals.catDocs) { %>
                 <span class="fs-5 ms-2 text-white">
                     <%=catDocs.catName%>
                 </span>
@@ -178,9 +178,8 @@
                 </div>
             </form>
 
-
             <div class="collapse navbar-collapse flex-row-reverse flex-grow-0">
-                <% if (user) { %>
+                <% if(userID) { %>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle pe-md-3 pe-2" href="#" id="nav-dropdown-btn" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Account</a>
                         <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="nav-dropdown-btn">
@@ -201,7 +200,7 @@
                         <% } %>
             </div>
 
-            <% if (!user) { %>
+            <% if (!userID) { %>
                 <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-target="#loginpopup" data-bs-toggle="modal"><i class="fas fa-bars"></i></button>
                 <% } else { %>
                     <button class="navbar-toggler nav-link py-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"><i class="fas fa-bars"></i></button>
@@ -220,10 +219,10 @@
                                         <a class="nav-link p-3" href="/orders"><i class="fas fa-list"></i> My Orders</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link p-3" href="/wishlist/<%=user%>"><i class="fas fa-heart"></i> Wishlist</a>
+                                        <a class="nav-link p-3" href="/wishlist/<%=userID%>"><i class="fas fa-heart"></i> Wishlist</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link p-3" href="/cart/<%=user%>"><i class="fas fa-shopping-cart"></i> View Cart</a>
+                                        <a class="nav-link p-3" href="/cart/<%=userID%>"><i class="fas fa-shopping-cart"></i> View Cart</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link p-3" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

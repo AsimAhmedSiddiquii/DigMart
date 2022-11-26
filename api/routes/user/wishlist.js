@@ -6,8 +6,9 @@ const Ads = require('../../models/seller/ads')
 const Variants = require('../../models/seller/variants')
 
 const checkAuth = require("../../middleware/user/checkAuth")
+const userLocals = require("../../middleware/user/useLocals")
 
-router.get('/', checkAuth, async(req, res) => {
+router.get('/', [checkAuth, userLocals], async(req, res) => {
     var size = [];
 
     var docs = await Wishlist.find({ userID: req.session.userID }).populate('sellerID productID variantID')
@@ -35,7 +36,7 @@ router.get('/', checkAuth, async(req, res) => {
         }
     }
 
-    res.render('user/wishlist', { promotedProducts, varDocs, wishlistData: docs, size, user: req.session.userID })
+    res.render('user/account/wishlist', { promotedProducts, varDocs, wishlistData: docs, size })
 })
 
 router.post('/add-to-wishlist', async(req, res) => {

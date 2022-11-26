@@ -6,6 +6,7 @@ const Ads = require('../../models/seller/ads')
 const Variants = require('../../models/seller/variants')
 
 const checkAuth = require("../../middleware/user/checkAuth")
+const useLocals = require("../../middleware/user/useLocals")
 
 router.get('/add-subscription/(:sellerID)', async(req, res) => {
     if (req.session.userID) {
@@ -28,7 +29,7 @@ router.get('/remove-subscription/(:sellerID)', async(req, res) => {
     }
 })
 
-router.get('/', checkAuth, async(req, res) => {
+router.get('/', [checkAuth, useLocals], async(req, res) => {
     const subsData = await Subscribe.find({ userID: req.session.userID }).populate('sellerID')
 
     // Ads
@@ -43,7 +44,7 @@ router.get('/', checkAuth, async(req, res) => {
         }
     }
 
-    res.render('./user/subscription', { varDocs, promotedProducts, subsData, user: req.session.userID })
+    res.render('./user/account/subscription', { varDocs, promotedProducts, subsData })
 })
 
 module.exports = router
